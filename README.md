@@ -22,8 +22,13 @@ You can use RpcConfigurator to create new devices
 If your device does not appear in the list and you have the device 
 description XML file URL then you can either create a generic or multimedia
 Module and enter the full URL as HOST. 
+- NOTE When specifying multiple URLs, these are either separated as a string by comma or passed as a simple array
 The module then tries to configure itself.
-
+- Example urls
+	- http://fritz.box:49000/tr64desc.xml
+	- http://192.168.112.61:8000/serverxml.xml,http://192.168.112.61:8080/description.xml
+	- homematic.xml < for CCU
+	- enigma2.xml < for DreamBox Enigma2 WebInterface
 
 
 # Generic RPC Module 
