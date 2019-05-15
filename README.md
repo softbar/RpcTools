@@ -49,8 +49,8 @@ like Channel, these values are automatically added when called.
 Therefore the call with $api->GetVolume () or $api->SetVolume(10) is also
 possible.
 
-Furthermore, it is possible to address calls directly. Since some Rpc devices such
-as the Fritzbox contains several functions of the same name, GetInfo (), it is
+Furthermore, it is possible to address calls directly to an service. Since some Rpc devices such
+as the Fritzbox contains several functions of the same name, GetInfo(), it is
 necessary to transfer the service name. This happens as follows
 - $api->__ call ("DeviceInfo1.GetInfo", array with parameter)
 or
