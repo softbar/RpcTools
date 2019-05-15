@@ -11,6 +11,7 @@ RpcTools for IP-Symcon
   
 
 Works:
+
 The detection process for new devices takes between 15 and 150 seconds, 
 depending on the settings in the configurator. 
 
@@ -30,6 +31,26 @@ The module then tries to configure itself.
 	Only one Variable for Status created
 
 Works:
+
+This module only exports the functions RPCGENERIC_GetApi and RPCGENERIC_CallApi
+RPCGENERIC_GetApi returns an object with which all further commands can be sent
+to the device.
+NOTE: These two functions are exported to all Rpc devices
+
+The volume can be changed or read as follows
+$api-> SetVolume (InstanceID, channel, NewVolume)
+$volume=$api->GetVolume (InstanceID, Channel)
+Since InstanceID is usually 0, this variable does not have to be specified, just
+like Channel, these values are automatically added when called.
+Therefore the call with $api->GetVolume () or $api->SetVolume(10) is also
+possible.
+
+Furthermore, it is possible to address calls directly. Since some Rpc devices such
+as the Fritzbox contains several functions of the same name, GetInfo (), it is
+necessary to transfer the service name. This happens as follows
+$api->__ call ("DeviceInfo1.GetInfo", array with parameter)
+or
+$api->{"DeviceInfo1.GetInfo"}, array with parameters)
 
 
 # Multimedia RPC Module 
@@ -53,4 +74,6 @@ sets the volume to 10
 The command TRPCMEDIA WriteValue (Instance ID, 'PLAYSTATION', value)
 is used to control the playback, whereby the following values are possible: 
 0: Stop, 1: Pause, 2: Play, 3: Next, 4: Prevoius	
+
+
 
