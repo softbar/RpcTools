@@ -6,8 +6,8 @@ RpcTools for IP-Symcon
 
 	Discover your network to found Upnp Rpc Devices
 	Special Devices 
-		- Homematic CCU
-		- Enigma2 WebInterface
+	1. Homematic CCU
+	2. Enigma2 WebInterface
   
 
 Works:
@@ -32,12 +32,12 @@ The module then tries to configure itself.
 Works:
 
 
-- Multimedia RPC Module
+# Multimedia RPC Module 
 	Includes Standard methods for
-	- Volume, Mute (Generic)
-	- Bass, Loudness, Trebble (sonos)
-	- Play,Pause,Stop,Next,Previous
-	- Color,Brightness,Sharpness, Contrast (TV , AVR )
+	1. Volume, Mute (Generic)
+	2. Bass, Loudness, Trebble (sonos)
+	3. Play,Pause,Stop,Next,Previous
+	4. Color,Brightness,Sharpness, Contrast (TV , AVR )
 
 
 Works:
