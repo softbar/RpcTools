@@ -2,12 +2,12 @@
 RpcTools for IP-Symcon
 
 
-- Configurator Module 
+# Configurator Module 
 
-# Discover your network to found Upnp Rpc Devices
-# Special Devices 
-  1. Homematic CCU
-  2. Enigma2 WebInterface
+	Discover your network to found Upnp Rpc Devices
+	Special Devices 
+		- Homematic CCU
+		- Enigma2 WebInterface
   
 
 Works:
@@ -25,19 +25,19 @@ The module then tries to configure itself.
 
 
 
-- Generic RPC Module 
-* API to call all methods discovered from device
-* Only one Variable for Status created
+# Generic RPC Module 
+	API to call all methods discovered from device
+	Only one Variable for Status created
 
 Works:
 
 
 - Multimedia RPC Module
-* Includes Standard methods for
-	1. Volume, Mute (Generic)
-	2. Bass, Loudness, Trebble (sonos)
-	3. Play,Pause,Stop,Next,Previous
-	4. Color,Brightness,Sharpness, Contrast (TV , AVR )
+	Includes Standard methods for
+	- Volume, Mute (Generic)
+	- Bass, Loudness, Trebble (sonos)
+	- Play,Pause,Stop,Next,Previous
+	- Color,Brightness,Sharpness, Contrast (TV , AVR )
 
 
 Works:
