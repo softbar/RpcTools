@@ -39,8 +39,8 @@ to the device.
 - NOTE: These two functions are exported to all Rpc devices
 
 The volume can be changed or read as follows
-	$api-> SetVolume (InstanceID, channel, NewVolume)
-	$volume=$api->GetVolume (InstanceID, Channel)
+		$api-> SetVolume (InstanceID, channel, NewVolume)
+		$volume=$api->GetVolume (InstanceID, Channel)
 Since InstanceID is usually 0, this variable does not have to be specified, just
 like Channel, these values are automatically added when called.
 
@@ -50,7 +50,7 @@ possible.
 Furthermore, it is possible to address calls directly. Since some Rpc devices such
 as the Fritzbox contains several functions of the same name, GetInfo (), it is
 necessary to transfer the service name. This happens as follows
-	$api->__ call ("DeviceInfo1.GetInfo", array with parameter)
+	. $api->__ call ("DeviceInfo1.GetInfo", array with parameter)
 or
 	$api->{"DeviceInfo1.GetInfo"}, array with parameters)
 
