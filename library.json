@@ -3,10 +3,7 @@
     "author": "Xaver Bauer",
     "name": "Xavers Rpc Module",
     "url": "https://github.com/softbar/RpcTools",
-    "compatibility": {
-        "version": "4.2",
-     },
-    "version": "5.76",
+	"version": "5.76",
     "build": 4000,
     "date": 1551974759
 }
