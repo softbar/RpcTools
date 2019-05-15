@@ -33,25 +33,35 @@ The module then tries to configure itself.
 Works:
 
 This module only exports the functions RPCGENERIC_GetApi and RPCGENERIC_CallApi
+
 RPCGENERIC_GetApi returns an object with which all further commands can be sent
 to the device.
-NOTE: These two functions are exported to all Rpc devices
+- NOTE: These two functions are exported to all Rpc devices
 
 The volume can be changed or read as follows
-$api-> SetVolume (InstanceID, channel, NewVolume)
-$volume=$api->GetVolume (InstanceID, Channel)
+	$api-> SetVolume (InstanceID, channel, NewVolume)
+	$volume=$api->GetVolume (InstanceID, Channel)
 Since InstanceID is usually 0, this variable does not have to be specified, just
 like Channel, these values are automatically added when called.
+
 Therefore the call with $api->GetVolume () or $api->SetVolume(10) is also
 possible.
 
 Furthermore, it is possible to address calls directly. Since some Rpc devices such
 as the Fritzbox contains several functions of the same name, GetInfo (), it is
 necessary to transfer the service name. This happens as follows
-$api->__ call ("DeviceInfo1.GetInfo", array with parameter)
+	$api->__ call ("DeviceInfo1.GetInfo", array with parameter)
 or
-$api->{"DeviceInfo1.GetInfo"}, array with parameters)
+	$api->{"DeviceInfo1.GetInfo"}, array with parameters)
 
+The RPCGENERIC_CallApi(IpsInstanceID,FunctionName, string commaseperated arguments ) is the same as $api->__call only arguments as Commaseperadet String requirend.
+	RPCGENERIC_CallApi(IpsInstanceID,'SetVolume',"0,Master,10")
+	RPCGENERIC_CallApi(IpsInstanceID,'SetVolume',"10")
+or
+	$volume=RPCGENERIC_CallApi(IpsInstanceID,'GetVolume',[0,"Master"])
+	$volume=RPCGENERIC_CallApi(IpsInstanceID,'GetVolume',[])
+ 
+  	
 
 # Multimedia RPC Module 
 	Includes Standard methods for
