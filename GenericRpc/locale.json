@@ -1,0 +1,29 @@
+{
+	"translations": {
+		"de": {
+           "State"	: "Status",
+  		   "Host": "Host",
+		   "Username":"Benutzername",
+		   "Password":"Passwort",
+		   "Show more options":"Erweiterte Einstellungen",
+		   "Connection ready":"Verbindung soweit ;-) bereit",
+		   "Host missing or invalid":"Host feht oder ist ungültig",
+		   "Initializing Host missing or invalid":"Initializierung URL feht oder ist ungültig",
+		   "Online":"Verbunden",
+		   "Offline":"Getrennt",
+		   "Error":"Fehler",
+		   "Function":"Funktion",
+		   "Arguments":"Parameter",
+		   "Options":"Konfiguration",
+		   "Functionlist":"Funktionsliste",
+		   "Settings":"Einstellungen",
+		   "Select method":"Wähle Funktion",
+		   "Commaseperated Args":"Kommagetrennte Argumente",
+		   "Execute":"Ausführen",
+		   "Service":"Service",
+		   "Function":"Funktion",
+		   "Arguments":"Argumente"
+		   
+       }
+	}
+}

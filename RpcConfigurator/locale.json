@@ -1,0 +1,29 @@
+{
+	"translations": {
+		"de": {
+ 			"Only one Insance of Rpc Configurator allowed":"Rpc-Konfigurator bereits erstellt",
+ 			"Propertys":"Eigenschaften",
+ 			"State": "Status",
+ 			"Bind Discover to IP":"Antworten an IP",
+ 			"Create new in Category":"Kategorie für neue Geräte",
+ 			"Discover NEW devices":"Neue Geräte hinzufügen",
+ 			"Discover devices":"Geräte neu finden",
+ 			"Create device":"Gerät erstellen",
+ 			"Url to Device description xml":"Url der Gerätebeschreibungs xml",
+ 			"Import Device":"Gerät importieren",
+ 			"Search for new devices?":"Neue Geräte suchen?",
+ 			"Clear list and discover netzwork devices?":"Liste löschen und alle Geräte neu suchen?",
+       		"Create selected Device":"gewähltes Gerät erstellen?",
+       		"please select Device first":"Bitte wähle zuerst ein Gerät aus der Liste",
+       		"Show Options or Devicelist":"Konfigurator Einstellungen anzeigen",
+       		"Search [ 1-10 ]":"Suche [ 1-10 ]",
+       		"Timeout [ 1-15 ]":"Abruch nach [ 1-15 ]",
+       		"seconds":"sekunden",
+       		"times":"mal",
+       		"Show old Format (for ipsconsole using)":"Zeige altes format (für ipsconsole benötigt)",
+       		"found %s new devices":"%s neue Geräte gefunden",
+       		"found %s devices":"%s Geräte gefunden",
+       		"detect %s network devices":"%s netzwerk Geräte erkannt"
+        }
+	}
+}

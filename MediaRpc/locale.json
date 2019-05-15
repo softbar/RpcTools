@@ -1,0 +1,31 @@
+{
+	"translations": {
+		"de": {
+			"Update Timer": "Aktuallisierung alle",
+			"Offline Timer":"Offline Aktual.. alle",
+			"minutes": "Minuten",
+			"seconds": "Sekunden",
+			"hours": "Stunden",
+			"off": "aus",
+			"Host": "Host",
+			"Username": "Benutzername",
+			"Password": "Passwort",
+			"State": "Status",
+			"Online": "Verbunden",
+			"Offline": "Getrennt",
+			"Error": "Fehler",
+			"Volume": "Lautst\u00e4rke",
+			"Mute": "Stumm",
+			"Color": "Farbe",
+			"Brightness": "Helligkeit",
+			"Contrast": "Kontrast",
+			"Next": "Weiter",
+			"Previous": "Zur\u00fcck",
+			"PlayState": "PlayState",
+			"Show more options": "Erweiterte Einstellungen",
+			"Connection ready": "Verbindung soweit ;-) bereit",
+			"Host missing or invalid": "Host feht oder ist ung\u00fcltig",
+			"Initializing Host missing or invalid": "Initializierung URL feht oder ist ung\u00fcltig"
+		}
+	}
+}

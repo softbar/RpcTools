@@ -1,0 +1,17 @@
+{
+    "elements":
+    [
+		{ "type": "ValidationTextBox", 	"name": "Host", 	"caption": "Host" },
+		{ "type": "ValidationTextBox", "name": "User", 		"caption": "Username" },
+ 		{ "type": "PasswordTextBox", 	"name": "Pass", 	"caption": "Password" }   	
+ 	],
+   	"actions":[
+   		{"type": "TestCenter"}
+   	],
+    "status":
+    [
+        { "code": 102, "icon": "active", "caption": "Connection ready" },
+        { "code": 200, "icon": "error", "caption": "Host missing or invalid" },
+        { "code": 201, "icon": "error", "caption": "Initializing Host missing or invalid" }
+    ]
+}

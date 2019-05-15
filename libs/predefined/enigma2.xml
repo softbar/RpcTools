@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<scpd xmlns="urn:schemas-upnp-org:service-1-0">
+  <specVersion>
+    <major>1</major>
+    <minor>0</minor>
+  </specVersion>
+  <device>
+    <deviceType>urn:schemas-upnp-org:device:MediaBox:1</deviceType>
+    <friendlyName>Enigma2 WebApi</friendlyName>
+    <manufacturer>Dream Multimedia</manufacturer>
+    <manufacturerURL>http://dreambox.de/</manufacturerURL>
+    <modelDescription>Enigma2 WebApi</modelDescription>
+    <modelName>Enigma2 WebApi</modelName>
+    <modelNumber>ENIGMA2</modelNumber>
+    <modelURL>http://dreambox.de/</modelURL>
+    <serialNumber>xaver65@gmail.com</serialNumber>
+    <UDN>uuid:Enigma2WebApi4e6e8e0e-0911-0302-1965-bda000000000</UDN>
+    <presentationURL></presentationURL>
+    <server>Enigma Web Interface</server>
+    <serviceList>
+      <service>
+        <connectionType>2</connectionType>
+    	<connectionPort>80</connectionPort>
+    	<lowerNames>true</lowerNames>
+        <serviceType>urn:schemas-upnp-org:service:WebApi:1</serviceType>
+        <serviceId>urn:upnp-org:serviceId:WebApi</serviceId>
+        <controlURL>/web</controlURL>
+        <eventSubURL></eventSubURL>
+        <SCPDURL>/enigma2SCPD.xml</SCPDURL>
+      </service>
+    </serviceList>
+  </device>
+</scpd>

@@ -1,0 +1,815 @@
+<?xml version="1.0" encoding="utf-8"?>
+<scpd xmlns="urn:schemas-upnp-org:service-1-0">
+  <specVersion>
+    <major>1</major>
+    <minor>0</minor>
+  </specVersion>
+  <actionList>
+    <action>
+      <name>init</name>
+      <description>0</description>
+      <argumentList>
+        <argument>
+          <name>url</name>
+          <direction>in</direction>
+          <relatedStateVariable>AT_STRING</relatedStateVariable>
+        </argument>
+        <argument>
+          <name>interface_id</name>
+          <direction>in</direction>
+          <relatedStateVariable>AT_STRING</relatedStateVariable>
+        </argument>
+      </argumentList>
+    </action>
+    <action>
+      <name>getLinks</name>
+      <description>1</description>
+      <argumentList>
+        <argument>
+          <name>address</name>
+          <direction>in</direction>
+          <relatedStateVariable>AT_STRING</relatedStateVariable>
+        </argument>
+        <argument>
+          <name>flags</name>
+          <direction>in</direction>
+          <relatedStateVariable>AT_I4</relatedStateVariable>
+        </argument>
+        <argument>
+          <name>Link</name>
+          <direction>out</direction>
+          <relatedStateVariable>AT_ARRAY</relatedStateVariable>
+        </argument>
+      </argumentList>
+    </action>
+    <action>
+      <name>addLink</name>
+      <description>2</description>
+      <argumentList>
+        <argument>
+          <name>sender</name>
+          <direction>in</direction>
+          <relatedStateVariable>AT_STRING</relatedStateVariable>
+        </argument>
+        <argument>
+          <name>receiver</name>
+          <direction>in</direction>
+          <relatedStateVariable>AT_STRING</relatedStateVariable>
+        </argument>
+        <argument>
+          <name>description</name>
+          <direction>in</direction>
+          <relatedStateVariable>AT_STRING</relatedStateVariable>
+        </argument>
+      </argumentList>
+    </action>
+    <action>
+      <name>removeLink</name>
+      <description>3</description>
+      <argumentList>
+        <argument>
+          <name>sender</name>
+          <direction>in</direction>
+          <relatedStateVariable>AT_STRING</relatedStateVariable>
+        </argument>
+        <argument>
+          <name>receiver</name>
+          <direction>in</direction>
+          <relatedStateVariable>AT_STRING</relatedStateVariable>
+        </argument>
+      </argumentList>
+    </action>
+    <action>
+      <name>setLinkInfo</name>
+      <description>4</description>
+      <argumentList>
+        <argument>
+          <name>sender</name>
+          <direction>in</direction>
+          <relatedStateVariable>AT_STRING</relatedStateVariable>
+        </argument>
+        <argument>
+          <name>receiver</name>
+          <direction>in</direction>
+          <relatedStateVariable>AT_STRING</relatedStateVariable>
+        </argument>
+        <argument>
+          <name>name</name>
+          <direction>in</direction>
+          <relatedStateVariable>AT_STRING</relatedStateVariable>
+        </argument>
+        <argument>
+          <name>description</name>
+          <direction>in</direction>
+          <relatedStateVariable>AT_STRING</relatedStateVariable>
+        </argument>
+      </argumentList>
+    </action>
+    <action>
+      <name>getLinkInfo</name>
+      <description>5</description>
+      <argumentList>
+        <argument>
+          <name>sender</name>
+          <direction>in</direction>
+          <relatedStateVariable>AT_STRING</relatedStateVariable>
+        </argument>
+        <argument>
+          <name>receiver</name>
+          <direction>in</direction>
+          <relatedStateVariable>AT_STRING</relatedStateVariable>
+        </argument>
+        <argument>
+          <name>Info</name>
+          <direction>out</direction>
+          <relatedStateVariable>AT_ARRAY</relatedStateVariable>
+        </argument>
+      </argumentList>
+    </action>
+    <action>
+      <name>activateLinkParamset</name>
+      <description>6</description>
+      <argumentList>
+        <argument>
+          <name>address</name>
+          <direction>in</direction>
+          <relatedStateVariable>AT_STRING</relatedStateVariable>
+        </argument>
+        <argument>
+          <name>peer_address</name>
+          <direction>in</direction>
+          <relatedStateVariable>AT_STRING</relatedStateVariable>
+        </argument>
+        <argument>
+          <name>long_press</name>
+          <direction>in</direction>
+          <relatedStateVariable>AT_BOOLEAN</relatedStateVariable>
+        </argument>
+      </argumentList>
+    </action>
+    <action>
+      <name>getLinkPeers</name>
+      <description>7</description>
+      <argumentList>
+        <argument>
+          <name>address</name>
+          <direction>in</direction>
+          <relatedStateVariable>AT_STRING</relatedStateVariable>
+        </argument>
+        <argument>
+          <name>LinkPeers</name>
+          <direction>out</direction>
+          <relatedStateVariable>AT_ARRAY</relatedStateVariable>
+        </argument>
+      </argumentList>
+    </action>
+    <action>
+      <name>determineParameter</name>
+      <description>8</description>
+      <argumentList>
+        <argument>
+          <name>address</name>
+          <direction>in</direction>
+          <relatedStateVariable>AT_STRING</relatedStateVariable>
+        </argument>
+        <argument>
+          <name>paramset_key</name>
+          <direction>in</direction>
+          <relatedStateVariable>AT_STRING</relatedStateVariable>
+        </argument>
+        <argument>
+          <name>parameter_id</name>
+          <direction>in</direction>
+          <relatedStateVariable>AT_STRING</relatedStateVariable>
+        </argument>
+      </argumentList>
+    </action>
+    <action>
+      <name>getParamsetDescription</name>
+      <description>9</description>
+      <argumentList>
+        <argument>
+          <name>address</name>
+          <direction>in</direction>
+          <relatedStateVariable>AT_STRING</relatedStateVariable>
+        </argument>
+        <argument>
+          <name>paramset_type</name>
+          <direction>in</direction>
+          <relatedStateVariable>AT_STRING</relatedStateVariable>
+        </argument>
+        <argument>
+          <name>Description</name>
+          <direction>out</direction>
+          <relatedStateVariable>AT_ARRAY</relatedStateVariable>
+        </argument>
+      </argumentList>
+    </action>
+    <action>
+      <name>getParamsetId</name>
+      <description>10</description>
+      <argumentList>
+        <argument>
+          <name>address</name>
+          <direction>in</direction>
+          <relatedStateVariable>AT_STRING</relatedStateVariable>
+        </argument>
+        <argument>
+          <name>type</name>
+          <direction>in</direction>
+          <relatedStateVariable>AT_STRING</relatedStateVariable>
+        </argument>
+        <argument>
+          <name>ID</name>
+          <direction>out</direction>
+          <relatedStateVariable>AT_STRING</relatedStateVariable>
+        </argument>
+      </argumentList>
+    </action>
+    <action>
+      <name>getParamset</name>
+      <description>11</description>
+      <argumentList>
+        <argument>
+          <name>address</name>
+          <direction>in</direction>
+          <relatedStateVariable>AT_STRING</relatedStateVariable>
+        </argument>
+        <argument>
+          <name>paramset_key</name>
+          <direction>in</direction>
+          <relatedStateVariable>AT_STRING</relatedStateVariable>
+        </argument>
+        <argument>
+          <name>Paramset</name>
+          <direction>out</direction>
+          <relatedStateVariable>AT_ARRAY</relatedStateVariable>
+        </argument>
+      </argumentList>
+    </action>
+    <action>
+      <name>putParamset</name>
+      <description>12</description>
+      <argumentList>
+        <argument>
+          <name>address</name>
+          <direction>in</direction>
+          <relatedStateVariable>AT_STRING</relatedStateVariable>
+        </argument>
+        <argument>
+          <name>paramset_key</name>
+          <direction>in</direction>
+          <relatedStateVariable>AT_STRING</relatedStateVariable>
+        </argument>
+        <argument>
+          <name>Paramset</name>
+          <direction>in</direction>
+          <relatedStateVariable>AT_ARRAY</relatedStateVariable>
+        </argument>
+      </argumentList>
+    </action>
+    <action>
+      <name>getValue</name>
+      <description>13</description>
+      <argumentList>
+        <argument>
+          <name>address</name>
+          <direction>in</direction>
+          <relatedStateVariable>AT_STRING</relatedStateVariable>
+        </argument>
+        <argument>
+          <name>value_key</name>
+          <direction>in</direction>
+          <relatedStateVariable>AT_STRING</relatedStateVariable>
+        </argument>
+        <argument>
+          <name>ValueType</name>
+          <direction>out</direction>
+          <relatedStateVariable>AT_STRING</relatedStateVariable>
+        </argument>
+      </argumentList>
+    </action>
+    <action>
+      <name>setValue</name>
+      <description>14</description>
+      <argumentList>
+        <argument>
+          <name>address</name>
+          <direction>in</direction>
+          <relatedStateVariable>AT_STRING</relatedStateVariable>
+        </argument>
+        <argument>
+          <name>value_key</name>
+          <direction>in</direction>
+          <relatedStateVariable>AT_STRING</relatedStateVariable>
+        </argument>
+        <argument>
+          <name>ValueType</name>
+          <direction>in</direction>
+          <relatedStateVariable>AT_STRING</relatedStateVariable>
+        </argument>
+      </argumentList>
+    </action>
+    <action>
+      <name>setInstallMode</name>
+      <description>15</description>
+      <argumentList>
+        <argument>
+          <name>on</name>
+          <direction>in</direction>
+          <relatedStateVariable>AT_BOOLEAN</relatedStateVariable>
+        </argument>
+      </argumentList>
+    </action>
+    <action>
+      <name>getInstallMode</name>
+      <description>16</description>
+      <argumentList>
+        <argument>
+          <name>InstallMode</name>
+          <direction>out</direction>
+          <relatedStateVariable>AT_I4</relatedStateVariable>
+        </argument>
+      </argumentList>
+    </action>
+    <action>
+      <name>getKeyMismatchDevice</name>
+      <description>17</description>
+      <argumentList>
+        <argument>
+          <name>reset</name>
+          <direction>in</direction>
+          <relatedStateVariable>AT_BOOLEAN</relatedStateVariable>
+        </argument>
+        <argument>
+          <name>MismatchDevice</name>
+          <direction>out</direction>
+          <relatedStateVariable>AT_STRING</relatedStateVariable>
+        </argument>
+      </argumentList>
+    </action>
+    <action>
+      <name>addDevice</name>
+      <description>18</description>
+      <argumentList>
+        <argument>
+          <name>serial_number</name>
+          <direction>in</direction>
+          <relatedStateVariable>AT_STRING</relatedStateVariable>
+        </argument>
+        <argument>
+          <name>DeviceDescription</name>
+          <direction>out</direction>
+          <relatedStateVariable>AT_ARRAY</relatedStateVariable>
+        </argument>
+      </argumentList>
+    </action>
+    <action>
+      <name>listDevices</name>
+      <description>19</description>
+      <argumentList>
+        <argument>
+          <name>description</name>
+          <direction>out</direction>
+          <relatedStateVariable>AT_ARRAY</relatedStateVariable>
+        </argument>
+      </argumentList>
+    </action>
+    <action>
+      <name>searchDevices</name>
+      <description>20</description>
+      <argumentList>
+        <argument>
+          <name>Count</name>
+          <direction>out</direction>
+          <relatedStateVariable>AT_I4</relatedStateVariable>
+        </argument>
+      </argumentList>
+    </action>
+    <action>
+      <name>deleteDevice</name>
+      <description>21</description>
+      <argumentList>
+        <argument>
+          <name>address</name>
+          <direction>in</direction>
+          <relatedStateVariable>AT_STRING</relatedStateVariable>
+        </argument>
+        <argument>
+          <name>flags</name>
+          <direction>in</direction>
+          <relatedStateVariable>AT_I4</relatedStateVariable>
+        </argument>
+      </argumentList>
+    </action>
+    <action>
+      <name>getDeviceDescription</name>
+      <description>22</description>
+      <argumentList>
+        <argument>
+          <name>address</name>
+          <direction>in</direction>
+          <relatedStateVariable>AT_STRING</relatedStateVariable>
+        </argument>
+        <argument>
+          <name>description</name>
+          <direction>out</direction>
+          <relatedStateVariable>AT_ARRAY</relatedStateVariable>
+        </argument>
+      </argumentList>
+    </action>
+    <action>
+      <name>changekey</name>
+      <description>23</description>
+      <argumentList>
+        <argument>
+          <name>passphrase</name>
+          <direction>in</direction>
+          <relatedStateVariable>AT_STRING</relatedStateVariable>
+        </argument>
+      </argumentList>
+    </action>
+    <action>
+      <name>setTempKey</name>
+      <description>24</description>
+      <argumentList>
+        <argument>
+          <name>passphrase</name>
+          <direction>in</direction>
+          <relatedStateVariable>AT_STRING</relatedStateVariable>
+        </argument>
+      </argumentList>
+    </action>
+    <action>
+      <name>listTeams</name>
+      <description>25</description>
+      <argumentList>
+        <argument>
+          <name>DeviceDescriptions</name>
+          <direction>out</direction>
+          <relatedStateVariable>AT_ARRAY</relatedStateVariable>
+        </argument>
+      </argumentList>
+    </action>
+    <action>
+      <name>setTeam</name>
+      <description>26</description>
+      <argumentList>
+        <argument>
+          <name>address</name>
+          <direction>in</direction>
+          <relatedStateVariable>AT_STRING</relatedStateVariable>
+        </argument>
+        <argument>
+          <name>team_address</name>
+          <direction>in</direction>
+          <relatedStateVariable>AT_STRING</relatedStateVariable>
+        </argument>
+      </argumentList>
+    </action>
+    <action>
+      <name>restoreConfigToDevice</name>
+      <description>27</description>
+      <argumentList>
+        <argument>
+          <name>address</name>
+          <direction>in</direction>
+          <relatedStateVariable>AT_STRING</relatedStateVariable>
+        </argument>
+      </argumentList>
+    </action>
+    <action>
+      <name>clearConfigCache</name>
+      <description>28</description>
+      <argumentList>
+        <argument>
+          <name>address</name>
+          <direction>in</direction>
+          <relatedStateVariable>AT_STRING</relatedStateVariable>
+        </argument>
+      </argumentList>
+    </action>
+    <action>
+      <name>rssiInfo</name>
+      <description>29</description>
+      <argumentList>
+        <argument>
+          <name>Info</name>
+          <direction>out</direction>
+          <relatedStateVariable>AT_ARRAY</relatedStateVariable>
+        </argument>
+      </argumentList>
+    </action>
+    <action>
+      <name>updateFirmware</name>
+      <description>30</description>
+      <argumentList>
+        <argument>
+          <name>devices</name>
+          <direction>in</direction>
+          <relatedStateVariable>AT_ARRAY</relatedStateVariable>
+        </argument>
+        <argument>
+          <name>status</name>
+          <direction>out</direction>
+          <relatedStateVariable>AT_ARRAY</relatedStateVariable>
+        </argument>
+      </argumentList>
+    </action>
+    <action>
+      <name>logLevel</name>
+      <description>31</description>
+      <argumentList>
+        <argument>
+          <name>level</name>
+          <direction>in</direction>
+          <relatedStateVariable>AT_I4</relatedStateVariable>
+        </argument>
+        <argument>
+          <name>level</name>
+          <direction>out</direction>
+          <relatedStateVariable>AT_I4</relatedStateVariable>
+        </argument>
+      </argumentList>
+    </action>
+    <action>
+      <name>reportValueUsage</name>
+      <description>32</description>
+      <argumentList>
+        <argument>
+          <name>address</name>
+          <direction>in</direction>
+          <relatedStateVariable>AT_STRING</relatedStateVariable>
+        </argument>
+        <argument>
+          <name>value_id</name>
+          <direction>in</direction>
+          <relatedStateVariable>AT_STRING</relatedStateVariable>
+        </argument>
+        <argument>
+          <name>ref_counter</name>
+          <direction>in</direction>
+          <relatedStateVariable>AT_I4</relatedStateVariable>
+        </argument>
+        <argument>
+          <name>Result</name>
+          <direction>out</direction>
+          <relatedStateVariable>AT_BOOLEAN</relatedStateVariable>
+        </argument>
+      </argumentList>
+    </action>
+    <action>
+      <name>setBidcosInterface</name>
+      <description>33</description>
+      <argumentList>
+        <argument>
+          <name>device_address</name>
+          <direction>in</direction>
+          <relatedStateVariable>AT_STRING</relatedStateVariable>
+        </argument>
+        <argument>
+          <name>interface_address</name>
+          <direction>in</direction>
+          <relatedStateVariable>AT_STRING</relatedStateVariable>
+        </argument>
+        <argument>
+          <name>rooming</name>
+          <direction>in</direction>
+          <relatedStateVariable>AT_BOOLEAN</relatedStateVariable>
+        </argument>
+      </argumentList>
+    </action>
+    <action>
+      <name>listBidcosInterfaces</name>
+      <description>34</description>
+      <argumentList>
+        <argument>
+          <name>Interfaces</name>
+          <direction>out</direction>
+          <relatedStateVariable>AT_ARRAY</relatedStateVariable>
+        </argument>
+      </argumentList>
+    </action>
+    <action>
+      <name>getServiceMessages</name>
+      <description>35</description>
+      <argumentList>
+        <argument>
+          <name>Result</name>
+          <direction>out</direction>
+          <relatedStateVariable>AT_ARRAY</relatedStateVariable>
+        </argument>
+      </argumentList>
+    </action>
+    <action>
+      <name>getAllMetadata</name>
+      <description>36</description>
+      <argumentList>
+        <argument>
+          <name>object_id</name>
+          <direction>in</direction>
+          <relatedStateVariable>AT_STRING</relatedStateVariable>
+        </argument>
+        <argument>
+          <name>Struct</name>
+          <direction>out</direction>
+          <relatedStateVariable>AT_ARRAY</relatedStateVariable>
+        </argument>
+      </argumentList>
+    </action>
+    <action>
+      <name>getMetadata</name>
+      <description>37</description>
+      <argumentList>
+        <argument>
+          <name>object_id</name>
+          <direction>in</direction>
+          <relatedStateVariable>AT_STRING</relatedStateVariable>
+        </argument>
+        <argument>
+          <name>data_id</name>
+          <direction>in</direction>
+          <relatedStateVariable>AT_STRING</relatedStateVariable>
+        </argument>
+        <argument>
+          <name>Result</name>
+          <direction>out</direction>
+          <relatedStateVariable>AT_MIXED</relatedStateVariable>
+        </argument>
+      </argumentList>
+    </action>
+    <action>
+      <name>setMetadata</name>
+      <description>38</description>
+      <argumentList>
+        <argument>
+          <name>object_id</name>
+          <direction>in</direction>
+          <relatedStateVariable>AT_STRING</relatedStateVariable>
+        </argument>
+        <argument>
+          <name>data_id</name>
+          <direction>in</direction>
+          <relatedStateVariable>AT_STRING</relatedStateVariable>
+        </argument>
+        <argument>
+          <name>value</name>
+          <direction>in</direction>
+          <relatedStateVariable>AT_MIXED</relatedStateVariable>
+        </argument>
+      </argumentList>
+    </action>
+  </actionList>
+  <serviceStateTable>
+    <stateVariable sendEvents="no">
+      <name>AT_STRING</name>
+      <dataType>string</dataType>
+    </stateVariable>
+    <stateVariable sendEvents="no">
+      <name>AT_I4</name>
+      <dataType>i4</dataType>
+    </stateVariable>
+    <stateVariable sendEvents="no">
+      <name>AT_BOOLEAN</name>
+      <dataType>boolean</dataType>
+    </stateVariable>
+    <stateVariable sendEvents="no">
+      <name>AT_ARRAY</name>
+      <dataType>array</dataType>
+    </stateVariable>
+    <stateVariable sendEvents="no">
+      <name>AT_MIXED</name>
+      <dataType>mixed</dataType>
+    </stateVariable>
+  </serviceStateTable>
+  <descriptions>
+    <description id="0"><![CDATA[Mit dieser Methode teilt die Logikschicht dem Schnittstellenprozess mit, dass sie gerade gestartet wurde. Der Schnittstellenprozess wird sich daraufhin selbst initialisieren und z.B. mit listDevices() die der Logikschicht bekannten Geräte abfragen.
+Der Parameter url gibt die Adresse des XmlRpc-Servers an, unter der die Logikschicht zu erreichen ist.
+Der Parameter interface_id teilt dem Schnittstellenprozess die Id, mit unter der er sich gegenüber der Logikschicht identifiziert.
+
+Zum Abmelden von der Ereignisbehandlung wird interface_id leer gelassen.]]></description>
+    <description id="1"><![CDATA[Diese Methode gibt alle einem logischen Kanal oder Gerät zugeordneten Kommunikationsbeziehungen zurück.
+Der Parameter address ist die Kanal- oder Geräteadresse des logischen Objektes, auf das sich die Abfrage bezieht. Bei address=="" werden alle Kommunikationsbeziehungen des gesamten Schnittstellenprozesses zurückgegeben.
+Der Parameter flags ist ein bitweises oder folgender Werte:
+· 1 = GL_FLAG_GROUP
+Wenn address einen Kanal bezeichnet, der sich in einer Gruppe befindet, werden die Kommunikationsbeziehungen für alle Kanäle der Gruppe zurückgegeben.
+· 2 = GL_FLAG_SENDER_PARAMSET
+Das Feld SENDER_PARAMSET des Rückgabewertes wird gefüllt.
+· 4 = GL_FLAG_RECEIVER_PARAMSET
+Das Feld RECEIVER_PARAMSET des Rückgabewertes wird gefüllt.
+flags ist optional. Defaultwert ist 0x00.
+Der Rückgabewert ist ein Array von Strukturen. Jede dieser Strukturen enthält die folgenden Felder:
+· SENDER
+Datentyp String. Adresse des Senders der Kommunikationsbeziehung
+· RECEIVER
+Datentyp String. Adresse des Empfängers der Kommunikationsbeziehung
+· FLAGS
+Datentyp i4. FLAGS ist ein bitweises oder folgender Werte:
+ 1=LINK_FLAG_SENDER_BROKEN
+Diese Verknüpfung ist auf der Senderseite nicht intakt
+ 2=LINK_FLAG_RECEIVER_BROKEN
+Diese Verknüpfung ist auf der Empfängerseite nicht intakt
+· NAME
+Datentyp String. Name der Kommunikationsbeziehung
+· DESCRIPTION
+Datentyp String. Textuelle Beschreibung der Kommunikationsbeziehung
+· SENDER_PARAMSET
+Datentyp Paramset. Parametersatz dieser Kommunikationsbeziehung für die Senderseite
+· RECEIVER_PARAMSET
+Datentyp Paramset. Parametersatz dieser Kommunikationsbeziehung für die Empfängerseite]]></description>
+    <description id="2"><![CDATA[Diese Methode erstellt eine Kommunikationsbeziehung zwischen zwei logischen Geräten. Die Parameter sender und receiver bezeichnen die beiden zu verknüpfenden Partner. Die Parameter name und description sind optional und beschreiben die Verknüpfung näher.]]></description>
+    <description id="3"><![CDATA[Diese Methode löscht eine Kommunikationsbeziehung zwischen zwei Geräten. Die Parameter sender und receiver bezeichnen die beiden Kommunikationspartnern deren Kommunikationszuordnung gelöscht werden soll.]]></description>
+    <description id="4"><![CDATA[Diese Methode ändert die beschreibenden Texte einer Kommunikationsbeziehung. Die Parameter sender und receiver bezeichnen die beiden zu verknüpfenden Partner. Die Parameter name und description beschreiben die Verknüpfung textuell.]]></description>
+    <description id="5"><![CDATA[Diese Methode gibt den Namen und die Beschreibung für eine bestehende Kommunikationsbeziehung zurück. Die Parameter sender_address und receiver_address bezeichnen die beiden verknüpften Partner.]]></description>
+    <description id="6"><![CDATA[Mit dieser Methode wird ein Link-Parameterset aktiviert. Das logische Gerät verhält sich dann so als ob es direkt von dem entsprechenden zugeordneten Gerät angesteuert worden wäre. Hiermit kann z.B. ein Link-Parameter-Set getestet werden.
+Der Parameter address ist die Addresses des anzusprechenden logischen Gerätes.
+Der Parameter peer_address ist die Addresse des Kommunikationspartners, dessen Link- Parameter-Set aktiviert werden soll.
+Der Parameter long_press gibt an, ob das Parameterset für den langen Tastendruck aktiviert werden soll.]]></description>
+    <description id="7"><![CDATA[Diese Methode gibt alle einem logischen Gerät zugeordneten Kommunikationspartner zurück. Die zurückgegebenen Werte können als Parameter paramset_key für getParamset() und putParamset() verwendet werden. Der Parameter address ist die Adresse eines logischen Gerätes.]]></description>
+    <description id="8"><![CDATA[Mit dieser Methode wird ein Parameter eines Parameter-Sets automatisch bestimmt. Der Parameter kann bei erfolgreicher Ausführung anschließend sofort über getParamset gelesen werden.
+Der Parameter address ist die Addresses eines logischen Gerätes.
+Der Parameter paramset_key ist MASTER, VALUES oder die Adresse eines Kommunikationspartners für das entsprechende Link-Parameter-Set (siehe getLinkPeers).
+Der Parameter parameter_id bestimmt den automatisch zu bestimmenden Parameter.]]></description>
+    <description id="9"><![CDATA[Mit dieser Methode wird die Beschreibung eines Parameter-Sets ermittelt. Der Parameter address ist die Adresse eines logischen Gerätes (z.B. von listDevices zurückgegeben). Der Parameter paramset_type ist MASTER, VALUES oder LINK.]]></description>
+    <description id="10"><![CDATA[Diese Methode gibt die Id eines Parametersets zurück. Diese wird verwendet, um spezialisierte Konfigurationsdialoge (Easymode) den Parametersets zuzuordnen.]]></description>
+    <description id="11"><![CDATA[Mit dieser Methode wird ein komplettes Parameter-Set für ein logisches Gerät gelesen. Der Parameter address ist die Addresses eines logischen Gerätes. Der Parameter paramset_key ist MASTER, VALUES oder die Adresse eines Kommunikationspartners für das entsprechende Link-Parameter-Set (siehe getLinkPeers).]]></description>
+    <description id="12"><![CDATA[Mit dieser Methode wird ein komplettes Parameter-Set für ein logisches Gerät geschrieben. Der Parameter address ist die Addresses eines logischen Gerätes. Der Parameter paramset_key ist MASTER, VALUES oder die Adresse eines Kommunikationspartners für das entsprechende Link-Parameter-Set (siehe getLinkPeers).
+Der Parameter set ist das zu schreibende Parameter-Set. In set nicht vorhandene Member werden einfach nicht geschrieben und behalten ihren alten Wert.]]></description>
+    <description id="13"><![CDATA[Mit dieser Methode wird ein einzelner Wert aus dem Parameter-Set VALUES gelesen. Der Parameter address ist die Addresse eines logischen Gerätes. Der Parameter value_key ist der Name des zu lesenden Wertes. Die möglichen Werte für value_key ergeben sich aus der ParamsetDescription des entsprechenden Parameter-Sets VALUES.]]></description>
+    <description id="14"><![CDATA[Mit dieser Methode wird ein einzelner Wert aus dem Parameter-Set VALUES geschrieben. Der Parameter address ist die Addresse eines logischen Gerätes. Der Parameter value_key ist der Name des zu schreibenden Wertes. Die möglichen Werte für value_key ergeben sich aus der ParamsetDescription des entsprechenden Parameter-Sets VALUES. Der Parameter value ist der zu schreibende Wert.]]></description>
+    <description id="15"><![CDATA[Diese Methode aktiviert und deaktiviert den Installations-Modus, in dem neue Geräte an der HomeMatic-CCU angemeldet werden können.
+Der Parameter on bestimmt, ob der Installations-Modus aktiviert oder deaktiviert werden soll.]]></description>
+    <description id="16"><![CDATA[Diese Methode gibt die verbliebene Restzeit in Sekunden im Anlernmodus zurück.
+Der Wert 0 bedeutet, der Anlernmodus ist nicht aktiv.]]></description>
+    <description id="17"><![CDATA[Diese Methode gibt die Seriennummer des letzten Gerätes zurück, das aufgrund eines falschen AES-Schlüssels nicht angelernt werden konnte.
+Mit reset=true wird diese Information im Schnittstellenprozess zurückgesetzt.]]></description>
+    <description id="18"><![CDATA[Diese Methode lernt ein Gerät anhand seiner Seriennummer an die CCU an. Diese Funktion wird nicht von jedem Gerät unterstützt. Rückgabewert ist die DeviceDescription des neu angelernten Geräts.]]></description>
+    <description id="19"><![CDATA[Diese Methode gibt alle dem Schnittstellenprozess bekannten Geräte in Form von Gerätebeschreibungen zurück.]]></description>
+    <description id="20"><![CDATA[Diese Methode durchsucht den Bus nach neuen Geräten und gibt die Anzahl gefundener Geräte zurück. Die neu gefundenen Geräte werden mit newDevices der Logikschicht gemeldet.]]></description>
+    <description id="21"><![CDATA[Diese Methode löscht ein Gerät aus dem Schnittstellenprozess.
+Der Parameter address ist die Addresse des zu löschenden Gerätes.
+flags ist ein bitweises oder folgender Werte:
+· 0x01=DELETE_FLAG_RESET
+Das Gerät wird vor dem Löschen in den Werkszustand zurückgesetzt
+· 0x02=DELETE_FLAG_FORCE
+Das Gerät wird auch gelöscht, wenn es nicht erreichbar ist
+· 0x04=DELETE_FLAG_DEFER
+Wenn das Gerät nicht erreichbar ist, wird es bei nächster Gelegenheit gelöscht.]]></description>
+    <description id="22"><![CDATA[Diese Methode gibt die Gerätebeschreibung des als address übergebenen Gerätes zurück.]]></description>
+    <description id="23"><![CDATA[Diese Methode ändert den vom Schnittstellenprozess verwendeten AES-Schlüssel. Der Schlüssel wird ebenfalls in allen angelernten Geräten getauscht.]]></description>
+    <description id="24"><![CDATA[Diese Methode ändert den von der CCU verwendeten temporären AES-Schlüssel. Der temporäre AES-Schlüssel wird verwendet, um ein Gerät anzulernen, in dem ein anderer Schlüssel gespeichert ist als der Schlüssel der CCU.]]></description>
+    <description id="25"><![CDATA[Diese Methode gibt alle dem Schnittstellenprozess bekannten Teams in Form von Gerätebeschreibungen zurück.]]></description>
+    <description id="26"><![CDATA[Diese Methode fügt den Kanal channel_address zum Team team_address hinzu.
+Bei team_address="" wird der Kanal channel_address seinem eigenen Team zugeordnet.
+Dabei muss team_address entweder leer sein ("") oder eine Seriennummer eines existierenden Teams enthalten. Teams werden dabei je nach Bedarf erzeugt und gelöscht.]]></description>
+    <description id="27"><![CDATA[Diese Methode überträgt alle zu einem Gerät in der CCU gespeicherten Konfigurationsdaten erneut an das Gerät.]]></description>
+    <description id="28"><![CDATA[Diese Methode löscht alle zu einem Gerät in der CCU gespeicherten Konfigurationsdaten. Diese werden nicht sofort wieder vom Gerät abgefragt, sondern wenn sie das nächste mal benötigt werden.]]></description>
+    <description id="29"><![CDATA[Gibt ein zweidimensionales assoziatives Array zurück, dessen Schlüssel die Geräteadressen sind. Die Felder des assoziativen Arrays sind Tupel, die die Empfangsfeldstärken zwischen beiden Schlüsselgeräten für beide Richtungen in dbm angeben. ein Wert von 65536 bedeutet, dass keine Informationen vorliegen.
+· Rückgabewert[Gerät 1][Gerät 2][0]
+Empfangsfeldstärke an Gerät 1 für Sendungen von Gerät 2
+· Rückgabewert[Gerät 1][Gerät 2][1]
+Empfangsfeldstärke an Gerät 2 für Sendungen von Gerät 1.]]></description>
+    <description id="30"><![CDATA[Diese Methode führt ein Firmware-Update der in devices enthaltenen Geräte durch. Die Geräte werden durch Ihre jeweilige Seriennummer spezifiziert. Der Rückgabewert gibt für jedes Gerät an, ob das Firmware-Update erfolgreich war.]]></description>
+    <description id="31"><![CDATA[Diese Methode gibt den aktuellen Log-Level zurück (1) bzw. setzt diesen (2). Folgende Werte sind für level möglich:
+· 6=LOG_FATAL_ERROR: Nur schwere Fehler loggen.
+· 5=LOG_ERROR: Zusätzlich normale Fehler loggen.
+· 4=LOG_WARNING: Zusätzlich Warnungen loggen.
+· 3=LOG_NOTICE: Zusätzlich Notizmeldungen loggen.
+· 2=LOG_INFO: Zusätzlich Infomeldungen loggen.
+· 1=LOG_DEBUG: Zusätzlich Debugmeldungen loggen.
+· 0=LOG_ALL: Alles wird geloggt.]]></description>
+    <description id="32"><![CDATA[Diese Methode teilt dem Interfaceprozess in ref_counter mit, wie oft der Wert value_id des Kanals address innerhalb der Logikschicht (z.B. in Programmen) verwendet bwird. Dadurch kann der Interfaceprozess die Verbindung mit der entsprechenden Komponente herstellen bzw. löschen. Diese Funktion sollte bei jeder Änderung aufgerufen werden.
+Der Rückgabewert ist true, wenn die Aktion sofort durchgeführt wurde. Er ist false, wenn die entsprechende Komponente nicht erreicht werden konnte und vom Benutzer zunächst in den Config-Mode gebracht werden muss. Der Interfaceprozess hat dann aber die neue Einstellung übernommen und wird sie bei nächster Gelegenheit automatisch an die Komponente übertragen.
+In diesem Fall ist dann auch der Wert CONFIG_PENDING im Kanal MAINTENANCE der Komponente gesetzt.]]></description>
+    <description id="33"><![CDATA[Diese Methode setzt das für die Kommunikation mit dem durch device_address spezifizierten Gerät verwendete Bidcos-Interface. Die Seriennummer des in Zukunft für die Kommunikation mit diesem Gerät zu verwendenden Interfaces wird in interface_address übergeben. Ist der Parameter roaming gesetzt, so wird die Interfacezuordnung für das Gerät automatisch in Abhängigkeit von der Empfangsfeldstärke angepasst. Das ist für nicht ortsfeste Geräte wie Fernbedienungen sinnvoll.]]></description>
+    <description id="34"><![CDATA[Diese Methode gibt eine Liste aller vorhandenen BidCoS-Interfaces in Form eines Arrays von Structs zurück.
+Der Rückgabewert ist ein Array von Strukturen. Jede dieser Strukturen enthält die folgenden Felder:
+· ADDRESS
+Datentyp String. Seriennummer des BidCoS-Interfaces.
+· DESCRIPTION
+Datentyp String. Textuelle Beschreibung des Interfaces wie in der Konfigurationsdatei für den Schnittstellenprozess angegeben.
+· CONNECTED
+Datentyp Boolean. Gibt an, ob zum Zeitpunkt der Abfrage eine Kommunikationsverbindung zum Interface besteht.
+· DEFAULT
+Datentyp Boolean. Gibt an, ob es sich um das Standardinterface handelt. Das Standardinterface wird verwendet, wenn das einem Gerät zugeordnete Interface nicht mehr existiert.]]></description>
+    <description id="35"><![CDATA[Diese Methode gibt eine Liste aller vorhandenen Servicemeldungen in Form eines Arrays zurück.
+Der Rückgabewert ist ein Array mit einem Element pro Servicemeldung. Jedes Element ist wiederum ein Array mit drei Feldern:
+· Rückgabewert[index][0]
+Datentyp String. Adresse (Seriennummer) des Kanals, der die Servicemeldung generiert hat
+· Rückgabewert[index][1]
+Datentyp String. ID der Servicemeldung (CONFIG_PENDING, UNREACH, etc.)
+· Rückgabewert[index][2]
+Datentyp variabel. Wert der Servicemeldung]]></description>
+    <description id="36"><![CDATA[Diese Methode gibt alle zuvor gesetzten Metadaten zu einem Objekt zurück.
+object_id ist die Id des Metadaten-Objekts. Üblicherweise ist dies die Seriennummer eines Gerätes oder Kanals.
+Durch Übergabe einer beliebigen Id können aber auch eigene Metadaten-Objekte angelegt werden.
+Der Rückgabewert ist ein Struct, der zu jedem zuvor gesetzten Metadatum ein Feld enthält. Der Feldname ist der zuvor an setMetadata() als Parameter data_id übergebene Wert. Der Wert des Feldes entspricht in Datentyp und Wert der zuvor an setMetadata() als Parameter value übergebenen Variablen.]]></description>
+    <description id="37"><![CDATA[Diese Methode gibt ein Metadatum zu einem Objekt zurück.
+object_id ist die Id des Metadaten-Objekts. Üblicherweise ist dies die Seriennummer eines Gerätes oder Kanals. Durch Übergabe einer beliebigen Id können aber auch eigene Metadaten-Objekte angelegt werden.
+data_id ist die Id des abzufragenden Metadatums. Diese Id kann frei gewählt werden. Der Rückgabewert entspricht in Datentyp und Wert der zuvor an setMetadata() als Parameter value übergebenen Variablen.]]></description>
+    <description id="38"><![CDATA[Diese Methode setzt ein Metadatum zu einem Objekt.
+object_id ist die Id des Metadaten-Objekts. Üblicherweise ist dies die Seriennummer eines Gerätes oder Kanals. Durch Übergabe einer beliebigen Id können aber auch eigene Metadaten-Objekte angelegt werden.
+data_id ist die Id des zu setzenden Metadatums. Diese Id kann frei gewählt werden.
+value ist eine beliebige Variable. Diese wird gespeichert und kann später mittels getMetadata() und getAllMetadata()wieder abgefragt werden.]]></description>
+  </descriptions>
+</scpd>

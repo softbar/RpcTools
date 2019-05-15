@@ -1,0 +1,35 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root xmlns="urn:dslforum-org:device-1-0">
+  <specVersion>
+    <major>1</major>
+    <minor>0</minor>
+  </specVersion>
+  	<userDef>
+    	<defaultPort>80</defaultPort>
+    	 <connectionType>2</connectionType>
+  	</userDef>
+    <device>
+    <deviceType>urn:schemas-upnp-org:device:SmartHome:1</deviceType>
+    <friendlyName>AVM Fritzbox AHA ControlApi</friendlyName>
+    <manufacturer>Xaver Bauer</manufacturer>
+    <manufacturerURL>http://www.tier-freunde.org/</manufacturerURL>
+    <modelDescription>AVM Fritzbox AHA ControlApi</modelDescription>
+    <modelName>AVM Fritzbox AHA ControlApi</modelName>
+    <modelNumber>AHA</modelNumber>
+    <modelURL>http://www.tier-freunde.org/</modelURL>
+    <serialNumber>12345678</serialNumber>
+    <UDN>uuid:AVMFritzboxWebApi4e6e8e0e-0911-0302-1965-bda000000000</UDN>
+    <serviceList>
+      <service>
+      	<connectionType>2</connectionType>
+      	<lowerNames>true</lowerNames>
+      	<connectionPort>80</connectionPort>
+        <serviceType>urn:schemas-upnp-org:service:AHAControlApi:1</serviceType>
+        <serviceId>urn:upnp-org:serviceId:AHAControlApi</serviceId>
+        <controlURL>/webservices/homeautoswitch.lua?switchcmd=</controlURL>
+        <eventSubURL></eventSubURL>
+        <SCPDURL>/fritzboxSCPD.xml</SCPDURL>
+      </service>
+    </serviceList>
+  </device>
+</root>

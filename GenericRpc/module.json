@@ -1,0 +1,13 @@
+{
+    "id": "{5638FDC0-C112-4108-DE00-201905120GEN}",
+    "name": "GenericRpcModule",
+    "type": 3,
+    "vendor": "Xaver Bauer",
+    "aliases": [
+        "Generic Rpc Module v4.01"
+    ],
+    "parentRequirements": [],
+    "childRequirements": [],
+    "implemented": [],
+    "prefix": "RPCGENERIC"
+}

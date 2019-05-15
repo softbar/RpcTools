@@ -1,0 +1,22 @@
+{
+    "elements": [
+    	{"type":"Label","caption":"if you can read this then no devices are discovered! Check following options and press Discover devices an reopen Form"},
+  		{"name":"ShowOptions", "type":"CheckBox","caption":"Show Options or Devicelist"},
+ 		{"name":"BindIp", "type":"Select","caption":"Bind Discover to IP", "options":[]},
+		{"name":"CreateCat", "type":"SelectCategory","caption":"Create new in Category"},
+		{"type":"Label","caption":"Category"},
+		{"name":"DiscoverRetrys", "type":"NumberSpinner","caption":"Retrys [1-10]"},
+ 		{"name":"DiscoverTimeout", "type":"NumberSpinner","caption":"Timeout [1-15]"},
+    	{"type":"Label","caption":"ATTENTION Discover take a long time up from 10 to xx seconds"},
+  		{"type":"Button", "caption": "Discover devices", "onClick": "IPS_RequestAction($id,'DISCOVER',true);" }
+   	],
+   	"actions":[
+   		{"type":"Label","caption":"Manual Discover"},
+   		{ "type": "RowLayout", "items": [
+   				{ "type": "ValidationTextBox", "name": "MHost", "caption": "Url to Device description xml" },
+   				{"type":"Button", "caption": "Import Device", "onClick": "IPS_RequestAction($id,'ADD',$MHost);" }
+   				
+   			]
+   		}	
+   	]
+}

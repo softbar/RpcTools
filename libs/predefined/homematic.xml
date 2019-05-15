@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<scpd xmlns="urn:schemas-upnp-org:service-1-0">
+  <specVersion>
+    <major>1</major>
+    <minor>0</minor>
+  </specVersion>
+  <device>
+    <deviceType>urn:schemas-upnp-org:device:SmartHome:1</deviceType>
+    <friendlyName>Homematic XMLRPC-Api</friendlyName>
+    <manufacturer>EQ-3 Homematic</manufacturer>
+    <manufacturerURL>http://www.eq-3.de/</manufacturerURL>
+    <modelDescription>Homematic XMLRPC-Api</modelDescription>
+    <modelName>Homematic XMLRPC-Api</modelName>
+    <modelNumber>CCU2</modelNumber>
+    <modelURL>http://www.eq-3.de/Downloads/eq3/download%20bereich/hm_web_ui_doku/HM_XmlRpc_API.pdf</modelURL>
+    <serialNumber>xaver65@gmail.com</serialNumber>
+    <UDN>uuid:4e6e8e0e-0911-0302-1965-bda000000000</UDN>
+    <presentationURL></presentationURL>
+    <server>Homematic XMLRPC Interface</server>
+    <serviceList>
+      <service>
+        <connectionType>3</connectionType>
+        <connectionPort>2001</connectionPort>
+        <serviceType>urn:schemas-upnp-org:service:XmlRpcApi:1</serviceType>
+        <serviceId>urn:upnp-org:serviceId:XmlRpcApi</serviceId>
+        <controlURL>/</controlURL>
+        <eventSubURL></eventSubURL>
+        <SCPDURL>/homematicSCPD.xml</SCPDURL>
+      </service>
+    </serviceList>
+  </device>
+</scpd>

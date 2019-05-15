@@ -1,0 +1,13 @@
+{
+    "id": "{5638FDC0-C112-4108-DE00-201905120000}",
+    "name": "RpcConfiguratorModule",
+    "type": 4,
+    "vendor": "Xaver Bauer",
+    "aliases": [
+        "Rpc Configurator v4.00"
+    ],
+    "parentRequirements": [],
+    "childRequirements": [],
+    "implemented": [],
+    "prefix": "RPCCONFIG"
+}
