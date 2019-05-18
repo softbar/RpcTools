@@ -5,9 +5,7 @@
 		{ "type": "ValidationTextBox", "name": "User", 		"caption": "Username" },
  		{ "type": "PasswordTextBox", 	"name": "Pass", 	"caption": "Password" }   	
  	],
-   	"actions":[
-   		{"type": "TestCenter"}
-   	],
+  
     "status":
     [
         { "code": 102, "icon": "active", "caption": "Connection ready" },
