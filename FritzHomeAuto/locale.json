@@ -1,0 +1,41 @@
+{
+	"translations": {
+		"de": {
+			"State"			: "Verbindung",
+			"Disconnected"	: "Getrennt",
+			"Connected"		: "Verbunden",
+			"Error"			: "Fehler",
+			"On"	:"An",
+			"Off"	:"Aus",
+			"Yes"	:"Ja",
+			"No"	:"Nein",
+			"Refresh every"			: "Aktuallisierung alle",
+			"Offline check every" 	: "Offline Überprüfung alle",
+			"minutes 0=off": "Minuten 0=aus",
+			"seconds 0=off": "Sekunden 0=aus",
+			"hours 0=off": "Stunden 0=aus",
+			"Host": "Host",
+           	"Username": "Benutzername",
+           	"Password": "Passwort",
+           	"Connection ready":"Verbindung bereit",
+           	"Host missing or invalid":"Host fehlt oder ist ungültig",
+           	"Initializing host missing or invalid":"Initializierungs Host fehlt oder ist ungültig",
+           	"Username required":"Benutzername benötigt",
+           	"Password required":"Passwort benötigt",
+		  
+		  	"Device AIN":"Geräte AIN",
+			"Enable Switch Action":"Erlaube Ein/Aus schalten",
+		  	"Device AIN missing or invalid":"Geräte AIN fehlt oder ist ungültig",
+		  	
+		  	"Temperature": "Temperatur",
+			"Current Temperature":"Aktuelle Temperatur",
+			"Set Temperature":"Eingestellte Temperatur",
+			"Reduced Temperature":"Reduzierte Temperature",
+			"Comfort Temperature":"Komfort Temperatur",
+			"Current Power":"Aktueller Verbrauch",
+			"Total Power":"Gesamt Verbrauch",
+			"Power":"Schalter"
+		  	
+		}
+	}
+}

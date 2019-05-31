@@ -1,0 +1,28 @@
+var class_i_p_s_rpc_module =
+[
+    [ "ApplyChanges", "class_i_p_s_rpc_module.html#adb2cb23b08dfbef0e6c13cf227113f5d", null ],
+    [ "ApplyDeviceProps", "class_i_p_s_rpc_module.html#aa0de8ca81dedfffa0a93115894e616c7", null ],
+    [ "Create", "class_i_p_s_rpc_module.html#a2326c10a7cc3358f5b15081eec9e3b37", null ],
+    [ "CreateMissedProfile", "class_i_p_s_rpc_module.html#a85fccb1d8afc87b3b32e83df86d9548f", null ],
+    [ "CreateVarByIdent", "class_i_p_s_rpc_module.html#add89d03dbaf3e76cad85b9f5ab978b03", null ],
+    [ "CreateVarByProp", "class_i_p_s_rpc_module.html#af8dfdc7283dac9ec1566aab4241fada7", null ],
+    [ "DoUpdate", "class_i_p_s_rpc_module.html#a8da09f1c7ac80d0df775b0dc9c98fff3", null ],
+    [ "GetConfigurationForm", "class_i_p_s_rpc_module.html#aab231949acf0ae0a35811b7c39e2da77", null ],
+    [ "GetPropDef", "class_i_p_s_rpc_module.html#ac061a53469947e39644f79414b894a4b", null ],
+    [ "GetProps", "class_i_p_s_rpc_module.html#a9d98592e9ea979bd3eb661e4e819278e", null ],
+    [ "GetValueByIdent", "class_i_p_s_rpc_module.html#a951f7777d96ed15dce666eef14d83008", null ],
+    [ "MessageSink", "class_i_p_s_rpc_module.html#a757ab13d2ade6943b8d0672cc6f2e14b", null ],
+    [ "ProcessHookData", "class_i_p_s_rpc_module.html#a750d91cd7e8616de0b9dd4436bb26dfa", null ],
+    [ "RegisterHook", "class_i_p_s_rpc_module.html#a2ccbcdcba79f8fa74e1179ea72e7d5fa", null ],
+    [ "RequestAction", "class_i_p_s_rpc_module.html#ac63c936ef4af3c38451354a3e4f4a6b9", null ],
+    [ "RunUpdate", "class_i_p_s_rpc_module.html#a070ae30cda3f6bf4e7d7e8b5251dc823", null ],
+    [ "SetProps", "class_i_p_s_rpc_module.html#adb93afc9a07d0aea4494551a61914376", null ],
+    [ "SetValueByIdent", "class_i_p_s_rpc_module.html#a8f64a4abff181f2e8bf8bbc67d7f08e8", null ],
+    [ "StartTimer", "class_i_p_s_rpc_module.html#a6a884c30252cde83e2c02629a8828d8f", null ],
+    [ "StopTimer", "class_i_p_s_rpc_module.html#ab415256decf12d9f89a7f069961afe2c", null ],
+    [ "UpdateDeviceProps", "class_i_p_s_rpc_module.html#a251fd2b478d4a39cb0bef2e94f3ea12a", null ],
+    [ "ValidateTimers", "class_i_p_s_rpc_module.html#af9837fd6f93833ce1e99bf8af44433c7", null ],
+    [ "ValidIdent", "class_i_p_s_rpc_module.html#a4344872b3f77e36d97cfb390942a657b", null ],
+    [ "$prop_names", "class_i_p_s_rpc_module.html#a011e04c1c7eb3deccde70e5bc13bd378", null ],
+    [ "$timerDef", "class_i_p_s_rpc_module.html#a8a76eff202d1d3a61f2b5438e7161ffc", null ]
+];

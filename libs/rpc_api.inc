@@ -4,7 +4,13 @@ require_once 'rpc_constants.inc';
 
 
 class RpcApi {
+	/**
+	 * @var array $device
+	 */
 	private $device=null;
+	/**
+	 * @var string $user
+	 */
 	private $user='';
 	private $pass='';
 	private $ErrorHandler=null;
@@ -79,12 +85,25 @@ class RpcApi {
 	function SetErrorHandler($func){
 		$this->ErrorHandler=$func;
 	}
+	/**
+	 * @return string
+	 */
 	public function LastError(){
 		return $this->lastError;
 	}
+	/** @brief Check if function is valid
+	 * @param string $name Function name to find
+	 * @param string $serviceName If given then search for function only in service name
+	 * @return boolean True if function found
+	 */
 	public function FunctionExists($name, $serviceName=''){
 		return $this->_validateFunctionName($name, $serviceName);
 	}
+	/**
+	 * @param boolean $a1
+	 * @param boolean $a2
+	 * @return array
+	 */
 	public function FunctionList($a1=true,$a2=true){
 		$r=[''=>[
 			'GetPlayState'=>'InstanceID',
@@ -109,6 +128,9 @@ class RpcApi {
 		}
 		return $r;
 	}
+	/**
+	 * @return array
+	 */
 	public function DeviceInfo(){
 		$n=[];$fc=$fe=0;
 		foreach(PROP_NAMES as $prop=>$name){
@@ -161,10 +183,11 @@ class RpcApi {
 				foreach(array_keys($s[S_FUNCS]) as $fn)if(strcasecmp($fn, $name)==0){$name=$fn;$serviceName=$sn; return true;}
 			return false;
 		}
-		if(empty($this->device[D_SERVICES][$serviceName]))return;
+		if(empty($this->device[D_SERVICES][$serviceName]))return false;
 		$d=&$this->device[D_SERVICES][$serviceName];
 		if(!empty($d[S_FUNCS][$name]))return true;
 		foreach(array_keys($d[S_FUNCS]) as $fn)if(strcasecmp($fn, $name)==0){$name=$fn;return true;}
+		return false;
 	}
 	private function _prepareArguments(&$arguments, $func_keys, $sn=''){
 		while (count($arguments) > count($func_keys))array_pop($arguments);

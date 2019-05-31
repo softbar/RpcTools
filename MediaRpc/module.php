@@ -1,61 +1,35 @@
-<?
+<?php
 require_once __DIR__.'/../libs/rpc_module.inc';
 
-class MediaRpcModule extends RPCModule {
-
-	/**
-	 * @param string $function
-	 * @param array $arguments
-	 * @return mixed
-	 */
-	public function __call($function,$arguments){
-		return $this->CallApi($function, $arguments);
-	}
+class MediaRpc extends IPSRpcModule {
+	
 	/**
 	 * {@inheritDoc}
-	 * @see IPSModule::Destroy()
-	 */
-	public function Destroy(){
-		parent::Destroy();
-		if($this->IsLastInstance('{5638FDC0-C112-4108-DE00-201905120MED}')){ // Self
- 			if (IPS_VariableProfileExists('RPC_PlayState'))IPS_DeleteVariableProfile('RPC_PlayState');
- 			if (IPS_VariableProfileExists('RPC_Bass_Treble'))IPS_DeleteVariableProfile('RPC_Bass_Treble');
-		}
-	}
-	/**
-	 * {@inheritDoc}
-	 * @see IPSModule::GetConfigurationForm()
-	 */
-	public function GetConfigurationForm() {
-  		$e=$this->GetTimerFormElements();
-  		if(count($e)==0)return;
-		$f = json_decode(file_get_contents(__DIR__.'/form.json'),true);
-		$f['elements']=array_merge($f['elements'],$e);
-		return json_encode($f);
-	}
-	/**
-	 * {@inheritDoc}
-	 * @see IPSModule::RequestAction()
+	 * @see IPSRpcModule::RequestAction()
 	 */
 	public function RequestAction($Ident, $Value){
 		if(parent::RequestAction($Ident, $Value))return true;
 		$this->WriteValue($Ident,$Value);
 	}
 	/**
-	 * 
+	 * {@inheritDoc}
+	 * @see BaseRpcModule::Destroy()
 	 */
-	public function RequestUpdate(){
- 		$this->DoUpdate();
+	public function Destroy(){
+		parent::Destroy();
+		if( $this->IsLastInstance('{5638FDC0-C112-4108-DE05-201905120MED}')){
+			if (IPS_VariableProfileExists('RPC_PlayState'))IPS_DeleteVariableProfile('RPC_PlayState');
+ 			if (IPS_VariableProfileExists('RPC_Bass_Treble'))IPS_DeleteVariableProfile('RPC_Bass_Treble');
+		}
 	}
 	/**
-	 * @param string $Ident
-	 * @return NULL
+	 * {@inheritDoc}
+	 * @see IPSRpcModule::ApplyChanges()
 	 */
-	public function ReadValue(string $Ident){
-		$this->StopTimer();
-		$r=$this->_readValue($Ident);
-		$this->StartTimer();
-		return $r;
+	public function ApplyChanges(){
+		if(parent::ApplyChanges() && $this->GetStatus()==102){
+ 			$this->RunUpdate();
+		}
 	}
 	/**
 	 * @param string $Ident
@@ -64,103 +38,75 @@ class MediaRpcModule extends RPCModule {
 	 */
 	public function WriteValue(string $Ident, string $Value){
 		$this->StopTimer();
-		$ok=$this->_writeValue($Ident, $Value);
+		$ok=($this->GetDeviceState()<2 && $this->CheckOnline())?true:null;
+		if($ok){
+			$ok=($this->ValidIdent($Ident=strtoupper($Ident),true))?$this->_writeValue($Ident, $Value):null;
+		}
 		$this->StartTimer();
 		return $ok;
 	}
-	
-	/*
-	 * Protected Override Section
-	 */
 	/**
-	 * @return integer
+	 *
+	 */
+	public function RequestUpdate(){
+		$this->RunUpdate();
+	}
+	
+	// --------------------------------------------------------------------------------
+	protected $timerDef=['ONLINE_INTERVAL'=>[10,'s'],'OFFLINE_INTERVAL'=>[5,'m']];
+	// --------------------------------------------------------------------------------
+	/**
+	 * {@inheritDoc}
+	 * @see BaseRpcModule::GetDiscoverDeviceOptions()
 	 */
 	protected function GetDiscoverDeviceOptions(){
 		return OPT_MINIMIZED|OPT_PROPS_ONLY;
 	}
 	/**
-	 * @param int $props
-	 * @return boolean
+	 * {@inheritDoc}
+	 * @see IPSRpcModule::ApplyDeviceProps()
 	 */
-	protected function ProcessUpdate(){
- 		$this->DoUpdate();
+	protected function ApplyDeviceProps($Props){
+		$this->SetProps($Props,true);
 	}
-	protected function ProcessOffline(){
- 		$this->SendDebug(__FUNCTION__, 'CheckStatus => '.($this->CheckStatus()?'true':'false'), 0);
-	}
-	/*
-	 * Private Section
+	/**
+	 * {@inheritDoc}
+	 * @see IPSRpcModule::DoUpdate()
 	 */
-	private function DoUpdate(){
-		if($state=$this->GetState())return $state;
-		$this->SendDebug(__FUNCTION__, 'Process start', 0);		
-		$this->StopTimer();
-		foreach(array_values($this->prop_names) as $ident)if($this->ValidIdent($ident,true))$this->_readValue($ident,false);
-		$this->StartTimer();
-		$this->SendDebug(__FUNCTION__, 'Process finishd', 0);
-	}
-	private function _readValue(string $Ident, $CheckIdent=true){
-		$r=null;$Ident=strtoupper($Ident);
-		if( ($CheckIdent && !$this->ValidIdent($Ident))|| !$this->CreateApi())return null;
-		switch($Ident){
-			case 'VOLUME': $r=$this->CallApi('RenderingControl.GetVolume', []);break;
-			case 'MUTE': $r=$this->CallApi('RenderingControl.GetMute', []);break;
-			case 'BASS': $r=$this->CallApi('RenderingControl.GetBass', []);break;
-			case 'TREBLE': $r=$this->CallApi('RenderingControl.GetTreble', []);break;
-			case 'LOUDNESS': $r=$this->CallApi('RenderingControl.GetLoudness', []);break;
-			case 'BRIGHTNESS': $r=$this->CallApi('GetBrightness', []);break;
-			case 'SHARPNESS': $r=$this->CallApi('GetSharpness', []);break;
-			case 'CONTRAST': $r=$this->CallApi('GetContrast', []);break;
-			case 'COLOR': $r=$this->CallApi('GetColor', []);break;
-			case 'PLAYSTATE': $r=$this->CallApi('GetPlayState', []);if($r>2)$r=0; break;
-			default:$r=null;
+	protected function DoUpdate(){
+		$myProps=$this->GetProps();
+		foreach ($this->prop_names as $prop=>$ident){
+			if($myProps&$prop){
+				$this->_readValue($ident);
+			}
 		}
-		if($r!==null)$this->SetValueByIdent($Ident,$r);
-		return $r;
 	}	
-	private function _writeValue(string $Ident, string $Value){
-		$Ident=strtoupper($Ident);
-		if(!$this->ValidIdent($Ident)|| !$this->CreateApi())return ;
-		switch($Ident){
-			case 'VOLUME'	: $Value=(int)$Value;$ok=$this->CallApi('RenderingControl.SetVolume', [null,null,$Value]);break;
-			case 'MUTE'		: $Value=(bool)$Value;$ok=$this->CallApi('RenderingControl.SetMute', [null,null,$Value]);break;
-			case 'BASS'		: $Value=(int)$Value;$ok=$this->CallApi('RenderingControl.SetBass', [null,null,$Value]);break;
-			case 'TREBLE'	: $Value=(int)$Value;$ok=$this->CallApi('RenderingControl.SetTreble', [null,null,$Value]);break;
-			case 'LOUDNESS'	: $Value=(bool)$Value;$ok=$this->CallApi('RenderingControl.SetLoudness', [null,null,$Value]);break;
-			case 'BRIGHTNESS':$Value=(int)$Value;$ok=$this->CallApi('SetBrightness', [0,$Value]);break;
-			case 'SHARPNESS': $Value=(int)$Value;$ok=$this->CallApi('SetSharpness', [0,$Value]);break;
-			case 'CONTRAST'	: $Value=(int)$Value;$ok=$this->CallApi('SetContrast', [0,$Value]);break;
-			case 'COLOR'	: $Value=(int)$Value;$ok=$this->CallApi('SetColor', [0,$Value]);break;
-			case 'PLAYSTATE':  $Value=(int)$Value;if(($ok=$this->CallApi('SetPlayState', [0,$Value]))!==false){$Value=$ok;$ok=true;}break;
-			default:$ok=null;
-		}
-		if($ok)SetValue($this->GetIDForIdent($Ident),$Value);
-		return $ok;
-	}
-
-	/******************************************************
-	 * Variables Override
-	 ******************************************************/
+	/**
+	 * {@inheritDoc}
+	 * @see IPSRpcModule::CreateMissedProfile()
+	 */
 	protected function CreateMissedProfile($name){
 		if($name=='RPC_PlayState'){
-			@IPS_CreateVariableProfile($name,1);
-			IPS_SetVariableProfileAssociation($name, 0, $this->Translate('Stop'), '', -1);
-			IPS_SetVariableProfileAssociation($name, 1, $this->Translate('Play'), '', -1);
-			IPS_SetVariableProfileAssociation($name, 2, $this->Translate('Pause'), '', -1);
-			IPS_SetVariableProfileAssociation($name, 3, $this->Translate('Next'), '', -1);
-			IPS_SetVariableProfileAssociation($name, 4, $this->Translate('Previous'), '', -1);
-			IPS_SetVariableProfileIcon($name, 'Remote');
+			UTILS::RegisterProfileIntegerEx($name, 'Remote', '', '', [
+				[0, $this->Translate('Stop'), '', -1],
+				[1, $this->Translate('Play'), '', -1],
+				[2, $this->Translate('Pause'), '', -1],
+				[3, $this->Translate('Next'), '', -1],
+				[4, $this->Translate('Previous'), '', -1]
+			]);
 			return true;
 		}else if($name=='RPC_Bass_Treble'){
-			@IPS_CreateVariableProfile($name,1);
-			IPS_SetVariableProfileValues($name, -10, 10,1);
-			IPS_SetVariableProfileIcon($name, 'Music');
+			UTILS::RegisterProfileInteger($name, 'Music', '', '', -10, 10, 1);
 			return true;
 		}
-		IPS_LogMessage(__CLASS__, __FUNCTION__."::Profile ->$name<- not found");
+		IPS_LogMessage(IPS_GetName($this->InstanceID), __FUNCTION__."::Profile ->$name<- not found");
 	}
+	/**
+	 * {@inheritDoc}
+	 * @see IPSRpcModule::GetPropDef()
+	 */
 	protected function GetPropDef($Ident){
-		switch(strtoupper($Ident)){
+		switch($Ident){
  			case $this->prop_names[PROP_VOLUME_CONTROL]: return  [1,'Volume','~Intensity.100',0,'Intensity',PROP_VOLUME_CONTROL,1];
 			case $this->prop_names[PROP_MUTE_CONTROL]: return [0,'Mute','~Switch',0,'Speaker',PROP_MUTE_CONTROL,1];
 			case $this->prop_names[PROP_TREBLE_CONTROL]: return [1,'Treble','RPC_Bass_Treble',0,'Music',PROP_TREBLE_CONTROL,1];
@@ -175,6 +121,54 @@ class MediaRpcModule extends RPCModule {
 // 			case $this->prop_names[PROP_CONTENT_BROWSER]: return [3,'Content','~HTMLBox',0,'',PROP_CONTENT_BROWSER,0];
 		}
 	}
+	/**
+	 * {@inheritDoc}
+	 * @see IPSRpcModule::$prop_names
+	 * @var array $prop_names
+	 */
 	protected $prop_names = [PROP_VOLUME_CONTROL=>'VOLUME',PROP_MUTE_CONTROL=>'MUTE',PROP_TREBLE_CONTROL=>'TREBLE',PROP_BASS_CONTROL=>'BASS',PROP_LOUDNESS_CONTROL=>'LOUDNESS',PROP_BRIGHTNESS_CONTROL=>'BRIGHTNESS',PROP_CONTRAST_CONTROL=>'CONTRAST',PROP_SHARPNESS_CONTROL=>'SHARPNESS',PROP_COLOR_CONTROL=>'COLOR',PROP_SOURCE_CONTROL=>'SOURCE',PROP_PLAY_CONTROL=>'PLAYSTATE',PROP_CONTENT_BROWSER=>'CONTENT'];
+	
+	// --------------------------------------------------------------------------------
+	
+	private function _readValue(string $Ident){
+		$r=null;
+		if(!$this->CreateApi())return null;
+		switch($Ident){
+			case 'VOLUME'	: $r=$this->CallApi('RenderingControl.GetVolume', []);break;
+			case 'MUTE'		: $r=$this->CallApi('RenderingControl.GetMute', []);break;
+			case 'BASS'		: $r=$this->CallApi('RenderingControl.GetBass', []);break;
+			case 'TREBLE'	: $r=$this->CallApi('RenderingControl.GetTreble', []);break;
+			case 'LOUDNESS'	: $r=$this->CallApi('RenderingControl.GetLoudness', []);break;
+			case 'BRIGHTNESS':$r=$this->CallApi('GetBrightness', []);break;
+			case 'SHARPNESS': $r=$this->CallApi('GetSharpness', []);break;
+			case 'CONTRAST'	: $r=$this->CallApi('GetContrast', []);break;
+			case 'COLOR'	: $r=$this->CallApi('GetColor', []);break;
+			case 'PLAYSTATE': $r=$this->CallApi('GetPlayState', []);if($r>2)$r=0; break;
+			default:$r=null;
+		}
+		if(!is_null($r))$this->SetValueByIdent($Ident,$r);
+		return $r;
+	}	
+	private function _writeValue(string $Ident, string $Value){
+		if(!$this->CreateApi())return null;
+		switch($Ident){
+			case 'VOLUME'	: $ok=$this->CallApi('RenderingControl.SetVolume', [null,null,$Value=(int)$Value]);break;
+			case 'MUTE'		: $ok=$this->CallApi('RenderingControl.SetMute', [null,null,$Value=(bool)$Value]);break;
+			case 'BASS'		: $ok=$this->CallApi('RenderingControl.SetBass', [null,null,$Value=(int)$Value]);break;
+			case 'TREBLE'	: $ok=$this->CallApi('RenderingControl.SetTreble', [null,null,$Value=(int)$Value]);break;
+			case 'LOUDNESS'	: $ok=$this->CallApi('RenderingControl.SetLoudness', [null,null,$Value=(bool)$Value]);break;
+			case 'BRIGHTNESS':$ok=$this->CallApi('SetBrightness', [0,$Value=(int)$Value]);break;
+			case 'SHARPNESS': $ok=$this->CallApi('SetSharpness', [0,$Value=(int)$Value]);break;
+			case 'CONTRAST'	: $ok=$this->CallApi('SetContrast', [0,$Value=(int)$Value]);break;
+			case 'COLOR'	: $ok=$this->CallApi('SetColor', [0,$Value=(int)$Value]);break;
+			case 'PLAYSTATE': if(($ok=$this->CallApi('SetPlayState', [0,$Value=(int)$Value]))!==false){$Value=$ok;$ok=true;}break;
+			default:$ok=null;
+		}
+		if(!is_null($ok))$this->SetValueByIdent($Ident,$Value);
+		return $ok;
+	}
+	
+	
 }
+
 ?>

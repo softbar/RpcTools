@@ -8,7 +8,14 @@ const
 
 	
 	
-function DiscoverNetwork($timeout=null, $retrys=1 , $bind_to_my_ip='', $SenderID=0){
+/**
+ * @param number $timeout
+ * @param number $retrys
+ * @param string $bind_to_my_ip
+ * @param number $SenderID
+ * @return array|null
+ */
+function DiscoverNetwork($timeout=5, $retrys=1 , $bind_to_my_ip='', $SenderID=0){
 	static 	$discover_user_agent = 'MacOSX/10.8.2 UPnP/1.1 PHP-UPnP/0.0.1a';
 	static $running = false;
 	if($running)return;
@@ -22,9 +29,6 @@ function DiscoverNetwork($timeout=null, $retrys=1 , $bind_to_my_ip='', $SenderID
 	$debug('Discover network starting...',true);	
 	if(empty($timeout)||$timeout<2)$timeout=2;else if ($timeout>10&&$retrys>1)$timeout=5;
 	if(empty($retrys)||$retrys<1)$retrys=1;
-	$tout=intval(ini_get('max_execution_time'));
-	$myTime=$timeout * $retrys * 3;
-	$debug("MyTimeout: ~ $myTime ScriptTimeout: $tout");
 	
 	$request = "M-SEARCH * HTTP/1.1\r\nHOST: 239.255.255.250:1900\r\nMAN: \"ssdp:discover\"\r\nMX: $timeout\r\nST: ssdp:all\r\nUSER-AGENT: ".$discover_user_agent."\r\n\r\n";
 	$find=[];
@@ -63,15 +67,24 @@ function DiscoverNetwork($timeout=null, $retrys=1 , $bind_to_my_ip='', $SenderID
 	$running=false;
 	return array_values($find);
 }
+/**
+ * @brief Cleanup the Discover Cache
+ */
 function DiscoverCleanUpCache(){
 	$f = scandir(RPCTOOLS.'/discovercache/');
 	if($f)foreach($f as $n)if($n[0]!='.')unlink(RPCTOOLS."/discovercache/$n");
 }
+/**
+ * @param string|array $urls
+ * @param number $options
+ * @param array $filter
+ * @return array
+ */
 function DiscoverDevice($urls, $options=1, $filter=[]){
 	$cache=$loadXml=$addStateVariable=$importFunctions=$importDevice=null;
 	$includeStateVars=($options&OPT_MINIMIZED)?['Channel','Speed','Unit','CurrentTransportState','DesiredBass','DesiredTreble','DesiredVolume']:null;
 	if(!is_array($urls))$urls=explode(',', $urls);
-	$device=[D_HOST=>parse_url($urls[0],PHP_URL_SCHEME).'://'.parse_url($urls[0],PHP_URL_HOST),D_PROPS=>0, D_NAME=>'',	D_INFO=>'',	D_TYPE=>'',D_URLS=>'',	D_SERVICES=>[],	ID_VARTABLE=>[], 'infos'=>[]];
+	$device=[D_HOST=>parse_url($urls[0],PHP_URL_SCHEME).'://'.parse_url($urls[0],PHP_URL_HOST),D_PROPS=>0, D_NAME=>'',	D_INFO=>'',	D_TYPE=>'',D_URLS=>'',D_OPTIONS=>0,  D_SERVICES=>[], ID_VARTABLE=>[], 'infos'=>[]];
 	if($device[D_HOST]=='://')$device[D_HOST]='';
 	if(is_array($filter)&&count($filter)>0){
 		foreach($filter as $id=>$v){
@@ -291,6 +304,9 @@ function DiscoverDevice($urls, $options=1, $filter=[]){
 		else if(preg_match('/enigma/i', $device[D_INFO])){
 			$device[D_TYPE]='MediaBox';
 		}
+		if(preg_match('/fritz/i', $device[D_INFO])){
+			$device[D_OPTIONS]=$device[D_OPTIONS]|OPT_REQUIRE_LOGIN;
+		}
 		$m=null;	
 		if(preg_match('/^[ \d.\-\+]*/',$device[D_NAME],$m)){
 			$device[D_NAME]=str_replace($m[0], '', $device[D_NAME]);
@@ -312,6 +328,12 @@ function DiscoverDevice($urls, $options=1, $filter=[]){
 	}
 	return $device;
 }
+/**
+ * @param array $device
+ * @param boolean $override
+ * @param string $filename
+ * @return string The Filename of saved Device
+ */
 function DiscoverSaveDevice($device, $override=true, $filename=''){
 	$file=RPCTOOLS . '/rpcconfig/';
 	if(!is_dir($file))mkdir($file,755);
@@ -319,6 +341,10 @@ function DiscoverSaveDevice($device, $override=true, $filename=''){
 	if(!file_exists($file) || $override) file_put_contents($file, json_encode($device));
 	return $file;
 }
+/**
+ * @param array $device
+ * @param string $filename
+ */
 function DiscoverDeleteDevice($device, $filename=''){
 	$file=RPCTOOLS . '/rpcconfig/';
 	$file.=$filename?$filename:str_replace([':','\\','/','?','*'],'', $device[D_NAME]).'.rpc';
@@ -327,11 +353,23 @@ function DiscoverDeleteDevice($device, $filename=''){
 
 
 
+/**
+ * @author Xavier
+ *
+ */
 class Cache {
+	/**
+	 * $_cachePath string 
+	 */
 	protected $_cachePath = RPCTOOLS . '/discovercache/';
 	function __construct(){
 		@mkdir($this->_cachePath,755);		
 	}
+	/**
+	 * @param string $Name
+	 * @param boolean $force
+	 * @return NULL|SimpleXMLElement
+	 */
 	public function Load($Name, $force=false){
 		$fn = $this->_buildCacheFilename($Name);
 		if($force===true || !file_exists($fn)){
@@ -341,11 +379,12 @@ class Cache {
 		}else $Name=$fn;
 		return @simplexml_load_file($Name);
 	}
+	/**
+	 * @param string $filename
+	 * @param string $defExt
+	 * @return string
+	 */
 	private function _buildCacheFilename($filename, $defExt='xml'){
-// echo "cache: $filename\n";		
-// 		return $this->_cachePath .md5($filename);
-// 		$ext=pathinfo(parse_url($filename)['path'],PATHINFO_EXTENSION);
-// 		if($ext)$filename=str_replace('.'.$ext, '', $filename);else $ext=$defExt;
 		return $this->_cachePath . str_ireplace(['.xml',':','//','/','.'],['','_','','_','-'], $filename).'.'.$defExt;
 	}
 }

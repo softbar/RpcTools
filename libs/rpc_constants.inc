@@ -1,4 +1,5 @@
 <?php 
+
 CONST
 OPT_USE_CACHE = 1,
 OPT_MINIMIZED = 2,
@@ -6,6 +7,8 @@ OPT_PROPS_ONLY= 4,
 OPT_SMALCONFIG= 8,
 OPT_EVENTS    = 16,
 OPT_SAVECONVIG= 256;
+
+
 
 CONST
 PROP_VOLUME_CONTROL 	= 1,
@@ -22,63 +25,41 @@ PROP_PLAY_CONTROL		= 4096,
 PROP_CONTENT_BROWSER	= 16384,
 PROP_EVENTS				= 32768,
 PROP_NAMES = [PROP_VOLUME_CONTROL=>'VOLUME',PROP_MUTE_CONTROL=>'MUTE',PROP_TREBLE_CONTROL=>'TREBLE',PROP_BASS_CONTROL=>'BASS',PROP_LOUDNESS_CONTROL=>'LOUDNESS',PROP_BRIGHTNESS_CONTROL=>'BRIGHTNESS',PROP_CONTRAST_CONTROL=>'CONTRAST',PROP_SHARPNESS_CONTROL=>'SHARPNESS',PROP_COLOR_CONTROL=>'COLOR',PROP_SOURCE_CONTROL=>'SOURCE',PROP_PLAY_CONTROL=>'PLAY',PROP_CONTENT_BROWSER=>'CONTENT',PROP_EVENTS=>'EVENTS'];
+/**
 
-/* DEBUG 
-const 
-  D_HOST = 'host',
-  D_SERVICES = 'services',
-  D_PROPS= 'props',
-  D_NAME = 'name',
-  D_INFO = 'info',
-  D_TYPE = 'type',
-  D_URLS = 'urls',
-  D_PLAYSTATES='playstates',
-  S_PORT = 'port',
-  S_CURL = 'curl',
-  S_EURL = 'eurl',
-  S_FUNCS = 'funcs',
-  S_URN  = 'urn',
-  S_CON  = 'conType',
-
-  ID_VARTABLE = 'vartable',
-
-  V_TYPE = 'type',
-  V_ALLOWED = 'allowed',
-  V_MIN = 'min',
-  V_MAX = 'max',
-  V_STEP= 'step',
-  V_DEFAULT='default'
-	;
-*/
+ */
 CONST
-  D_HOST = 0,
-  D_PROPS= 1,
-  D_NAME = 2,
-  D_INFO = 3,
-  D_TYPE = 4,
-  D_URLS = 5,
-  D_SERVICES = 6,
- 
-//  D_PLAYSTATES='playstates',
-  S_PORT = 0,
-  S_CON  = 1,
-  S_CURL = 2,
-  S_URN  = 3,
-  S_FUNCS = 4,
-  S_EURL = 5,
-  S_LOWERNAMES=6, 	 // for URL Http Calls
-  S_EVENTS = 7,
-  
-  ID_VARTABLE = 8,
+OPT_REQUIRE_LOGIN = 1;
 
-  V_TYPE = 0,
-  V_ALLOWED = 1,
-  V_MIN = 2,
-  V_MAX = 3,
-  V_STEP= 4,
-  V_DEFAULT=5
-	;
-//*/
+CONST 
+D_HOST = 0,
+D_PROPS= 1,
+D_NAME = 2,
+D_INFO = 3,
+D_TYPE = 4,
+D_URLS = 5,
+D_OPTIONS = 6,
+D_SERVICES = 7;
 
+CONST
+S_PORT = 0,
+S_CON  = 1,
+S_CURL = 2,
+S_URN  = 3,
+S_FUNCS = 4,
+S_EURL = 5,
+S_LOWERNAMES=6, 
+S_EVENTS = 7;
+
+CONST  
+ID_VARTABLE = 8;
+
+CONST
+V_TYPE = 0,
+V_ALLOWED = 1,
+V_MIN = 2,
+V_MAX = 3,
+V_STEP= 4,
+V_DEFAULT=5;
 
 ?>

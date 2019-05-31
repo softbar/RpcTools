@@ -1,11 +1,11 @@
 <?
-require_once __DIR__.'/../libs/rpc_module.inc';
 
+require_once __DIR__.'/../libs/rpc_module.inc';
 /**
  * @author Xavier
  *
  */
-class GenericRpcModule extends RPCModule {
+class GenericRpc extends IPSRpcModule {
 	/**
 	 * {@inheritDoc}
 	 * @see IPSModule::Create()
@@ -21,11 +21,7 @@ class GenericRpcModule extends RPCModule {
 	 * @see IPSModule::ApplyChanges()
 	 */
 	public function ApplyChanges() {
-		$save = parent::ApplyChanges();	
-		if($save){
-			IPS_ApplyChanges($this->InstanceID);
-			return;
-		}
+		parent::ApplyChanges();	
 	}
  	/**
 	 * {@inheritDoc}
@@ -43,33 +39,8 @@ class GenericRpcModule extends RPCModule {
 			}
 			return $values;
 	 	};
-		
-		
-		$f=['elements'=>[
-			[ "type"=> "Select", "name"=> "View", 	"caption"=> "Options" , "options"=>[
-					["value"=>0, "label"=>"Settings"],	
-					["value"=>1, "label"=>"Functionlist"]
-				]
-			]
-		]];
-		$view = $this->ReadPropertyInteger('View');
-		$elements=$actions=null;
-		if($view == 0){
-			$elements=[
-				[ "type"=> "ValidationTextBox", "name"=> "Host", 	"caption"=> "Host" ],
-				[ "type"=> "ValidationTextBox", "name"=> "User", 	"caption"=> "Username" ],
-				[ "type"=> "PasswordTextBox", "name"=> "Pass", 	"caption"=> "Password" ],			
-			];
-			$values=$getFormValues(false);
-			$actions=[
-				["name"=>"method","type"=>"Select", "caption"=>"Select method", "options"=>$values],
- 				["name"=>"params","type"=>"ValidationTextBox", "caption"=>"Commaseperated Args"],
- 				["type"=>"Button", "caption"=>"Execute","onClick"=>"if(empty(\$method))echo 'please select method first';else echo var_export(RPCG_CallMethod(\$id,\$method,\$params),true);"],
-			];
-		}
-		else if( $view == 1){
-			$values=$getFormValues(true);
-			$actions=[
+		$f=json_decode(parent::GetConfigurationForm(),true);
+		$f['actions']=[
 				["name"=>"devices","type"=>"List",
 			   	 	"add"=>false,"delete"=>false,
 					"columns"=>[
@@ -77,19 +48,12 @@ class GenericRpcModule extends RPCModule {
 				 		["name"=>"f", "caption"=>"Function","width"=>"200px"],
 						["name"=>"a", "caption"=>"Arguments", "width"=> "auto"]
 				 	],
-					"values"=>$values
+					"values"=>$getFormValues()
 				],
  				["name"=>"params","type"=>"ValidationTextBox", "caption"=>"Commaseperated Args"],
- 				["type"=>"Button", "caption"=>"Execute","onClick"=>"if(empty(\$devices))echo 'please select method first';else if(!empty(\$devices['a'])&&(\$params==''||count(explode(',',\$params))!=count(explode(',',\$devices['a'])) ) )echo 'Invalid argument count, check your argument input!'; else echo var_export(RPCG_CallMethod(\$id,\$devices['s'].'.'.\$devices['f'],\$params),true);"],
-			];
-		}
-		if($elements)$f['elements']=array_merge($f['elements'],$elements);
-		if($actions)$f['actions']=$actions;
-		$f["status"]=[
-	        [ "code"=> 102, "icon"=> "active", "caption"=> "Connection ready" ],
-	        [ "code"=> 200, "icon"=> "error", "caption"=> "Host missing or invalid" ],
-	        [ "code"=> 201, "icon"=> "error", "caption"=> "Missing or invalid Rpc Config File , see Expert Settings" ]
-	    ];
+ 				["type"=>"Button", "caption"=>"Execute","onClick"=>"if(empty(\$devices))echo 'please select method first';else if(!empty(\$devices['a'])&&(\$params==''||count(explode(',',\$params))!=count(explode(',',\$devices['a'])) ) )echo 'Invalid argument count, check your argument input!'; else echo var_export(RPCGENERIC_CallMethod(\$id,\$devices['s'].'.'.\$devices['f'],\$params),true);"],
+		];
+		
 		return json_encode($f);
 	}
 	/**
@@ -102,17 +66,24 @@ class GenericRpcModule extends RPCModule {
 		return $this->CallApi($MethodName,$Arguments==''?[]:explode(',',$Arguments));
 	}
 	
-	/*
-	 * Protected Overide Section
+
+	/**
+	 * {@inheritDoc}
+	 * @see BaseRpcModule::GetDiscoverDeviceOptions()
 	 */
 	protected function GetDiscoverDeviceOptions(){
 		return OPT_MINIMIZED;
 	}
-	
-	/*
-	 * Private Section
+	/**
+	 * {@inheritDoc}
+	 * @see IPSRpcModule::GetPropDef()
 	 */
-
 	protected function GetPropDef($Ident){}
+	/**
+	 * {@inheritDoc}
+	 * @see IPSRpcModule::DoUpdate()
+	 */
+	protected function DoUpdate() {}
+
 }
 ?>

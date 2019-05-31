@@ -1,10 +1,10 @@
 {
-    "id": "{5638FDC0-C112-4108-DE00-201905120MED}",
-    "name": "MediaRpcModule",
+    "id": "{5638FDC0-C112-4108-DE05-201905120MED}",
+    "name": "MediaRpc",
     "type": 3,
     "vendor": "Xaver Bauer",
     "aliases": [
-        "Multimedia Rpc Module v4.01"
+        "Multimedia Rpc Module v5.01"
     ],
     "parentRequirements": [],
     "childRequirements": [],

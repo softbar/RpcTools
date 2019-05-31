@@ -1,0 +1,27 @@
+var class_rpc_api =
+[
+    [ "__construct", "class_rpc_api.html#adb9ef03cd5db23081473f3ee55d91e56", null ],
+    [ "__call", "class_rpc_api.html#aec07339075d9a93b42c90cb2f1938f43", null ],
+    [ "__get", "class_rpc_api.html#aa48f5f1a3819f0339a9bfeae6e3ee7b1", null ],
+    [ "__set", "class_rpc_api.html#aab02044d17165fc21f88b9d6dc37a671", null ],
+    [ "_callInternal", "class_rpc_api.html#a047e0090c80567e153d41b0150b1c66b", null ],
+    [ "_callRpc", "class_rpc_api.html#aada0cf1f299b00510fcba66301c29341", null ],
+    [ "_callSoap", "class_rpc_api.html#adc48ac88110d690117333abe5bc97ec4", null ],
+    [ "_callUrl", "class_rpc_api.html#a45d0259cb822c72d73375d8c54e0637e", null ],
+    [ "_getFunctionParam", "class_rpc_api.html#a392f3d4abaee1164a831f3a72759181b", null ],
+    [ "_prepareArguments", "class_rpc_api.html#a110dbb2675e0789df7fab643f40e22db", null ],
+    [ "_validateFunctionName", "class_rpc_api.html#aa8ef595d6698a1c01f95d4819718da57", null ],
+    [ "DeviceInfo", "class_rpc_api.html#aff8692abb906fa238916165081502b74", null ],
+    [ "error", "class_rpc_api.html#a6974cfa5998de3220cc949287831ef72", null ],
+    [ "FunctionExists", "class_rpc_api.html#a08982ca1d38a1dab9fe767cef8a21f06", null ],
+    [ "FunctionList", "class_rpc_api.html#a099ba9062684e2b60dcf1d1c5c7ad890", null ],
+    [ "getDefaultValue", "class_rpc_api.html#acd9c509d6e5386db869c2d1c05318465", null ],
+    [ "LastError", "class_rpc_api.html#ad7e9a2890c8a9da3bdccec4fc8a04496", null ],
+    [ "SetErrorHandler", "class_rpc_api.html#a74b9496318f56c933139740aa6e1d517", null ],
+    [ "$device", "class_rpc_api.html#a89f61b2ee89660be835f1d1f0f40c526", null ],
+    [ "$ErrorHandler", "class_rpc_api.html#aef6fd547de4185492a2ee9ed3d2eaa6a", null ],
+    [ "$lastError", "class_rpc_api.html#a9a7264d44c9835f2358536631fbbf62f", null ],
+    [ "$pass", "class_rpc_api.html#a4fe1ecacd3160ef8fba88606c999775a", null ],
+    [ "$user", "class_rpc_api.html#afddac53830a97ebc1bcd963ab20b81fc", null ],
+    [ "$UserVars", "class_rpc_api.html#a88e1569a3573acc60faa3a83e87a025d", null ]
+];

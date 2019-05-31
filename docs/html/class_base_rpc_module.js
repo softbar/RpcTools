@@ -1,0 +1,28 @@
+var class_base_rpc_module =
+[
+    [ "ApplyChanges", "class_base_rpc_module.html#a0ec6975ebd33aeb4248ec49e74913677", null ],
+    [ "ApplyDeviceProps", "class_base_rpc_module.html#ab26201b347a49c79d339a0a6c7c139cb", null ],
+    [ "ApplyHost", "class_base_rpc_module.html#a43b2d7add6077cad40d45bbceed276e7", null ],
+    [ "CallApi", "class_base_rpc_module.html#af3f24b6f4a51ac55b7f8fbcfd10c2870", null ],
+    [ "CheckOnline", "class_base_rpc_module.html#a4b772b4d29b4c92a1f77549fd410e67b", null ],
+    [ "Create", "class_base_rpc_module.html#a2bb29ec41119710ce9366660be8880e1", null ],
+    [ "CreateApi", "class_base_rpc_module.html#a8ba23178b1764307d6a77dc53d3d6771", null ],
+    [ "Destroy", "class_base_rpc_module.html#a2cfb3f524bc1c2c087acc060536d7cdb", null ],
+    [ "GetApi", "class_base_rpc_module.html#a35934ab8c96b9e9e305799e75d59f0d1", null ],
+    [ "GetApiInfo", "class_base_rpc_module.html#aa931e47624cf3c90cbff438fe90aeeee", null ],
+    [ "GetConfigurationForm", "class_base_rpc_module.html#a42c0cd9c8229505fbb5a6101d9d607bd", null ],
+    [ "GetDeviceConfig", "class_base_rpc_module.html#a125eeaebda04643386b79069dcf89300", null ],
+    [ "GetDeviceState", "class_base_rpc_module.html#ad29e3d08aa2f0ebd107a844a786cc434", null ],
+    [ "GetDiscoverDeviceOptions", "class_base_rpc_module.html#aefe04795edd8dee596347ca51bad99dc", null ],
+    [ "GetModuleName", "class_base_rpc_module.html#aea9a8a1c1f29ecee0d47ccb44e418d49", null ],
+    [ "GetStatus", "class_base_rpc_module.html#a975a310d42a9ddfdde0504f27c813898", null ],
+    [ "IsLastInstance", "class_base_rpc_module.html#ac282aaf9f57f6e492f44bb5d11c46e02", null ],
+    [ "ReDiscover", "class_base_rpc_module.html#a33e6d9ca5a4d8989fdcb2514018fe9eb", null ],
+    [ "SetDeviceState", "class_base_rpc_module.html#af3ff1bfc850026f7dfce7117682a2eb8", null ],
+    [ "SetStatus", "class_base_rpc_module.html#a66ed46afb82eda4f1f996be7e6540722", null ],
+    [ "$api", "class_base_rpc_module.html#ad0262c1bb60544003a7fe605edb66f5a", null ],
+    [ "$lastError", "class_base_rpc_module.html#ab3fb9fb020c2852e967055307612ccd9", null ],
+    [ "$online", "class_base_rpc_module.html#a0e6a37ba13c47e4bd2c43de0ea0ea8ed", null ],
+    [ "$requireLogin", "class_base_rpc_module.html#a7befbe3e3ce6e0acccdfd7618a269a81", null ],
+    [ "$state", "class_base_rpc_module.html#a2b2d5aa481b7febec48a7e3aaa2d5e2f", null ]
+];

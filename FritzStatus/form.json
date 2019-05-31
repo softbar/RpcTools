@@ -1,0 +1,15 @@
+{
+    "elements":
+    [
+		
+		{ "name": "ShowReboot",		"type": "CheckBox", 			"caption": "Show reboot button"},
+		{ "name": "ShowReconnect",	"type": "CheckBox", 			"caption": "Show reconnect button"},
+		{ "name": "ShowWifiKey",	"type": "CheckBox", 			"caption": "Show WLAN guest key"},
+		{ "name": "WifiGuestKey",	"type": "ValidationTextBox", 	"caption": "WLAN guests key"},
+		
+		{ "name": "Wifi2GActionEnabled",	"type": "CheckBox", 	"caption": "Enable Wifi2G Action"},
+		{ "name": "Wifi5GActionEnabled",	"type": "CheckBox", 	"caption": "Enable Wifi5G Action"},
+		{ "name": "WifiGuestActionEnabled",	"type": "CheckBox", 	"caption": "Enable WifiGuest Action"}
+ 		
+   	]
+}
