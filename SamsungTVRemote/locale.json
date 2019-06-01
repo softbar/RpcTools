@@ -1,0 +1,37 @@
+{
+	"translations": {
+		"de": {
+           	"Host IP":"Host IP",
+           	"Bind to IP adress":"Bind to IP adress",
+           	"Bind to MAC adress":"Bind to MAC adress",
+           	"Visible":"Sichtbar",
+           	"Name":"Name",
+           	"Keycode":"Tastenkode",
+           	"Group":"Gruppe",
+           	"Label":"Beschriftung",
+           	"Groups":"Gruppen",
+           	"Key groups":"Tastenzuordnung",
+           	"Connection ready":"Verbindung bereit",
+			"Host IP missing":"Host IP fehlt oder ist ungültig",
+			"My IP missing":"My IP missing",
+			"MAC adress missing":"MAC adress missing",
+			"Enable Key":"Taste aktiv",
+			"Enable Group":"Gruppe aktiv",
+			"Keyname":"Tasten Bezeichnung",
+			"Groupname":"Gruppen Bezeichnung",
+			"Select Group":"Wähle Gruppe",
+			"Error! Macro %s not found":"Fehler! Makro %s nicht gefunden",
+			"Cursor":"Pfeiltasten",
+			"Numbers":"Nummern",
+			"Menu":"Menü",
+			"Media":"Medien",
+			"Source":"Quelle",
+			"Switch":"Schalten",
+			
+			"Macros":"Makros",
+			"Macro Keys":"Makro Tasten",
+			"Macro name":"Makro Name",
+			"Commaseperated list of keycodes (KEY_0,KEY_...)":"Komma getrennte Liste von Tastenkodes (KEY_0,KEY_...)"
+		}
+	}
+}

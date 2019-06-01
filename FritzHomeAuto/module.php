@@ -30,30 +30,6 @@ class FritzHomeAuto extends IPSRpcModule {
 		}
 	}
 	
-	/**
-	 * {@inheritDoc}
-	 * @see IPSRpcModule::ApplyChanges()
-	 */
-	public function ApplyChanges() {
-		if(parent::ApplyChanges() && $this->GetStatus()==102){
-			
-			if(empty($this->ReadPropertyString('AIN'))){
-  				$this->BuildDeviceAINOptionsBuffer();
-				$this->SetStatus(204);
-			}else{
-	 			if(@$this->GetIDForIdent($this->prop_names[PROP_SWITCH]))		
-					$this->MaintainAction($this->prop_names[PROP_SWITCH], $this->ReadPropertyBoolean('EnableSwitchAction'));
- 				$this->RunUpdate();
-	 		}
-		}
-	}
-	private function BuildDeviceAINOptionsBuffer(){
-		$options=[];
-		while($r=$this->CallApi('X_AVM-DE_Homeauto1.GetGenericDeviceInfos',[count($options)]))
-			$options[]=['value'=>$r['NewAIN'],'label'=>$r['NewDeviceName'].' '.$r['NewProductName']];
-		if(count($options)==0)$options[]=['value'=>'','label'=>'no Device found'];
-		$this->SetBuffer('DEVICE_OPTIONS',json_encode($options));
-	}
  	/**
 	 * {@inheritDoc}
 	 * @see IPSModule::GetConfigurationForm()
@@ -89,7 +65,29 @@ class FritzHomeAuto extends IPSRpcModule {
 	// --------------------------------------------------------------------------------
 	protected $timerDef=['ONLINE_INTERVAL'=>[5,'m'],'OFFLINE_INTERVAL'=>[2,'h']];
 	protected $requireLogin=[true,true];
+	protected $showRefreshButton=true;
 	// --------------------------------------------------------------------------------
+	/**
+	 * {@inheritDoc}
+	 * @see BaseRpcModule::ValidateConfiguration()
+	 */
+	protected function ValidateConfiguration(){
+		if(!parent::ValidateConfiguration())return false;
+		if(empty($this->ReadPropertyString('AIN'))){
+  			$this->BuildDeviceAINOptionsBuffer();
+			$this->SetStatus(204);
+			return false;
+		} 
+ 		if(@$this->GetIDForIdent($this->prop_names[PROP_SWITCH]))		
+			$this->MaintainAction($this->prop_names[PROP_SWITCH], $this->ReadPropertyBoolean('EnableSwitchAction'));
+		if(empty($this->ReadPropertyString('Name'))){
+			if($this->updateData(false)){
+				$this->SetBuffer('DO_SKIP',1);
+			}
+			
+		}
+		return true;
+	}
 	/**
 	 * {@inheritDoc}
 	 * @see BaseRpcModule::GetDiscoverDeviceOptions()
@@ -105,14 +103,19 @@ class FritzHomeAuto extends IPSRpcModule {
 	protected function GetModuleName($name,$host){
 		return 'FritzHomeAuto ('.parse_url($host,PHP_URL_HOST).')';
 	}	
-	
 	/**
 	 * {@inheritDoc}
 	 * @see IPSRpcModule::DoUpdate()
 	 */
 	protected function DoUpdate(){
-		if(!($device=$this->CallApi('X_AVM-DE_Homeauto1.GetSpecificDeviceInfos',[$this->ReadPropertyString('AIN')]))
-		) return;
+		if($this->GetBuffer('DO_SKIP')==1){
+			$this->SetBuffer('DO_SKIP',0);
+		}else $this->updateData(true);
+	}
+	private function updateData($doApply){
+		$ain=$this->ReadPropertyString('AIN');
+		if(empty($ain) || !($device=$this->CallApi('X_AVM-DE_Homeauto1.GetSpecificDeviceInfos',[$ain]))
+		) return false;
 //   'NewAIN' => '08761 0004638',
 //   'NewDeviceId' => '16',
 //   'NewFunctionBitMask' => '896',
@@ -130,9 +133,9 @@ class FritzHomeAuto extends IPSRpcModule {
 			$name = mb_convert_encoding ( $name, 'ISO-8859-1', 'UTF-8' );
 		}
 		$name = $pname." ($name)";
-		$save=!IPS_HasChanges($this->InstanceID);
+	
+		$save= $doApply;//!IPS_HasChanges($this->InstanceID);
 		$save_changes=false;
-		
 		if(empty($this->ReadPropertyString('Name'))){
 			IPS_SetProperty($this->InstanceID, 'Name', $name);
 			IPS_SetName($this->InstanceID, $name);
@@ -143,7 +146,7 @@ class FritzHomeAuto extends IPSRpcModule {
 		if (! $conn) {
 			$this->SendDebug ( __FUNCTION__, "Device $name not connected, skip", 0 );
 			if($save && $save_changes)IPS_ApplyChanges($this->InstanceID);
-			return;
+			return false;
 		}
 		$data=[];$props=0;
 		if($device['NewMultimeterIsEnabled']=='ENABLED'){
@@ -164,10 +167,6 @@ class FritzHomeAuto extends IPSRpcModule {
             $this->SendDebug(__FUNCTION__ , $txt,0);
 		}
 		if($device['NewTemperatureIsEnabled']=='ENABLED'){
-//   'NewTemperatureIsEnabled' => 'ENABLED',
-//   'NewTemperatureIsValid' => 'VALID',
-//   'NewTemperatureCelsius' => '215',
-//   'NewTemperatureOffset' => '0',
 			$temperatur = ((integer)$device['NewTemperatureCelsius']) / 10;
              /* offset is already added */
             $offset = ((integer)$device['NewTemperatureOffset']) / 10;
@@ -178,11 +177,6 @@ class FritzHomeAuto extends IPSRpcModule {
             $this->SendDebug(__FUNCTION__ , $txt,0);
 		}
 		if($device['NewSwitchIsEnabled']=='ENABLED'){
-//   'NewSwitchIsEnabled' => 'ENABLED',
-//   'NewSwitchIsValid' => 'VALID',
-//   'NewSwitchState' => 'ON',
-//   'NewSwitchMode' => 'MANUAL',
-//   'NewSwitchLock' => '0',
 			$status = (string)$device['NewSwitchState'];
             $status = ($status == "1");
             $prop=PROP_SWITCH;
@@ -192,15 +186,6 @@ class FritzHomeAuto extends IPSRpcModule {
             $this->SendDebug(__FUNCTION__ , $txt,0);
 		}
 		if($device['NewHkrIsEnabled']=='ENABLED'){
-//   'NewHkrIsEnabled' => 'DISABLED',
-//   'NewHkrIsValid' => 'INVALID',
-//   'NewHkrIsTemperature' => '0',
-//   'NewHkrSetVentilStatus' => 'CLOSED',
-//   'NewHkrSetTemperature' => '0',
-//   'NewHkrReduceVentilStatus' => 'CLOSED',
-//   'NewHkrReduceTemperature' => '0',
-//   'NewHkrComfortVentilStatus' => 'CLOSED',
-//   'NewHkrComfortTemperature' => '0',
                     //data available
                     //values are 0.5C steps 16-56 or 253(On) or 254(off)
             $tist = $device['NewHkrIsTemperature'] / 2;
@@ -224,12 +209,11 @@ class FritzHomeAuto extends IPSRpcModule {
             $this->SendDebug(__FUNCTION__ , $txt,0);
 		}
 		// Update Props
-		$this->SetProps($props);
+		$this->SetProps($props,true,$doApply);
 		if($save && $save_changes)IPS_ApplyChanges($this->InstanceID);
-		
 		// Update Data
 		foreach($data as $k=>$v)$this->SetValueByIdent($k, $v);
-		
+		return true;
 	}
 
 	/**
@@ -273,6 +257,13 @@ class FritzHomeAuto extends IPSRpcModule {
 				$this->SetValueByIdent('SWITCH', $Value);
 			}
 		}
+	}
+	private function BuildDeviceAINOptionsBuffer(){
+		$options=[];
+		while($r=$this->CallApi('X_AVM-DE_Homeauto1.GetGenericDeviceInfos',[count($options)]))
+			$options[]=['value'=>$r['NewAIN'],'label'=>$r['NewDeviceName'].' '.$r['NewProductName']];
+		if(count($options)==0)$options[]=['value'=>'','label'=>'no Device found'];
+		$this->SetBuffer('DEVICE_OPTIONS',json_encode($options));
 	}
 	
 }

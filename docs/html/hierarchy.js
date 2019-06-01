@@ -11,7 +11,8 @@ var hierarchy =
           [ "GenericRpc", "class_generic_rpc.html", null ],
           [ "MediaRpc", "class_media_rpc.html", null ]
         ] ]
-      ] ]
+      ] ],
+      [ "SamsungTVRemote", "class_samsung_t_v_remote.html", null ]
     ] ],
     [ "RpcApi", "class_rpc_api.html", [
       [ "FritzApi", "class_fritz_api.html", null ]

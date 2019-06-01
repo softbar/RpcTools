@@ -1,9 +1,14 @@
 {
     "elements":
     [
-		
 		{ "name": "ShowReboot",		"type": "CheckBox", 			"caption": "Show reboot button"},
 		{ "name": "ShowReconnect",	"type": "CheckBox", 			"caption": "Show reconnect button"},
+		{ "name": "ShowUptime",		"type": "CheckBox", 			"caption": "Show uptime"},
+		{ "name": "ShowUpStream",	"type": "CheckBox", 			"caption": "Show upload speed"},
+		{ "name": "ShowDownStream",	"type": "CheckBox", 			"caption": "Show download speed"},
+		{ "name": "ShowWifi2G",		"type": "CheckBox", 			"caption": "Show Wifi2G"},
+		{ "name": "ShowWifi5G",		"type": "CheckBox", 			"caption": "Show Wifi4G"},
+		{ "name": "ShowWifiGuest",	"type": "CheckBox", 			"caption": "Show Wifi guest"},
 		{ "name": "ShowWifiKey",	"type": "CheckBox", 			"caption": "Show WLAN guest key"},
 		{ "name": "WifiGuestKey",	"type": "ValidationTextBox", 	"caption": "WLAN guests key"},
 		

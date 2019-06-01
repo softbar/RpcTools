@@ -2,7 +2,7 @@
 	"elements":
 	[			
   				{ "name": "ShowDialButton",			"type": "CheckBox", 			"caption": "Show Dial Button"},
-				{ "name": "DialPort",				"type": "ValidationTextBox", 	"caption": "Dial Port"},
+				{ "name": "DialPort",				"type": "ValidationTextBox", 	"caption": "Dial device"},
                 { "name": "ShowMessageButton",		"type": "CheckBox", 			"caption": "Show Message Button"},
       			{ "label": "Valid Colum names are ( Icon, Date, Name, Caller, Called, CalledNumber, Numbertype, Device, Duration)",  	"type": "Label" },
                 { "name": "Columns",  				"type": "ValidationTextBox",    "caption": "Columns" },

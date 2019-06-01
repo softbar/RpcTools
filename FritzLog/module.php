@@ -15,16 +15,7 @@ class FritzLog extends IPSRpcModule {
 		$this->RegisterPropertyString('Filter', '');
 		$this->RegisterPropertyInteger('MaxLines', 20);
 	}
-	/**
-	 * {@inheritDoc}
-	 * @see IPSRpcModule::ApplyChanges()
-	 */
-	public function ApplyChanges() {
-		if(parent::ApplyChanges() && $this->GetStatus()==102){
-			$this->SetProps(PROP_LOGDATA);
-			$this->RunUpdate();
-		}
-	}
+
 	/**
 	 * 
 	 */
@@ -35,6 +26,7 @@ class FritzLog extends IPSRpcModule {
 	// --------------------------------------------------------------------------------
 	protected $timerDef=['ONLINE_INTERVAL'=>[15,'m'],'OFFLINE_INTERVAL'=>[6,'h']];
 	protected $requireLogin=[true,true];
+	protected $showRefreshButton=true;
 	// --------------------------------------------------------------------------------
 	/**
 	 * {@inheritDoc}
@@ -80,6 +72,10 @@ class FritzLog extends IPSRpcModule {
 	 * @var array $prop_names
 	 */
 	protected $prop_names = [PROP_LOGDATA =>'LOGDATA'];
+	
+	protected function UpdateProps($doApply=true){
+		return !$this->SetProps(PROP_LOGDATA,true,$doApply);
+	}
 	// --------------------------------------------------------------------------------
 	
 	

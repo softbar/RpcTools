@@ -1,7 +1,7 @@
 var searchData=
 [
   ['decode',['decode',['../class_xml_r_p_c___parm.html#ad881816b07abffd332775849fd0c4acd',1,'XmlRPC_Parm']]],
-  ['destroy',['Destroy',['../class_base_rpc_module.html#a2cfb3f524bc1c2c087acc060536d7cdb',1,'BaseRpcModule\Destroy()'],['../class_media_rpc.html#a9b00ee978be30572def9f4b01378d3b1',1,'MediaRpc\Destroy()'],['../class_fritz_home_auto.html#a45e6c2fc958755a5d474930de8b9cf84',1,'FritzHomeAuto\Destroy()'],['../class_fritz_status.html#aeb746f5c897ffaf6bc37c08118c144c9',1,'FritzStatus\Destroy()'],['../class_fritz_callmon.html#a89951a07f091bd0262847bd9840ee502',1,'FritzCallmon\Destroy()']]],
+  ['destroy',['Destroy',['../class_base_rpc_module.html#a2cfb3f524bc1c2c087acc060536d7cdb',1,'BaseRpcModule\Destroy()'],['../class_media_rpc.html#a9b00ee978be30572def9f4b01378d3b1',1,'MediaRpc\Destroy()'],['../class_fritz_home_auto.html#a45e6c2fc958755a5d474930de8b9cf84',1,'FritzHomeAuto\Destroy()'],['../class_fritz_status.html#aeb746f5c897ffaf6bc37c08118c144c9',1,'FritzStatus\Destroy()'],['../class_fritz_callmon.html#a89951a07f091bd0262847bd9840ee502',1,'FritzCallmon\Destroy()'],['../class_samsung_t_v_remote.html#a846231299c7ee6f8e6feaf0fed721058',1,'SamsungTVRemote\Destroy()']]],
   ['deviceinfo',['DeviceInfo',['../class_rpc_api.html#aff8692abb906fa238916165081502b74',1,'RpcApi']]],
   ['discovercleanupcache',['DiscoverCleanUpCache',['../discover_8inc.html#a35e87a6ac9ca17dc30bad0caa10c24ad',1,'discover.inc']]],
   ['discoverdeletedevice',['DiscoverDeleteDevice',['../discover_8inc.html#a95b989db47cbbf7065c32b7fc09b695f',1,'discover.inc']]],

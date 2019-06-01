@@ -39,15 +39,35 @@ class FritzCallmon extends IPSRpcModule {
 		parent::Destroy();
 		$this->RegisterHook(__CLASS__.$this->InstanceID, false);
 	}
-	/**
-	 * {@inheritDoc}
-	 * @see IPSRpcModule::ApplyChanges()
-	 */
-	public function ApplyChanges() {
-		if(parent::ApplyChanges() && $this->GetStatus()==102){
-			$this->updateProps();
-			$this->RunUpdate();
-		}
+
+	public function GetConfigurationForm(){
+		$getPhoneOptions = function(){
+			if($options=json_decode($this->GetBuffer('PHONE_LIST'),true))return $options;
+			if(!($r=$this->CallApi('X_AVM-DE_Dect1.GetDectListPath')) || 
+					($xml = simplexml_load_file($this->ReadPropertyString('Host').':49000'.$r))===false){
+				IPS_LogMessage ( IPS_GetName( $this->InstanceID ), sprintf($this->Translate("Error load connected phone names from %s"),$r) );
+				return $options;
+			}
+			if(!empty($xml->Item))foreach($xml->Item as $item){
+				if(preg_match('/!fon/i',(string)$item->Model))
+				$options[]=["value"=>(string)$item->Name,'label'=>sprintf('%s: %s',(string)$item->Id,(string)$item->Name)];
+	   		}
+	   		$this->SetBuffer('PHONE_LIST', json_encode($options));
+	   		return $options;
+		};
+// 		$this->SetBuffer('PHONE_LIST','');
+		if($this->GetStatus()==102 && ($options=$getPhoneOptions())){
+			$f=json_decode(parent::GetConfigurationForm(),true);
+			foreach($f['elements'] as $id=>$e){
+				if(!empty($e['name'])&&$e['name']=='DialPort'){
+ 					$f['elements'][$id]['type']='Select';
+ 					$f['elements'][$id]['options']=$options;
+					break;
+				}
+			}
+			return json_encode($f);
+		} 
+		return parent::GetConfigurationForm();
 	}
 	public function GetConfigurationForParent(){
 		return json_encode(['Host'=>parse_url($this->ReadPropertyString('Host'),PHP_URL_HOST),'Port'=>1012]);
@@ -57,18 +77,20 @@ class FritzCallmon extends IPSRpcModule {
 	 * @see IPSModule::ReceiveData()
 	 */
 	public function ReceiveData($JSONString) {
-		
-		$this->SendDebug(__FUNCTION__,utf8_decode($JSONString),0);
+		$this->SendDebug(__FUNCTION__,$JSONString,0);
 		$this->doDecodeCall(json_decode($JSONString,true)['Buffer']);
 	}
 	
+	
 	public function RequestUpdate(){
 // 		$this->ReDiscover();
-		$this->RunUpdate();
+ 		$this->RunUpdate();
 	}
 	
 	// --------------------------------------------------------------------------------
 	protected $timerDef=['ONLINE_INTERVAL'=>[1,'h'],'OFFLINE_INTERVAL'=>[12,'h']];
+	protected $requireLogin=[true,true];
+	protected $showRefreshButton=true;
 	// --------------------------------------------------------------------------------
 	/**
 	 * {@inheritDoc}
@@ -77,7 +99,7 @@ class FritzCallmon extends IPSRpcModule {
 	protected function GetDiscoverDeviceOptions(){
 		$filter=[
 				'X_AVM-DE_OnTel1.GetInfo','X_AVM-DE_OnTel1.GetCallList',
- 				'X_AVM-DE_TAM1.GetList','X_AVM-DE_TAM1.GetInfo','X_AVM-DE_TAM1.GetMessageList','X_AVM-DE_TAM1.DeleteMessage',
+ 				'X_AVM-DE_TAM1.GetList','X_AVM-DE_TAM1.GetInfo','X_AVM-DE_TAM1.GetMessageList','X_AVM-DE_TAM1.DeleteMessage','X_AVM-DE_TAM1.MarkMessage',
 				'X_AVM-DE_Dect1.GetDectListPath','X_AVM-DE_Dect1.GetNumberOfDectEntries','X_AVM-DE_Dect1.GetGenericDectEntry',
 				'X_VoIP1.X_AVM-DE_DialGetConfig','X_VoIP1.X_AVM-DE_DialSetConfig','X_VoIP1.X_AVM-DE_DialNumber','X_VoIP1.X_AVM-DE_DialHangup',
 				'DeviceConfig1.X_AVM-DE_CreateUrlSID'
@@ -91,6 +113,17 @@ class FritzCallmon extends IPSRpcModule {
 	protected function GetModuleName($name,$host){
 		return 'FritzCallmon ('.parse_url($host,PHP_URL_HOST).')';
 	}	
+
+	protected function UpdateProps($doApply=true){
+		$props=PROP_CALLLIST+PROP_MISSED+PROP_MESSAGES ;
+		if($lines=$this->ReadPropertyInteger('DialLines'))
+			for($j=0;$j<$lines;$j++) $props+=constant("PROP_LINE_$j");			
+		$ok=!$this->SetProps($props,true,$doApply);
+		if($this->ReadPropertyBoolean('ShowDialButton')||$this->ReadPropertyBoolean('ShowMessageButton')){
+			$this->RegisterHook(__CLASS__.$this->InstanceID, true);
+		}
+		return $ok;
+	}
 	/**
 	 * {@inheritDoc}
 	 * @see IPSRpcModule::DoUpdate()
@@ -99,7 +132,7 @@ class FritzCallmon extends IPSRpcModule {
 		if(!($r=$this->CallApi('X_AVM-DE_OnTel1.GetCallList')))return;
 		$xml = @simplexml_load_file ( $r );
 		if ($xml === false) {
-			IPS_LogMessage ( IPS_GetObject ( $this->InstanceID ) ['ObjectName'], "Fehler beim laden der callList! $r" );
+			IPS_LogMessage ( IPS_GetName( $this->InstanceID ), sprintf($this->Translate("Error load call list from %s"),$r) );
 			return false;
 		}
 		$xml = new simpleXMLElement ( $xml->asXML () );
@@ -121,10 +154,10 @@ class FritzCallmon extends IPSRpcModule {
         for ($i=0;$i<5;$i++){
             $GetInfo = $this->CallApi('X_AVM-DE_TAM1.GetInfo',["NewIndex"=>$i]);
             if ($GetInfo["NewName"] <> ""){
-                $URL = $this->CallApi('X_AVM-DE_TAM1.GetMessageList',["NewIndex"=>$i]);
-                $xml = @simplexml_load_file($URL);
+                $r = $this->CallApi('X_AVM-DE_TAM1.GetMessageList',["NewIndex"=>$i]);
+                $xml = @simplexml_load_file($r);
                 if ($xml === false){
-                    IPS_LogMessage(IPS_GetName($this->InstanceID),__FUNCTION__. "::Error load Messages!");
+					IPS_LogMessage ( IPS_GetName( $this->InstanceID ), sprintf($this->Translate("Error load awnsering message list from %s"),$r) );
                     return false;
                 }
                 $xml = new simpleXMLElement($xml->asXML());
@@ -178,14 +211,14 @@ class FritzCallmon extends IPSRpcModule {
 	protected function GetPropDef($Ident){
 // 		$this->SendDebug(__FUNCTION__, $Ident, 0);
 		switch($Ident){
- 			case $this->prop_names[PROP_CALLLIST]: return [3,'Callerlist','~HTMLBox',0,'Telephone',PROP_CALLLIST,6];
-			case $this->prop_names[PROP_MISSED]	: return [1,'Missed calls','',1,'Talk',PROP_MISSED,7];
-			case $this->prop_names[PROP_MESSAGES]: return  [1,'New messages','',2,'Talk',PROP_MESSAGES,8];
-			default : $m=null;if(preg_match('/line_(\d)/i',$Ident,$m))return [3,'Status line '.($m[1]+1),'',0,'HollowDoubleArrowRight',constant('PROP_LINE_'.$m[1]),$m[1]];
+ 			case $this->prop_names[PROP_CALLLIST]: return [3,'Callerlist','~HTMLBox',0,'Telephone',PROP_CALLLIST,0];
+			case $this->prop_names[PROP_MISSED]	: return [1,'Missed calls','',7,'Talk',PROP_MISSED,0];
+			case $this->prop_names[PROP_MESSAGES]: return  [1,'New messages','',8,'Talk',PROP_MESSAGES,0];
+			default : $m=null;if(preg_match('/line_(\d)/i',$Ident,$m))return [3,'Line '.($m[1]+1),'',$m[1],'HollowDoubleArrowRight',constant('PROP_LINE_'.$m[1]),0];
 
 		}
 	}
-	protected $prop_names = [PROP_CALLLIST=>'CALLLIST',PROP_MISSED=>'MISSED',PROP_MESSAGES=>'MESSAGES',PROP_LINE_0=>'LINE_0',PROP_LINE_1=>'LINE_1',PROP_LINE_2=>'LINE_2',PROP_LINE_3=>'LINE_3',PROP_LINE_4=>'LINE_4',PROP_LINE_5=>'LINE_5'	];
+	protected $prop_names = [PROP_CALLLIST=>'CALLLIST',PROP_MISSED=>'MISSED',PROP_MESSAGES=>'MESSAGES',  PROP_LINE_0=>'LINE_0',PROP_LINE_1=>'LINE_1',PROP_LINE_2=>'LINE_2',PROP_LINE_3=>'LINE_3',PROP_LINE_4=>'LINE_4',PROP_LINE_5=>'LINE_5'	];
 	/**
 	 * {@inheritDoc}
 	 * @see IPSRpcModule::ProcessHookData()
@@ -195,7 +228,7 @@ class FritzCallmon extends IPSRpcModule {
 		$this->SendDebug(__FUNCTION__,print_r($_GET,true),0);
 		if(isset($_GET['cmd'])){
 			if($_GET['cmd']=='message'){
-		       if (isset ($_GET['path'])){
+				if (isset ($_GET['path'])){
 		            $sid = $this->CallApi('DeviceConfig1.X_AVM-DE_CreateUrlSID');
 		            $file = $this->ReadPropertyString("Host").":49000".urldecode($_GET['path'])."&".$sid;
 		            $this->SendDebug(__FUNCTION__,"Send File => $file",0);
@@ -204,6 +237,14 @@ class FritzCallmon extends IPSRpcModule {
 		            @header('Cache-Control: must-revalidate');
 		            readfile($file);
 		        }
+		    	if (isset($_GET['index']) && isset($_GET['action'])){
+		    		if($_GET['action']=="delete") {
+		    	   		$r=$this->CallApi('X_AVM-DE_TAM1.DeleteMessage',[(int)$_GET['tam'],(int)$_GET['index']]);
+		    		}elseif($_GET['action']=="mark") {
+                		$r=$this->CallApi('X_AVM-DE_TAM1.MarkMessage',[(int)$_GET['tam'],(int)$_GET['index'],1]);
+            		}else return;
+            		if($r)$this->RunUpdate();
+        		}
 			}
 			else if($_GET['cmd']=='dial'){
 				if(isset($_GET['number'])){
@@ -219,15 +260,7 @@ class FritzCallmon extends IPSRpcModule {
 	
 	// --------------------------------------------------------------------------------
 	
-	private function updateProps(){
-		$props=PROP_CALLLIST+PROP_MISSED+PROP_MESSAGES ;
-		if($lines=$this->ReadPropertyInteger('DialLines'))
-			for($j=0;$j<$lines;$j++) $props+=constant("PROP_LINE_$j");			
-		$this->SetProps($props);
-		if($this->ReadPropertyBoolean('ShowDialButton')||$this->ReadPropertyBoolean('ShowMessageButton')){
-			$this->RegisterHook(__CLASS__.$this->InstanceID, true);
-		}
-	}
+	
 	private function doDial(string $Number){
 		$DialPort=$this->ReadPropertyString('DialPort');
 		
@@ -238,7 +271,7 @@ class FritzCallmon extends IPSRpcModule {
             $dialConfig = "";
  
        	if(empty($DialPort) && empty($dialConfig)){
-           IPS_LogMessage(__CLASS__,__FUNCTION__. "::Fehler: Anruf an '".$Number."' nicht möglich, da kein Ausgangsport gesetzt ist!");
+           IPS_LogMessage(IPS_GetName($this->InstanceID),sprintf($this->Translate('Error can not call to %s ! Dial device not set'),$Number));
            return false;
         }
 		$DialPort='DECT: '.$DialPort;
@@ -256,59 +289,47 @@ class FritzCallmon extends IPSRpcModule {
         if($api->LastError())return null;
         return $result;
     }
-	
-	
-	/*********************************************************************
-	 * Render Basics
- 	 *********************************************************************/	
-	private function RenderHTML($detailDIV,$msgDIV,$linkDIV, $extendedDIV='', $childDIV=''){
-           return "<div class=\"ipsContainer container nestedEven ipsVariable\" style=\"border-color: rgba(255,255,255,0.15); border-style: solid; border-width: 0 0 1px;\">
-	<div class=\"content tr\">
-		<div class=\"title td\" style=\"width: 100%\">
-			<div style=\"min-width: 300px; width: 100%;\">".$detailDIV."</div>
-		</div>
-		<div class=\"visual td\">$msgDIV</div>
-		<div class=\"link td\">$linkDIV</div>
-	</div>
-	<div class=\"extended empty\">$extendedDIV</div>
-	<div class=\"childContainers empty\">$childDIV</div>
-</div>";
-	}
-	private function RenderHead($columns, array $widths=[]){
-		$i=0;$columnWidth = 100/count($columns)."%";
-		$detailDIV='';
-		foreach($columns as $column){
-			$col=strtolower($column);
-			$width=isset($widths[$col])? 'width: '.$widths[$col].';':'';
-			if ($i < count ( $columns ))
-				$style = "float: left; width: $columnWidth; overflow-x: hidden; margin-right: 10px;";
-			else 
-				$style = "float: none; width: auto; overflow-x: hidden;";
-			$detailDIV .= "<div style=\"$style$width\">".$this->Translate($column)."</div>";
-		}
-		return $this->RenderHTML($detailDIV,'','');
-	}
-	private function RenderDialScript(){
-		return "<script>
-	function dial(obj) {
-		var messagePath = window.location.origin+'/hook/phone$this->InstanceID/?cmd=dial&number='+obj.getAttribute('data-nr');
-		//console.log(messagePath);
-		var s=document.createElement('SCRIPT');
-		s.src=messagePath;
-		try{document.body.appendChild(s)} catch(e){}
-		window.setTimeout(function(){document.body.removeChild(s)},100);
-    }
-</script>";
-	}
-	private function RenderDialDiv($callnumber){
-		$buttonVisibility = strlen($callnumber) > 0 ? "visible" : "hidden";
-		return '<div class="ipsContainer text colored" style="background-color: rgba(255, 255, 255, 0.3); visibility: '.$buttonVisibility.";\" title=\"$callnumber\" data-nr=\"$callnumber\" onclick=\"dial(this);\">".$this->Translate('Dial')."</div>";
-	}
    	private function RenderCallList($callList=null) {
-        $missedCallsCounter = 0;
+		$RenderDialDiv= function ($callnumber){
+			$visible=empty($callnumber)?'hidden':'visible';
+			return  '<div class="ipsContainer text colored" style="background-color: rgba(255, 255, 255, 0.3);visibility:'.$visible.';" title="'.$callnumber.'" data-nr="'.$callnumber.'" onclick="dial(this);">'.$this->Translate('Dial')."</div>";
+		};
+		$RenderMesageDiv = function ($call, $visible=true){
+       		 $visible=$visible&&strlen(trim($call->Path)) > 0?'visible':'hidden';
+        	return '<div class="ipsContainer text colored" style="background-color: rgba(255, 255, 255, 0.3);visibility: '.$visible.';" data-id="'.$call->Id."\" data-messagepath=\"".$call->Path."\" onclick=\"playMessage(this);\">".$this->Translate('Play')."</div>";
+		};
+	 	$RenderDialScript= function (){
+			$hookURL="/hook/".__CLASS__.$this->InstanceID."/";
+			return "<script>
+		function dial(obj) {
+			var messagePath = window.location.origin+'$hookURL/?cmd=dial&number='+obj.getAttribute('data-nr');
+			//console.log(messagePath);
+			var s=document.createElement('SCRIPT');
+			s.src=messagePath;
+			try{document.body.appendChild(s)} catch(e){}
+			window.setTimeout(function(){document.body.removeChild(s)},100);
+	    }
+	</script>";
+		}; 		
+		$RenderHTML=function ($detailDIV,$msgDIV,$linkDIV, $extendedDIV='', $childDIV=''){
+	           return "<div class=\"ipsContainer container nestedEven ipsVariable\" style=\"border-color: rgba(255,255,255,0.15); border-style: solid; border-width: 0 0 1px;\">
+		<div class=\"content tr\">
+			<div class=\"title td\" style=\"width: 100%\">
+				<div style=\"min-width: 300px; width: 100%;\">".$detailDIV."</div>
+			</div>
+			<div class=\"visual td\">$msgDIV</div>
+			<div class=\"visual td\">$linkDIV</div>
+		</div>
+		<div class=\"extended empty\">$extendedDIV</div>
+		<div class=\"childContainers empty\">$childDIV</div>
+	</div>";
+		};
+		
+   		$missedCallsCounter = 0;
         $messageCounter = 0;
 		$showMessages=$this->ReadPropertyBoolean('ShowMessageButton');
 		$showDial=$this->ReadPropertyBoolean('ShowDialButton');
+		$headRedered=!$this->ReadPropertyBoolean('ShowHeader');
 		$HTML='';
 		$hookURL="/hook/".__CLASS__.$this->InstanceID."/";
 		if($showMessages){
@@ -324,13 +345,13 @@ class FritzCallmon extends IPSRpcModule {
 	                    }
 	                 </script>";
         }
-        if($showDial)$HTML.= $this->RenderDialScript();
+        if($showDial)$HTML.= $RenderDialScript();
         $maxCaller = $this->ReadPropertyInteger('CallLines');
 		if($maxCaller<1)$maxCaller=1;
         if($callList != null) {    
 	        $columns = explode(",", str_replace(" ", "", IPS_GetProperty($this->InstanceID, "Columns")));
-	        $columnWidth = 100/count($columns)."%";
-			if($this->ReadPropertyBoolean('ShowHeader'))$HTML.=$this->RenderHead($columns);
+	        $colcount=count($columns);
+	        $columnWidth = 100/$colcount."%";
             $props=['',$this->ReadPropertyBoolean("CallType_1"),$this->ReadPropertyBoolean("CallType_2"),
             		$this->ReadPropertyBoolean("CallType_3"),$this->ReadPropertyBoolean("CallType_4"),
             		$this->ReadPropertyBoolean("CallType_5"),$this->ReadPropertyBoolean("CallType_6"),
@@ -397,35 +418,50 @@ class FritzCallmon extends IPSRpcModule {
                 }
                 $detailDIV = "";
                 $i=1;
-
+			
+                
                 $callname=empty(trim((string)$call->Name))?'Unknown':(string)$call->Name;
                 $callnumber=trim((string)$call->Caller);
-// 				$called=trim((string)$call->Called);
-// 				$ <CalledNumber>53333995</CalledNumber>
-                
+// 		
+                $head='';
                 foreach ($columns as $column) {
-                    if($i < count($columns))
-                        $style = "float: left; width: ".$columnWidth."; overflow-x: hidden; margin-right: 10px;";
-                    else
-                        $style = "float: none; width: auto; overflow-x: hidden;";
-                    
+                    $style=($i <$colcount)?
+                        "float: left; width: $columnWidth; overflow-x: hidden; margin-right: 10px;" :
+                    	"float: none; width: auto; overflow-x: hidden;";
+                    $as='';
                     switch (strtolower($column)) {
-                        case 'icon':
-                            $detailDIV .= "<div class=\"icon td ".$rowIcon."\" style=\"".$style." height: 35px; width: 35px !important;\"></div>";
-                            break;
-                        case 'name':
-                            $detailDIV .= "<div style=\"".$style."\">$callname</div>";
-                            break;
-                        default:
-                            $detailDIV .= "<div style=\"".$style."\">".$call->$column."</div>";
-                            break;
+                        case 'icon'	 : 
+                        	$detailDIV .= "<div class=\"icon td $rowIcon\" style=\"$style height: 35px; width: 35px !important;\"></div>"; 
+                        	if(!$headRedered)$head.="<div style=\"$style overflow: hidden;height: 35px; width: 35px !important;\">".$this->Translate($column)."</div>";
+                        	break;
+                        case 'name'	 : 
+                        	$detailDIV .= "<div style=\"$style\">$callname</div>"; 
+                        	if(!$headRedered)$head.="<div style=\"$style overflow: hidden;\">".$this->Translate($column)."</div>";
+                        	break;
+                        case 'date'	 : 
+                        	$as='width: 120px !important;';
+                        case 'caller': 
+                        	if(empty($as))$as='width: 150px !important;';
+                        	
+                        default: 
+                        	
+                        	$detailDIV .= "<div style=\"$style $as\">{$call->$column}</div>";
+                        	if(!$headRedered)$head.="<div style=\"$style $as overflow: hidden;\">".$this->Translate($column)."</div>";
+                        	
                     }
                     $i++;
                 }
-                $dialDIV=$showDial?$this->RenderDialDiv($callnumber):'';
-             	$buttonVisibility = strlen(trim($call->Path)) > 0 ? "visible" : "hidden";
-                $msgDIV=$showMessages?'<div class="ipsContainer text colored" style="background-color: rgba(255, 255, 255, 0.3); visibility: '.$buttonVisibility.';" data-id="'.$call->Id."\" data-messagepath=\"".$call->Path."\" onclick=\"playMessage(this);\">".$this->Translate('Play')."</div>":'';
-                $HTML .=$this->RenderHTML($detailDIV, $msgDIV.$dialDIV,'');            }    
+                
+                $dialDIV=$showDial?$RenderDialDiv($callnumber):'';
+                $msgDIV=$showMessages?$RenderMesageDiv($call,true):'';
+                if(!$headRedered){
+					$m=$showMessages?$RenderMesageDiv($call,false):'';            
+                	$d=$showDial?$RenderDialDiv(0):'';
+               		$HTML.=$RenderHTML($head, $m,$d);    
+                	$headRedered=true;
+                }
+                
+                $HTML .=$RenderHTML($detailDIV, $msgDIV,$dialDIV,'');            }    
         }
         $this->SetValueByIdent("MISSED", $missedCallsCounter);
         $this->SetValueByIdent("MESSAGES", $messageCounter);
@@ -434,7 +470,7 @@ class FritzCallmon extends IPSRpcModule {
 	
 	private function doDecodeCall($data){
 		if($this->GetStatus()!=102){
-			IPS_LogMessage(IPS_GetName($this->InstanceID), __FUNCTION__.'::Error Instance not Ready, skip call info');
+			IPS_LogMessage(IPS_GetName($this->InstanceID),sprintf($this->Translate('Error Instance not ready, skip call info => %S'),$data) );
 			return;
 		}
 		if(!($cfg=json_decode($this->GetBuffer('CALL_INFO'),true)))$cfg=[null,null,0,0,0];
@@ -469,7 +505,7 @@ class FritzCallmon extends IPSRpcModule {
 					$dauer=(int)array_shift($arr);
 					if($dauer > 3600)$dauer-=3600;
 					$dauer=$dauer > 3600 ? date('h:i:s',$dauer):date('i:s',$dauer);
-					$txt=$this->Translate($ident=='RING'?'Incoming':'Outgoing')." ".$this->Translate("connection %s with %s closed. Duration $dauer");
+					$txt=$this->Translate($ident=='RING'?'Incoming':'Outgoing')." ".sprintf($this->Translate("connection %s with %s closed. Duration %s"),$quelle,$ziel,$dauer);
 					unset($cfg[$line]);
 				}	
 				$a=$quelle;	$b=$ziel;

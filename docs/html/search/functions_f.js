@@ -1,5 +1,6 @@
 var searchData=
 [
-  ['validatetimers',['ValidateTimers',['../class_i_p_s_rpc_module.html#af9837fd6f93833ce1e99bf8af44433c7',1,'IPSRpcModule']]],
-  ['validident',['ValidIdent',['../class_i_p_s_rpc_module.html#a4344872b3f77e36d97cfb390942a657b',1,'IPSRpcModule']]]
+  ['validateconfiguration',['ValidateConfiguration',['../class_base_rpc_module.html#a680e3cf6a8c260948d5b89836d377085',1,'BaseRpcModule\ValidateConfiguration()'],['../class_fritz_home_auto.html#a04ee22650c6982f5a6bde8b47c1578e1',1,'FritzHomeAuto\ValidateConfiguration()']]],
+  ['validatetimers',['ValidateTimers',['../class_base_rpc_module.html#a58f253958ada5909bf5ee813ad35cb5d',1,'BaseRpcModule']]],
+  ['validident',['ValidIdent',['../class_base_rpc_module.html#a6a68ae1d8bbb12faba4f69edde487aa5',1,'BaseRpcModule']]]
 ];

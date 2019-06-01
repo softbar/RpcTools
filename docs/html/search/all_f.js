@@ -8,11 +8,16 @@ var searchData=
   ['s_5flowernames',['S_LOWERNAMES',['../rpc__constants_8inc.html#ab0b4e85c2a7bee1c6133479342852214',1,'rpc_constants.inc']]],
   ['s_5fport',['S_PORT',['../rpc__constants_8inc.html#adccc89a9109c5572d75bc384ebcbde16',1,'rpc_constants.inc']]],
   ['s_5furn',['S_URN',['../rpc__constants_8inc.html#aa75d7f4e8b469e4221fcc53f8371029f',1,'rpc_constants.inc']]],
+  ['samsungtvremote',['SamsungTVRemote',['../class_samsung_t_v_remote.html',1,'']]],
+  ['sendkey',['SendKey',['../class_samsung_t_v_remote.html#abc4bb5e3c85739d653dc6f66c9acba2e',1,'SamsungTVRemote']]],
+  ['sendkeycodeex',['SendKeyCodeEx',['../class_samsung_t_v_remote.html#a0234b6c936ae1cfd5fbd52d350c01c73',1,'SamsungTVRemote']]],
+  ['sendkeycodemacro',['SendKeyCodeMacro',['../class_samsung_t_v_remote.html#a03de3fa42cf8cc6a822eac1762aecf0b',1,'SamsungTVRemote']]],
+  ['sendmacro',['SendMacro',['../class_samsung_t_v_remote.html#a07eb08f3aa1a05006547dbc9dd1532ca',1,'SamsungTVRemote']]],
   ['setdevicestate',['SetDeviceState',['../class_base_rpc_module.html#af3ff1bfc850026f7dfce7117682a2eb8',1,'BaseRpcModule']]],
   ['seterrorhandler',['SetErrorHandler',['../class_rpc_api.html#a74b9496318f56c933139740aa6e1d517',1,'RpcApi']]],
   ['setprops',['SetProps',['../class_i_p_s_rpc_module.html#adb93afc9a07d0aea4494551a61914376',1,'IPSRpcModule']]],
   ['setstatus',['SetStatus',['../class_base_rpc_module.html#a66ed46afb82eda4f1f996be7e6540722',1,'BaseRpcModule']]],
-  ['setvaluebyident',['SetValueByIdent',['../class_i_p_s_rpc_module.html#a8f64a4abff181f2e8bf8bbc67d7f08e8',1,'IPSRpcModule']]],
-  ['starttimer',['StartTimer',['../class_i_p_s_rpc_module.html#a6a884c30252cde83e2c02629a8828d8f',1,'IPSRpcModule']]],
-  ['stoptimer',['StopTimer',['../class_i_p_s_rpc_module.html#ab415256decf12d9f89a7f069961afe2c',1,'IPSRpcModule']]]
+  ['setvaluebyident',['SetValueByIdent',['../class_base_rpc_module.html#a1f87b4e5788ab0565ee015336dd35d79',1,'BaseRpcModule']]],
+  ['starttimer',['StartTimer',['../class_base_rpc_module.html#a169c2a440628d6b1ce275e0eb9adceee',1,'BaseRpcModule\StartTimer()'],['../class_i_p_s_rpc_module.html#a6a884c30252cde83e2c02629a8828d8f',1,'IPSRpcModule\StartTimer()']]],
+  ['stoptimer',['StopTimer',['../class_base_rpc_module.html#a96282fd8f20b4d589a6de705ad9b3204',1,'BaseRpcModule']]]
 ];

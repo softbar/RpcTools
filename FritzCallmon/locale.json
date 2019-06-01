@@ -18,6 +18,10 @@
 			"Host": "Host",
            	"Username": "Benutzername",
            	"Password": "Passwort",
+           	"Show refresh button":"Schaltfläche \"Aktualisieren\" anzeigen",
+           	"Refresh now":"Jetzt aktualisieren",
+           	"Refresh":"Aktuallisieren",
+            	
            	"Connection ready":"Verbindung bereit",
            	"Host missing or invalid":"Host fehlt oder ist ungültig",
            	"Initializing host missing or invalid":"Initializierungs Host fehlt oder ist ungültig",
@@ -30,7 +34,7 @@
 
 			"Show Message Button":"Zeige Nachrichten Schaltfläche",
 			"Show Dial Button":"Zeige Wahl Schaltfläche",
-			"Dial Port":"Wahl Gerät",
+			"Dial device":"Wahl Gerät",
 			"Callmon Lines":"Anrufmonitor Leitungen",
 			"1-6 | 0=off":"1-6 | 0=aus",
 			"Columns": "Spalten",
@@ -54,22 +58,34 @@
 			"Answering machine, new":"Anrufbeantworter, neu",
 			"Answering machine, old":"Anrufbeantworter, alt",
 			"Answering machine, deleted":"Anrufbeantworter, gelöscht",
-		  	"Status line 1":"Status Leitung 1",
-		  	"Status line 2":"Status Leitung 2",
-		  	"Status line 3":"Status Leitung 3",
-		  	"Status line 4":"Status Leitung 4",
-		  	"Status line 5":"Status Leitung 5",
-		  	"Status line 6":"Status Leitung 6",
-		  	
+		  	"Line 1":"Leitung 1",
+		  	"Line 2":"Leitung 2",
+		  	"Line 3":"Leitung 3",
+		  	"Line 4":"Leitung 4",
+		  	"Line 5":"Leitung 5",
+		  	"Line 6":"Leitung 6",
+		  	"Icon":"Bild",
+		  	"Date":"Datum",
+		  	"Caller":"Anrufer",
+		  	"Called":"Teilnehmer",
+		  	"CalledNumer":"Rufnummer",
+		  	"Device":"Gerät",
+		  	"Duration":"Dauer",
 		  	"Dial":"Anrufen",
 		  	"Play":"Abspielen",
+		  	"Numbertype":"Nummertype",
 		  	
 		  	"Call from %s for %s": "Anruf von %s für %s",
 		  	"Call from %s to %s":"Anruf von %s zu %s",
 		  	"%s connected with %s":"%s verbunden mit %s",
 		  	"Incoming":"Eingehende",
 		  	"Outgoing":"Ausgehende",
-		  	"connection %s with %s closed. Duration $dauer":"Verbindung %s mit %s beendet. Dauer $dauer"
+		  	"connection %s with %s closed. Duration %s":"Verbindung %s mit %s beendet. Dauer %s",
+		  	"Error Instance not ready, skip call info => %S":"Fehler: Gerät nicht bereit,überspringe Anrufinfo info => %S",
+		  	"Error can not call to %s ! Dial device not set":"Fehler: Anruf an %s nicht möglich da kein wahlgerät konfiguriert ist!",
+		  	"Error load awnsering message list from %s":"Fehler beim laden der Anrufbeantworter nachrichten von %s",
+		  	"Error load call list from %s":"Fehler beim laden der Anrufliste von %s",
+		  	"Error load connected phone names from %s":"Fehler beim laden verbundener Telefone von %s"
 		}
 	}
 }

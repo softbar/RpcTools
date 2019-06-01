@@ -29,7 +29,7 @@ var NAVTREE =
       [ "Class Index", "classes.html", null ],
       [ "Class Hierarchy", "hierarchy.html", "hierarchy" ],
       [ "Class Members", "functions.html", [
-        [ "All", "functions.html", null ],
+        [ "All", "functions.html", "functions_dup" ],
         [ "Functions", "functions_func.html", null ],
         [ "Variables", "functions_vars.html", null ]
       ] ]
@@ -48,7 +48,7 @@ var NAVTREE =
 var NAVTREEINDEX =
 [
 "_fritz_callmon_2module_8php.html",
-"dir_d0323890c3103ecd28618e6ba422f49d.html"
+"class_xml_r_p_c___array.html"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

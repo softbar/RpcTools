@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['utils',['UTILS',['../class_u_t_i_l_s.html',1,'']]]
+  ['samsungtvremote',['SamsungTVRemote',['../class_samsung_t_v_remote.html',1,'']]]
 ];

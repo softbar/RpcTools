@@ -1,6 +1,6 @@
 <?
-
 require_once __DIR__.'/../libs/rpc_module.inc';
+define ( 'MODULEDIR', __DIR__ );
 /**
  * @author Xavier
  *
@@ -16,13 +16,7 @@ class GenericRpc extends IPSRpcModule {
 		$this->RegisterPropertyBoolean('FileMode',false);
 		$this->RegisterPropertyInteger('View',0);
 	}
-	/**
-	 * {@inheritDoc}
-	 * @see IPSModule::ApplyChanges()
-	 */
-	public function ApplyChanges() {
-		parent::ApplyChanges();	
-	}
+
  	/**
 	 * {@inheritDoc}
 	 * @see IPSModule::GetConfigurationForm()
@@ -40,20 +34,7 @@ class GenericRpc extends IPSRpcModule {
 			return $values;
 	 	};
 		$f=json_decode(parent::GetConfigurationForm(),true);
-		$f['actions']=[
-				["name"=>"devices","type"=>"List",
-			   	 	"add"=>false,"delete"=>false,
-					"columns"=>[
-				  		["name"=>"s", "caption"=>"Service","width"=>"150px"],
-				 		["name"=>"f", "caption"=>"Function","width"=>"200px"],
-						["name"=>"a", "caption"=>"Arguments", "width"=> "auto"]
-				 	],
-					"values"=>$getFormValues()
-				],
- 				["name"=>"params","type"=>"ValidationTextBox", "caption"=>"Commaseperated Args"],
- 				["type"=>"Button", "caption"=>"Execute","onClick"=>"if(empty(\$devices))echo 'please select method first';else if(!empty(\$devices['a'])&&(\$params==''||count(explode(',',\$params))!=count(explode(',',\$devices['a'])) ) )echo 'Invalid argument count, check your argument input!'; else echo var_export(RPCGENERIC_CallMethod(\$id,\$devices['s'].'.'.\$devices['f'],\$params),true);"],
-		];
-		
+		$f['actions'][0]['values']=$getFormValues();
 		return json_encode($f);
 	}
 	/**
@@ -85,5 +66,6 @@ class GenericRpc extends IPSRpcModule {
 	 */
 	protected function DoUpdate() {}
 
+	
 }
 ?>

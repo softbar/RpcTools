@@ -17,6 +17,11 @@
 			"Host": "Host",
            	"Username": "Benutzername",
            	"Password": "Passwort",
+           	"Show refresh button":"Schaltfläche \"Aktualisieren\" anzeigen",
+           	"Refresh now":"Jetzt aktualisieren",
+           	"Refresh":"Aktuallisieren",
+           	
+           	
            	"Connection ready":"Verbindung bereit",
            	"Host missing or invalid":"Host fehlt oder ist ungültig",
            	"Initializing host missing or invalid":"Initializierungs Host fehlt oder ist ungültig",

@@ -4,7 +4,7 @@ ini_set('max_execution_time',"180");
 require_once 'rpc_constants.inc';
 	
 const 
-	PropFunctions=[PROP_VOLUME_CONTROL=>['GetVolume','SetVolume'],PROP_MUTE_CONTROL=>['GetMute','SetMute'],PROP_TREBLE_CONTROL=>['GetTreble','SetTreble'],PROP_BASS_CONTROL=>['GetBass','SetBass'],PROP_LOUDNESS_CONTROL=>['GetLoudness','SetLoudness'],PROP_BRIGHTNESS_CONTROL=>['GetBrightness','SetBrightness'],PROP_CONTRAST_CONTROL=>['GetContrast','SetContrast'],PROP_SHARPNESS_CONTROL=>['GetSharpness','SetSharpness'],PROP_COLOR_CONTROL=>['GetColor','SetColor'] ,PROP_SOURCE_CONTROL=>['GetSource','SetSource'],PROP_PLAY_CONTROL=>['Stop','Play','Pause','Next','Previous','Seek','GetTransportInfo'],PROP_CONTENT_BROWSER=>['Browse','Search']];
+	PropFunctions=[PROP_VOLUME_CONTROL=>['GetVolume','SetVolume'],PROP_MUTE_CONTROL=>['GetMute','SetMute'],PROP_TREBLE_CONTROL=>['GetTreble','SetTreble'],PROP_BASS_CONTROL=>['GetBass','SetBass'],PROP_LOUDNESS_CONTROL=>['GetLoudness','SetLoudness'],PROP_BRIGHTNESS_CONTROL=>['GetBrightness','SetBrightness'],PROP_CONTRAST_CONTROL=>['GetContrast','SetContrast'],PROP_SHARPNESS_CONTROL=>['GetSharpness','SetSharpness'],PROP_COLOR_CONTROL=>['GetColor','SetColor'] ,PROP_SOURCE_CONTROL=>['GetSource','SetSource'],PROP_PLAY_CONTROL=>['Stop','Play','Pause','Next','Previous','Seek','GetTransportInfo','SetAVTransportURI'],PROP_CONTENT_BROWSER=>['Browse','Search']];
 
 	
 	

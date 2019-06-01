@@ -1,0 +1,44 @@
+{
+    "elements": [
+    	{"name":"Host", "type":"ValidationTextBox","caption":"Host IP"},
+    	{"name":"My_ip", "type":"ValidationTextBox","caption":"Bind to IP adress"},
+    	{"name":"My_mac", "type":"ValidationTextBox","caption":"Bind to MAC adress"},
+    	{ "type": "RowLayout", "items": [
+    	{"name":"GroupNames","type":"List", "caption":"Groups",
+   	 		"add":false,"delete":false, "rowCount":8,
+    		"sort":{ "column":"label","direction":"ascending"},
+			"columns":[
+				{"name":"enabled", "caption":"Visible","width":"80px",  "edit":{"type":"CheckBox","caption":"Enable Group"} },
+ 				{"name":"label", "caption":"Name","width":"120px",  "edit":{"type":"ValidationTextBox","caption":"Groupname"}},
+  				{"name":"value", "caption":"","width":"0px", "visible":false, "save":true }
+ 			]
+ 		},
+ 		{"name":"KeyGroups","type":"List", "caption":"Key groups",
+   	 		"add":false,"delete":false,"rowCount":10,
+    		"sort":{ "column":"group","direction":"ascending"},
+			"columns":[
+				{"name":"enabled", "caption":"Visible","width":"80px" ,  "edit":{"type":"CheckBox","caption":"Enable Key"} },
+				{"name":"value", "caption":"Keycode","width":"100px", "save":true},
+				{"name":"label", "caption":"Label","width":"100px", "edit":{"type":"ValidationTextBox","caption":"Keyname"} },
+ 				{"name":"group", "caption":"Group","width":"120px", "edit":{"type":"Select","caption":"Select Group", "options_g":[] }},
+ 				{"name":"id", "caption":"","width":"0px", "visible":false, "save":true }
+ 			]
+ 		}
+ 		]},
+    	{ "name":"Macros","type":"List", "caption":"Macros",
+   	 		"add":true,"delete":true, "rowCount":5,
+    		"sort":{ "column":"name","direction":"ascending"},
+			"columns":[
+				{"name":"name", "caption":"Name","width":"80px",  "add":"", "edit":{"type":"ValidationTextBox","caption":"Macro name"} },
+ 				{"name":"macro", "caption":"Commaseperated list of keycodes (KEY_0,KEY_...)","width":"auto", "add":"", "edit":{"type":"ValidationTextBox","caption":"Macro Keys"}}
+ 			]
+ 		}
+   	],
+   	"status":[
+       	{"code":102,	"icon":"active",	"caption":"Connection ready"},
+        {"code":200,	"icon":"error",	"caption":"Host IP missing"},
+        {"code":201,	"icon":"error",	"caption":"My IP missing"},
+		{"code":202,	"icon":"error",	"caption":"MAC adress missing"},
+		{"code":203,	"icon":"error",	"caption":"Host is offline"}
+   	]
+}

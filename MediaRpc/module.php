@@ -22,15 +22,7 @@ class MediaRpc extends IPSRpcModule {
  			if (IPS_VariableProfileExists('RPC_Bass_Treble'))IPS_DeleteVariableProfile('RPC_Bass_Treble');
 		}
 	}
-	/**
-	 * {@inheritDoc}
-	 * @see IPSRpcModule::ApplyChanges()
-	 */
-	public function ApplyChanges(){
-		if(parent::ApplyChanges() && $this->GetStatus()==102){
- 			$this->RunUpdate();
-		}
-	}
+
 	/**
 	 * @param string $Ident
 	 * @param string $Value
@@ -54,6 +46,7 @@ class MediaRpc extends IPSRpcModule {
 	
 	// --------------------------------------------------------------------------------
 	protected $timerDef=['ONLINE_INTERVAL'=>[10,'s'],'OFFLINE_INTERVAL'=>[5,'m']];
+	protected $showRefreshButton=true;
 	// --------------------------------------------------------------------------------
 	/**
 	 * {@inheritDoc}
@@ -127,7 +120,7 @@ class MediaRpc extends IPSRpcModule {
 	 * @var array $prop_names
 	 */
 	protected $prop_names = [PROP_VOLUME_CONTROL=>'VOLUME',PROP_MUTE_CONTROL=>'MUTE',PROP_TREBLE_CONTROL=>'TREBLE',PROP_BASS_CONTROL=>'BASS',PROP_LOUDNESS_CONTROL=>'LOUDNESS',PROP_BRIGHTNESS_CONTROL=>'BRIGHTNESS',PROP_CONTRAST_CONTROL=>'CONTRAST',PROP_SHARPNESS_CONTROL=>'SHARPNESS',PROP_COLOR_CONTROL=>'COLOR',PROP_SOURCE_CONTROL=>'SOURCE',PROP_PLAY_CONTROL=>'PLAYSTATE',PROP_CONTENT_BROWSER=>'CONTENT'];
-	
+
 	// --------------------------------------------------------------------------------
 	
 	private function _readValue(string $Ident){
@@ -152,11 +145,11 @@ class MediaRpc extends IPSRpcModule {
 	private function _writeValue(string $Ident, string $Value){
 		if(!$this->CreateApi())return null;
 		switch($Ident){
-			case 'VOLUME'	: $ok=$this->CallApi('RenderingControl.SetVolume', [null,null,$Value=(int)$Value]);break;
-			case 'MUTE'		: $ok=$this->CallApi('RenderingControl.SetMute', [null,null,$Value=(bool)$Value]);break;
-			case 'BASS'		: $ok=$this->CallApi('RenderingControl.SetBass', [null,null,$Value=(int)$Value]);break;
-			case 'TREBLE'	: $ok=$this->CallApi('RenderingControl.SetTreble', [null,null,$Value=(int)$Value]);break;
-			case 'LOUDNESS'	: $ok=$this->CallApi('RenderingControl.SetLoudness', [null,null,$Value=(bool)$Value]);break;
+			case 'VOLUME'	: $ok=$this->CallApi('RenderingControl.SetVolume', [0,null,$Value=(int)$Value]);break;
+			case 'MUTE'		: $ok=$this->CallApi('RenderingControl.SetMute', [0,null,$Value=(bool)$Value]);break;
+			case 'BASS'		: $ok=$this->CallApi('RenderingControl.SetBass', [0,null,$Value=(int)$Value]);break;
+			case 'TREBLE'	: $ok=$this->CallApi('RenderingControl.SetTreble', [0,null,$Value=(int)$Value]);break;
+			case 'LOUDNESS'	: $ok=$this->CallApi('RenderingControl.SetLoudness', [0,null,$Value=(bool)$Value]);break;
 			case 'BRIGHTNESS':$ok=$this->CallApi('SetBrightness', [0,$Value=(int)$Value]);break;
 			case 'SHARPNESS': $ok=$this->CallApi('SetSharpness', [0,$Value=(int)$Value]);break;
 			case 'CONTRAST'	: $ok=$this->CallApi('SetContrast', [0,$Value=(int)$Value]);break;

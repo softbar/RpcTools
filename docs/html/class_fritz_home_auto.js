@@ -13,6 +13,7 @@ var class_fritz_home_auto =
     [ "GetPropDef", "class_fritz_home_auto.html#a5771a2b0e43502fe07560bd532e2ddec", null ],
     [ "RequestAction", "class_fritz_home_auto.html#a0373e36106637f6bc67e37790868609a", null ],
     [ "RequestUpdate", "class_fritz_home_auto.html#adee8001d2dd7572f1d624a78ffc04fec", null ],
+    [ "ValidateConfiguration", "class_fritz_home_auto.html#a04ee22650c6982f5a6bde8b47c1578e1", null ],
     [ "$prop_names", "class_fritz_home_auto.html#a9993182cace748d58a3186e82d84f1a5", null ],
     [ "$requireLogin", "class_fritz_home_auto.html#aa0cc7044b88526a1100905e8fb5a5adb", null ],
     [ "$timerDef", "class_fritz_home_auto.html#a7a7415d80721d9b794a52490345cf915", null ],

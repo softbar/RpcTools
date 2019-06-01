@@ -3,7 +3,9 @@
     [
 		{ "type": "ValidationTextBox", 	"name": "Host", 	"caption": "Host" },
 		{ "type": "ValidationTextBox", 	"name": "User", 	"caption": "Username" },
- 		{ "type": "PasswordTextBox", 	"name": "Pass", 	"caption": "Password" }
+ 		{ "type": "PasswordTextBox", 	"name": "Pass", 	"caption": "Password" },
+ 		{ "type": "CheckBox", 			"name": "ShowRefreshButton", 	"caption": "Show refresh button" }
+ 		
  		   	
  	],
     "status":

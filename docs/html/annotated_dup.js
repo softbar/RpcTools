@@ -11,6 +11,7 @@ var annotated_dup =
     [ "IPSRpcModule", "class_i_p_s_rpc_module.html", "class_i_p_s_rpc_module" ],
     [ "MediaRpc", "class_media_rpc.html", "class_media_rpc" ],
     [ "RpcApi", "class_rpc_api.html", "class_rpc_api" ],
+    [ "SamsungTVRemote", "class_samsung_t_v_remote.html", "class_samsung_t_v_remote" ],
     [ "UTILS", "class_u_t_i_l_s.html", null ],
     [ "XmlRPC_Array", "class_xml_r_p_c___array.html", "class_xml_r_p_c___array" ],
     [ "XmlRPC_Binary", "class_xml_r_p_c___binary.html", "class_xml_r_p_c___binary" ],

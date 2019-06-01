@@ -17,6 +17,9 @@
 			"Host": "Host",
            	"Username": "Benutzername",
            	"Password": "Passwort",
+           	"Show refresh button":"Schaltfläche \"Aktualisieren\" anzeigen",
+           	"Refresh now":"Jetzt aktualisieren",
+           	"Refresh":"Aktuallisieren",
            	"Connection ready":"Verbindung bereit",
            	"Host missing or invalid":"Host fehlt oder ist ungültig",
            	"Initializing host missing or invalid":"Initializierungs Host fehlt oder ist ungültig",
@@ -33,15 +36,23 @@
 			"WLAN: Guests - WPA Key":"WLAN: Gäste - WPA Schlüssel",
 			"WLAN: Internal 2.4 Ghz":"WLAN: Intern 2.4 Ghz",
 			"WLAN: Internal 5.0 Ghz":"WLAN: Intern 5.0 Ghz",
+		   	"Uptime":"Betriebszeit",
+		   	"%s Days %s hours %s minutes and %s seconds":"%s Tage %s Stunden %s Minuten und %s sekunden",
 		   
 		   	"Show reboot button":"Zeige neu starten",
 		   	"Show reconnect button":"Zeige neu Verbinden",
 		   	"Show WLAN guest key":"Zeige WLAN Gastschlüssel",
 		   	"WLAN guests key":"WLAN Gastschlüssel",
-		   	"Enable Wifi2G Action":"WLAN 2.4 Ghz Schalten",
-		   	"Enable Wifi5G Action":"WLAN 5.0 Ghz Schalten",
-		   	"Enable WifiGuest Action":"Gast WLAN Schalten"
+		   	"Enable Wifi2G Action":"Erlaube WLAN 2.4 Ghz Schalten",
+		   	"Enable Wifi5G Action":"Erlaube WLAN 5.0 Ghz Schalten",
+		   	"Enable WifiGuest Action":"Erlaube Gast WLAN Schalten",
 		  
+		  	"Show uptime":"Betriebszeit anzeigen",
+		  	"Show upload speed":"Upload-Geschwindigkeit anzeigen",
+		  	"Show download speed":"Download-Geschwindigkeit anzeigen",
+		  	"Show Wifi2G":"WLAN 2.4 Ghz anzeigen",
+		  	"Show Wifi5G":"WLAN 5.0 Ghz anzeigen",
+		  	"Show Wifi guest":"WLAN Gäste anzeigen"
 		}
 	}
 }

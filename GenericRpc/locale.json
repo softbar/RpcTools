@@ -21,8 +21,12 @@
            	"Host missing or invalid":"Host fehlt oder ist ungültig",
            	"Initializing host missing or invalid":"Initializierungs Host fehlt oder ist ungültig",
            	"Username required":"Benutzername benötigt",
-           	"Password required":"Passwort benötigt"
-		  
+           	"Password required":"Passwort benötigt",
+           	
+           	"Function":"Funktion",
+           	"Arguments":"Benötigte Parameter",
+		    "Commaseperated Args":"Parameter,Komma getrennt",
+		    "Execute":"Ausführen"
 		}
 	}
 }
