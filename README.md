@@ -59,14 +59,15 @@ as the Fritzbox contains several functions of the same name, GetInfo(), it is
 necessary to transfer the service name. This happens as follows
 - $api->__ call ("DeviceInfo1.GetInfo", array with parameter)
 or
-- $api->{"DeviceInfo1.GetInfo"}, array with parameters)
+- $api->{"DeviceInfo1.GetInfo"}(parameter,parameter...)
 
-The RPCGENERIC_CallApi(IpsInstanceID,FunctionName, string commaseperated arguments ) is the same as $api->__call only arguments as Commaseperadet String requirend.
+The RPCGENERIC_CallApi(IpsInstanceID,FunctionName, Commaseperated arguments ) is the same as $api->__call only arguments as Commaseperadet String requirend.
 - RPCGENERIC_CallApi(IpsInstanceID,'SetVolume',"0,Master,10")
 - RPCGENERIC_CallApi(IpsInstanceID,'SetVolume',"10")
 or
-- $volume=RPCGENERIC_CallApi(IpsInstanceID,'GetVolume',[0,"Master"])
-- $volume=RPCGENERIC_CallApi(IpsInstanceID,'GetVolume',[])
+- $api = RPCGENERIC_GetApi(IpsInstanceID)
+- $volume=$api->GetVolume(0,"Master")
+- $volume=$api->GetVolume()
  
   	
 
@@ -74,23 +75,18 @@ or
 	Includes Standard methods for
 	1. Volume, Mute (Generic)
 	2. Bass, Loudness, Trebble (sonos)
-	3. Play,Pause,Stop,Next,Previous
-	4. Color,Brightness,Sharpness, Contrast (TV , AVR )
+	3. Play,Pause,Stop,Next,Previous (Generic)
+	4. Color,Brightness,Sharpness, Contrast (TV )
 
 
 Works:
 
-To set or read the properties, there are the functions RPCMEDIA_ReadValue
-and RPCMEDIA_WriteValue.
+the function RPCMEDIA_WriteValue is used to set properties.
 
-The command RPCMEDIA_ReadValue (InstanceID, 'VOLUME') calls the information
- directly from the device and updates the status variable VOLUME,
-conversely, the command RPCMEDIA_WriteValue (InstanceID, 'VOLUME', 10)
-sets the volume to 10
+The command RPCMEDIA_WriteValue (InstanceID, 'VOLUME', 10) sets the volume to 10
 
 The command TRPCMEDIA WriteValue (Instance ID, 'PLAYSTATION', value)
 is used to control the playback, whereby the following values are possible: 
 0: Stop, 1: Pause, 2: Play, 3: Next, 4: Prevoius	
-
 
 
