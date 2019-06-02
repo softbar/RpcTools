@@ -85,7 +85,7 @@ the function RPCMEDIA_WriteValue is used to set properties.
 
 The command RPCMEDIA_WriteValue (InstanceID, 'VOLUME', 10) sets the volume to 10
 
-The command TRPCMEDIA WriteValue (Instance ID, 'PLAYSTATION', value)
+The command TRPCMEDIA WriteValue (Instance ID, 'PLAYSTATE', value)
 is used to control the playback, whereby the following values are possible: 
 0: Stop, 1: Pause, 2: Play, 3: Next, 4: Prevoius	
 
