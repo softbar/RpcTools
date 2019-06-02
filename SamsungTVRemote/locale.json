@@ -27,6 +27,10 @@
 			"Media":"Medien",
 			"Source":"Quelle",
 			"Switch":"Schalten",
+			"Select Key":"Wähle Tastenkode",
+			"Select Macro":"Wähle Makro",
+			"Send Key":"Sende Tastenkode",
+			"Send Macro":"Sende Makro",
 			
 			"Macros":"Makros",
 			"Macro Keys":"Makro Tasten",

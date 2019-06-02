@@ -1,6 +1,5 @@
 var class_fritz_callmon =
 [
-    [ "ApplyChanges", "class_fritz_callmon.html#a6ca9a67bb277e35edc9cf36feafe7e07", null ],
     [ "Create", "class_fritz_callmon.html#a64114c2d9b4a3e22837bd584194a814f", null ],
     [ "Destroy", "class_fritz_callmon.html#a89951a07f091bd0262847bd9840ee502", null ],
     [ "doDecodeCall", "class_fritz_callmon.html#ac5755f66a688415dcc3f989ebf0de32f", null ],
@@ -15,9 +14,10 @@ var class_fritz_callmon =
     [ "ReceiveData", "class_fritz_callmon.html#a7864cf9c370cfc1652c8d2c57c6bad7c", null ],
     [ "RenderCallList", "class_fritz_callmon.html#a27213a6f681837b28e4d1d944a6bd7f4", null ],
     [ "RequestUpdate", "class_fritz_callmon.html#ad7419171215628ba4df1d97eb6c369a7", null ],
-    [ "updateProps", "class_fritz_callmon.html#a3fc5473aaca89f3e8524226a5711dcd8", null ],
+    [ "UpdateProps", "class_fritz_callmon.html#a26e52bdd8b310fe14bc2c4d0bbff5608", null ],
     [ "$prop_names", "class_fritz_callmon.html#a576633d3b403c5796d508a2a14b61111", null ],
     [ "$requireLogin", "class_fritz_callmon.html#a359a17ca6cda67471ec904e14356e89c", null ],
+    [ "$showRefreshButton", "class_fritz_callmon.html#ae1ee93295f505418b9af3d15ab7b9286", null ],
     [ "$timerDef", "class_fritz_callmon.html#ab3aac449b40a1250ef9d2f272d0b0314", null ],
     [ "PROP_MISSED", "class_fritz_callmon.html#a8cf5a6047d7ce975a53a5fd01f94afe0", null ]
 ];

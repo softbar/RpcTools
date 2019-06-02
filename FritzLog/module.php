@@ -15,7 +15,6 @@ class FritzLog extends IPSRpcModule {
 		$this->RegisterPropertyString('Filter', '');
 		$this->RegisterPropertyInteger('MaxLines', 20);
 	}
-
 	/**
 	 * 
 	 */
@@ -30,7 +29,7 @@ class FritzLog extends IPSRpcModule {
 	// --------------------------------------------------------------------------------
 	/**
 	 * {@inheritDoc}
-	 * @see BaseRpcModule::GetDiscoverDeviceOptions()
+	 * @see IPSRpcModule::GetDiscoverDeviceOptions()
 	 */
 	protected function GetDiscoverDeviceOptions(){
 		$filter=['DeviceInfo1.GetDeviceLog'	];
@@ -56,10 +55,9 @@ class FritzLog extends IPSRpcModule {
 		}
 		$this->SetValueByIdent('LOGDATA', nl2br($log));
 	}
-	
 	/**
 	 * {@inheritDoc}
-	 * @see IPSRpcModule::GetPropDef()
+	 * @see BaseRpcModule::GetPropDef()
 	 */
 	protected function GetPropDef($Ident){
 		switch($Ident){
@@ -68,18 +66,18 @@ class FritzLog extends IPSRpcModule {
 	}
 	/**
 	 * {@inheritDoc}
-	 * @see IPSRpcModule::$prop_names
+	 * @see BaseRpcModule::$prop_names
 	 * @var array $prop_names
 	 */
 	protected $prop_names = [PROP_LOGDATA =>'LOGDATA'];
-	
+	/**
+	 * {@inheritDoc}
+	 * @see BaseRpcModule::UpdateProps()
+	 */
 	protected function UpdateProps($doApply=true){
 		return !$this->SetProps(PROP_LOGDATA,true,$doApply);
 	}
 	// --------------------------------------------------------------------------------
-	
-	
- 
 }
 CONST 
 	PROP_LOGDATA = 1;

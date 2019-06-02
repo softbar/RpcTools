@@ -38,7 +38,7 @@
 			"WLAN: Internal 5.0 Ghz":"WLAN: Intern 5.0 Ghz",
 		   	"Uptime":"Betriebszeit",
 		   	"%s Days %s hours %s minutes and %s seconds":"%s Tage %s Stunden %s Minuten und %s sekunden",
-		   
+		   	"Show answering machine":"Anrufbeantworter anzeigen",
 		   	"Show reboot button":"Zeige neu starten",
 		   	"Show reconnect button":"Zeige neu Verbinden",
 		   	"Show WLAN guest key":"Zeige WLAN Gastschlüssel",
@@ -52,7 +52,16 @@
 		  	"Show download speed":"Download-Geschwindigkeit anzeigen",
 		  	"Show Wifi2G":"WLAN 2.4 Ghz anzeigen",
 		  	"Show Wifi5G":"WLAN 5.0 Ghz anzeigen",
-		  	"Show Wifi guest":"WLAN Gäste anzeigen"
+		  	"Show Wifi guest":"WLAN Gäste anzeigen",
+		  	
+		  	"Tam 1":"AB 1",
+		  	"Tam 2":"AB 2",
+		  	"Tam 3":"AB 3",
+		  	"Tam 4":"AB 4",
+		  	"Tam 5":"AB 5",
+		  	
+		  	"Error loading answering machines":"Fehler beim Laden der Anrufbeantworter",
+		  	"Answering machines not enabled":"Anrufbeantworter nicht aktiviert"
 		}
 	}
 }

@@ -23,7 +23,7 @@ for the JavaScript code in this file
 */
 var NAVTREE =
 [
-  [ "My Project", "index.html", [
+  [ "RpcTools 5.x Project", "index.html", [
     [ "Classes", "annotated.html", [
       [ "Class List", "annotated.html", "annotated_dup" ],
       [ "Class Index", "classes.html", null ],
@@ -48,7 +48,7 @@ var NAVTREE =
 var NAVTREEINDEX =
 [
 "_fritz_callmon_2module_8php.html",
-"class_xml_r_p_c___array.html"
+"class_samsung_t_v_remote.html#a07eb08f3aa1a05006547dbc9dd1532ca"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

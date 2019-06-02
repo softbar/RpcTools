@@ -6,7 +6,6 @@ require_once __DIR__.'/../libs/rpc_module.inc';
  *
  */
 class FritzHomeAuto extends IPSRpcModule {
-	
 	/**
 	 * {@inheritDoc}
 	 * @see IPSRpcModule::Create()
@@ -17,8 +16,6 @@ class FritzHomeAuto extends IPSRpcModule {
 		$this->RegisterPropertyString('Name', '');
 		$this->RegisterPropertyBoolean('EnableSwitchAction', true);
 	}
-
-	
 	/**
 	 * {@inheritDoc}
 	 * @see BaseRpcModule::Destroy()
@@ -29,15 +26,13 @@ class FritzHomeAuto extends IPSRpcModule {
 			if(IPS_VariableProfileExists('RPC_PowerW'))IPS_DeleteVariableProfile('RPC_PowerW');
 		}
 	}
-	
- 	/**
+	/**
 	 * {@inheritDoc}
-	 * @see IPSModule::GetConfigurationForm()
+	 * @see BaseRpcModule::GetConfigurationForm()
 	 */
 	public function GetConfigurationForm() {
   		$f=json_decode(parent::GetConfigurationForm(),true);
 		$options=json_decode($this->GetBuffer('DEVICE_OPTIONS'),true);
-  		
   		if(!is_array($options) || count($options)==0 )
   			$f['elements'][]=['type'=>'ValidationTextBox','name'=>'AIN', 'caption'=>'Device AIN'];
   		else $f['elements'][]=['type'=>'Select','name'=>'AIN', 'caption'=>'Device AIN', 'options'=>$options];
@@ -48,7 +43,7 @@ class FritzHomeAuto extends IPSRpcModule {
 	}
 	/**
 	 * {@inheritDoc}
-	 * @see IPSModule::RequestAction()
+	 * @see BaseRpcModule::RequestAction()
 	 */
 	public function RequestAction($Ident, $Value){
 		if(parent::RequestAction($Ident, $Value))return true;
@@ -90,7 +85,7 @@ class FritzHomeAuto extends IPSRpcModule {
 	}
 	/**
 	 * {@inheritDoc}
-	 * @see BaseRpcModule::GetDiscoverDeviceOptions()
+	 * @see IPSRpcModule::GetDiscoverDeviceOptions()
 	 */
 	protected function GetDiscoverDeviceOptions(){
 		$filter=['X_AVM-DE_Homeauto1.*','DeviceConfig1.X_AVM-DE_CreateUrlSID'];
@@ -111,6 +106,53 @@ class FritzHomeAuto extends IPSRpcModule {
 		if($this->GetBuffer('DO_SKIP')==1){
 			$this->SetBuffer('DO_SKIP',0);
 		}else $this->updateData(true);
+	}
+	/**
+	 * {@inheritDoc}
+	 * @see BaseRpcModule::CreateMissedProfile()
+	 */
+	protected function CreateMissedProfile($name){
+		if($name=='RPC_PowerW'){
+			UTILS::RegisterProfileFloat('RPC_PowerW', 'Electricity', '', ' W', 0, 0, 1);
+			return true;
+		}
+	}
+	/**
+	 * {@inheritDoc}
+	 * @see BaseRpcModule::GetPropDef()
+	 */
+	protected function GetPropDef($Ident){
+		switch($Ident){
+ 			case $this->prop_names[PROP_SWITCH]: return [0,'Power','~Switch',0,'Power',PROP_SWITCH,(int)$this->ReadPropertyBoolean('EnableSwitchAction')];
+			case $this->prop_names[PROP_TEMP]	: return [2,'Temperature','~Temperature',0,'',PROP_TEMP,0];
+			case $this->prop_names[PROP_IST]: return [2,'Current Temperature','~Temperature',0,'',PROP_IST,0];
+			case $this->prop_names[PROP_SOLL]: return [2,'Set Temperature','~Temperature',0,'',PROP_SOLL,0];  
+			case $this->prop_names[PROP_REDUCED]: return [2,'Reduced Temperature','~Temperature',0,'',PROP_REDUCED,0];
+			case $this->prop_names[PROP_COMFORT]: return [2,'Comfort Temperature','~Temperature',0,'',PROP_COMFORT,0];
+			case $this->prop_names[PROP_APOWER]: return [2,'Current Power','RPC_PowerW',0,'',PROP_APOWER,0];
+			case $this->prop_names[PROP_TPOWER]: return [2,'Total Power','~Power',0,'',PROP_TPOWER,0];
+		}
+	}
+	/**
+	 * {@inheritDoc}
+	 * @see BaseRpcModule::$prop_names
+	 * @var array $prop_names
+	 */
+	protected $prop_names = [PROP_SWITCH=>'SWITCH',PROP_TEMP=>'TEMP',PROP_IST=>'IST',PROP_SOLL=>'SOLL',PROP_REDUCED=>'REDUCED',PROP_COMFORT=>'COMFORT',PROP_APOWER=>'APOWER',PROP_TPOWER=>'TPOWER'];	
+	// --------------------------------------------------------------------------------
+	private function DoSwitch($Value){
+		if($this->GetDeviceState()<2 && $this->CheckOnline()){
+			if($this->CallApi('X_AVM-DE_Homeauto1.SetSwitch',[$this->ReadPropertyString('AIN'),$Value?'ON':'OFF'])){
+				$this->SetValueByIdent('SWITCH', $Value);
+			}
+		}
+	}
+	private function BuildDeviceAINOptionsBuffer(){
+		$options=[];
+		while($r=$this->CallApi('X_AVM-DE_Homeauto1.GetGenericDeviceInfos',[count($options)]))
+			$options[]=['value'=>$r['NewAIN'],'label'=>$r['NewDeviceName'].' '.$r['NewProductName']];
+		if(count($options)==0)$options[]=['value'=>'','label'=>'no Device found'];
+		$this->SetBuffer('DEVICE_OPTIONS',json_encode($options));
 	}
 	private function updateData($doApply){
 		$ain=$this->ReadPropertyString('AIN');
@@ -215,57 +257,6 @@ class FritzHomeAuto extends IPSRpcModule {
 		foreach($data as $k=>$v)$this->SetValueByIdent($k, $v);
 		return true;
 	}
-
-	/**
-	 * {@inheritDoc}
-	 * @see IPSRpcModule::CreateMissedProfile()
-	 */
-	protected function CreateMissedProfile($name){
-		if($name=='RPC_PowerW'){
-			UTILS::RegisterProfileFloat('RPC_PowerW', 'Electricity', '', ' W', 0, 0, 1);
-			return true;
-		}
-	}
-	/**
-	 * {@inheritDoc}
-	 * @see IPSRpcModule::GetPropDef()
-	 */
-	protected function GetPropDef($Ident){
-		switch($Ident){
- 			case $this->prop_names[PROP_SWITCH]: return [0,'Power','~Switch',0,'Power',PROP_SWITCH,(int)$this->ReadPropertyBoolean('EnableSwitchAction')];
-			case $this->prop_names[PROP_TEMP]	: return [2,'Temperature','~Temperature',0,'',PROP_TEMP,0];
-			case $this->prop_names[PROP_IST]: return [2,'Current Temperature','~Temperature',0,'',PROP_IST,0];
-			case $this->prop_names[PROP_SOLL]: return [2,'Set Temperature','~Temperature',0,'',PROP_SOLL,0];  
-			case $this->prop_names[PROP_REDUCED]: return [2,'Reduced Temperature','~Temperature',0,'',PROP_REDUCED,0];
-			case $this->prop_names[PROP_COMFORT]: return [2,'Comfort Temperature','~Temperature',0,'',PROP_COMFORT,0];
-			case $this->prop_names[PROP_APOWER]: return [2,'Current Power','RPC_PowerW',0,'',PROP_APOWER,0];
-			case $this->prop_names[PROP_TPOWER]: return [2,'Total Power','~Power',0,'',PROP_TPOWER,0];
-		}
-	}
-	/**
-	 * {@inheritDoc}
-	 * @see IPSRpcModule::$prop_names
-	 * @var array $prop_names
-	 */
-	protected $prop_names = [PROP_SWITCH=>'SWITCH',PROP_TEMP=>'TEMP',PROP_IST=>'IST',PROP_SOLL=>'SOLL',PROP_REDUCED=>'REDUCED',PROP_COMFORT=>'COMFORT',PROP_APOWER=>'APOWER',PROP_TPOWER=>'TPOWER'];	
-	
-	// --------------------------------------------------------------------------------
-	
-	private function DoSwitch($Value){
-		if($this->GetDeviceState()<2 && $this->CheckOnline()){
-			if($this->CallApi('X_AVM-DE_Homeauto1.SetSwitch',[$this->ReadPropertyString('AIN'),$Value?'ON':'OFF'])){
-				$this->SetValueByIdent('SWITCH', $Value);
-			}
-		}
-	}
-	private function BuildDeviceAINOptionsBuffer(){
-		$options=[];
-		while($r=$this->CallApi('X_AVM-DE_Homeauto1.GetGenericDeviceInfos',[count($options)]))
-			$options[]=['value'=>$r['NewAIN'],'label'=>$r['NewDeviceName'].' '.$r['NewProductName']];
-		if(count($options)==0)$options[]=['value'=>'','label'=>'no Device found'];
-		$this->SetBuffer('DEVICE_OPTIONS',json_encode($options));
-	}
-	
 }
 CONST
 	PROP_SWITCH 	= 1,

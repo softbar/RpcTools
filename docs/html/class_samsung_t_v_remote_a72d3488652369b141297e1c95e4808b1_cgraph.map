@@ -1,0 +1,4 @@
+<map id="SamsungTVRemote\RequestAction" name="SamsungTVRemote\RequestAction">
+<area shape="rect" id="node2" href="$class_samsung_t_v_remote.html#a6e534ed6cfa64deeab5c53d70f9034c9" title="SamsungTVRemote\\CheckStatus" alt="" coords="292,5,509,32"/>
+<area shape="rect" id="node3" href="$class_samsung_t_v_remote.html#a0234b6c936ae1cfd5fbd52d350c01c73" title="SamsungTVRemote\\SendKeyCodeEx" alt="" coords="280,56,521,83"/>
+</map>

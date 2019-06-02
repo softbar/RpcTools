@@ -8,7 +8,7 @@ define ( 'MODULEDIR', __DIR__ );
 class GenericRpc extends IPSRpcModule {
 	/**
 	 * {@inheritDoc}
-	 * @see IPSModule::Create()
+	 * @see IPSRpcModule::Create()
 	 */
 	public function Create() {
 		parent::Create();
@@ -16,10 +16,9 @@ class GenericRpc extends IPSRpcModule {
 		$this->RegisterPropertyBoolean('FileMode',false);
 		$this->RegisterPropertyInteger('View',0);
 	}
-
- 	/**
+	/**
 	 * {@inheritDoc}
-	 * @see IPSModule::GetConfigurationForm()
+	 * @see BaseRpcModule::GetConfigurationForm()
 	 */
 	public function GetConfigurationForm() {
  		$getFormValues=function ($asList=true){
@@ -47,17 +46,16 @@ class GenericRpc extends IPSRpcModule {
 		return $this->CallApi($MethodName,$Arguments==''?[]:explode(',',$Arguments));
 	}
 	
-
 	/**
 	 * {@inheritDoc}
-	 * @see BaseRpcModule::GetDiscoverDeviceOptions()
+	 * @see IPSRpcModule::GetDiscoverDeviceOptions()
 	 */
 	protected function GetDiscoverDeviceOptions(){
 		return OPT_MINIMIZED;
 	}
 	/**
 	 * {@inheritDoc}
-	 * @see IPSRpcModule::GetPropDef()
+	 * @see BaseRpcModule::GetPropDef()
 	 */
 	protected function GetPropDef($Ident){}
 	/**
@@ -65,7 +63,5 @@ class GenericRpc extends IPSRpcModule {
 	 * @see IPSRpcModule::DoUpdate()
 	 */
 	protected function DoUpdate() {}
-
-	
 }
 ?>

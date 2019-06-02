@@ -1,6 +1,5 @@
 var class_fritz_home_auto =
 [
-    [ "ApplyChanges", "class_fritz_home_auto.html#ab1a55e89ecec9c063a20e33f988b6bf1", null ],
     [ "BuildDeviceAINOptionsBuffer", "class_fritz_home_auto.html#a09439640d15b3264c7e3b777a34ac94a", null ],
     [ "Create", "class_fritz_home_auto.html#acd1808489fd949979e9c7b5205248ec3", null ],
     [ "CreateMissedProfile", "class_fritz_home_auto.html#adddc89e979fec7734ccf996111d02ab8", null ],
@@ -13,9 +12,11 @@ var class_fritz_home_auto =
     [ "GetPropDef", "class_fritz_home_auto.html#a5771a2b0e43502fe07560bd532e2ddec", null ],
     [ "RequestAction", "class_fritz_home_auto.html#a0373e36106637f6bc67e37790868609a", null ],
     [ "RequestUpdate", "class_fritz_home_auto.html#adee8001d2dd7572f1d624a78ffc04fec", null ],
+    [ "updateData", "class_fritz_home_auto.html#a5cd4c929472e9a64456dc0eeb3590871", null ],
     [ "ValidateConfiguration", "class_fritz_home_auto.html#a04ee22650c6982f5a6bde8b47c1578e1", null ],
     [ "$prop_names", "class_fritz_home_auto.html#a9993182cace748d58a3186e82d84f1a5", null ],
     [ "$requireLogin", "class_fritz_home_auto.html#aa0cc7044b88526a1100905e8fb5a5adb", null ],
+    [ "$showRefreshButton", "class_fritz_home_auto.html#afc9e11516fa8b4dca6f81acc3e65d18e", null ],
     [ "$timerDef", "class_fritz_home_auto.html#a7a7415d80721d9b794a52490345cf915", null ],
     [ "PROP_TEMP", "class_fritz_home_auto.html#ae6f7a1595492c0db77322235e61172d0", null ]
 ];

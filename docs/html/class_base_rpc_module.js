@@ -16,6 +16,7 @@ var class_base_rpc_module =
     [ "GetStatus", "class_base_rpc_module.html#a975a310d42a9ddfdde0504f27c813898", null ],
     [ "GetValueByIdent", "class_base_rpc_module.html#aa7e058f12fe478c2a75576da8ee9c81a", null ],
     [ "IsLastInstance", "class_base_rpc_module.html#ac282aaf9f57f6e492f44bb5d11c46e02", null ],
+    [ "MessageSink", "class_base_rpc_module.html#a141f5f553069f2967755380e3f4006c2", null ],
     [ "RequestAction", "class_base_rpc_module.html#abc8e0369d489b7301287fedc42e9a8c2", null ],
     [ "RunUpdate", "class_base_rpc_module.html#a68a31c7c52465488fdfc3da36f31803f", null ],
     [ "SetDeviceState", "class_base_rpc_module.html#af3ff1bfc850026f7dfce7117682a2eb8", null ],
@@ -23,14 +24,16 @@ var class_base_rpc_module =
     [ "SetValueByIdent", "class_base_rpc_module.html#a1f87b4e5788ab0565ee015336dd35d79", null ],
     [ "StartTimer", "class_base_rpc_module.html#a169c2a440628d6b1ce275e0eb9adceee", null ],
     [ "StopTimer", "class_base_rpc_module.html#a96282fd8f20b4d589a6de705ad9b3204", null ],
+    [ "UpdateProps", "class_base_rpc_module.html#a0e2144ecacdb5a6f2cd215108c7a9ea0", null ],
     [ "ValidateConfiguration", "class_base_rpc_module.html#a680e3cf6a8c260948d5b89836d377085", null ],
     [ "ValidateTimers", "class_base_rpc_module.html#a58f253958ada5909bf5ee813ad35cb5d", null ],
     [ "ValidIdent", "class_base_rpc_module.html#a6a68ae1d8bbb12faba4f69edde487aa5", null ],
     [ "$online", "class_base_rpc_module.html#a0e6a37ba13c47e4bd2c43de0ea0ea8ed", null ],
     [ "$prop_names", "class_base_rpc_module.html#ae9abb29319252561f8f79ed2c8bf65cb", null ],
-    [ "$requireLogin", "class_base_rpc_module.html#a7befbe3e3ce6e0acccdfd7618a269a81", null ],
-    [ "$showLogin", "class_base_rpc_module.html#a04f3909a9278904c4fc73dcd03179d99", null ],
+    [ "$requireLogin", "class_base_rpc_module.html#af154ebb51380c9f0ae59c3ce5707e3ca", null ],
+    [ "$showLogin", "class_base_rpc_module.html#aaf9f0a21bd98eff89563f4702362c478", null ],
+    [ "$showRefreshButton", "class_base_rpc_module.html#ae6d5d79c4f2aa7108f1d5001117023db", null ],
     [ "$state", "class_base_rpc_module.html#a2b2d5aa481b7febec48a7e3aaa2d5e2f", null ],
     [ "$status", "class_base_rpc_module.html#af2d843c2c7d52c4a97819a51b71e1f1b", null ],
-    [ "$timerDef", "class_base_rpc_module.html#a02e34d819e7c1cce7efcbf3eb39502a9", null ]
+    [ "$timerDef", "class_base_rpc_module.html#a5ad1b85667ffc1a42c03b909f1122427", null ]
 ];

@@ -1,8 +1,7 @@
 var class_i_p_s_rpc_module =
 [
-    [ "ApplyChanges", "class_i_p_s_rpc_module.html#adb2cb23b08dfbef0e6c13cf227113f5d", null ],
     [ "ApplyDeviceProps", "class_i_p_s_rpc_module.html#aa0de8ca81dedfffa0a93115894e616c7", null ],
-    [ "ApplyHost", "class_i_p_s_rpc_module.html#aedc83e3a755a8b0ccea7989340c60e66", null ],
+    [ "ApplyHost", "class_i_p_s_rpc_module.html#a331a06580c4535c5dddf74dd094a5e7a", null ],
     [ "CallApi", "class_i_p_s_rpc_module.html#a234a73ced504238c432128d437fbf170", null ],
     [ "Create", "class_i_p_s_rpc_module.html#a2326c10a7cc3358f5b15081eec9e3b37", null ],
     [ "CreateApi", "class_i_p_s_rpc_module.html#aa3a66e2912db056c098dedadf452d8bc", null ],
@@ -12,14 +11,14 @@ var class_i_p_s_rpc_module =
     [ "GetDeviceConfig", "class_i_p_s_rpc_module.html#a8c26af9a0bf9c42c8dbecc59510167de", null ],
     [ "GetDiscoverDeviceOptions", "class_i_p_s_rpc_module.html#a899aaf4bcdc4944f0e6c6f4e460af446", null ],
     [ "GetProps", "class_i_p_s_rpc_module.html#a9d98592e9ea979bd3eb661e4e819278e", null ],
-    [ "MessageSink", "class_i_p_s_rpc_module.html#a757ab13d2ade6943b8d0672cc6f2e14b", null ],
     [ "ProcessHookData", "class_i_p_s_rpc_module.html#a750d91cd7e8616de0b9dd4436bb26dfa", null ],
     [ "ReDiscover", "class_i_p_s_rpc_module.html#a0dbe5fbd8626c0b5409f28498d814877", null ],
     [ "RegisterHook", "class_i_p_s_rpc_module.html#a2ccbcdcba79f8fa74e1179ea72e7d5fa", null ],
     [ "RunUpdate", "class_i_p_s_rpc_module.html#a070ae30cda3f6bf4e7d7e8b5251dc823", null ],
-    [ "SetProps", "class_i_p_s_rpc_module.html#adb93afc9a07d0aea4494551a61914376", null ],
+    [ "SetProps", "class_i_p_s_rpc_module.html#a03405a38f388201c4ae092f1f5db4469", null ],
     [ "StartTimer", "class_i_p_s_rpc_module.html#a6a884c30252cde83e2c02629a8828d8f", null ],
     [ "UpdateDeviceProps", "class_i_p_s_rpc_module.html#a251fd2b478d4a39cb0bef2e94f3ea12a", null ],
     [ "$api", "class_i_p_s_rpc_module.html#acf210f0ecfa6aa5c08c07f79cabf6b42", null ],
-    [ "$lastError", "class_i_p_s_rpc_module.html#a3ef2686178b959b324e152295ce5c91e", null ]
+    [ "$lastError", "class_i_p_s_rpc_module.html#a3ef2686178b959b324e152295ce5c91e", null ],
+    [ "$showLogin", "class_i_p_s_rpc_module.html#ab670535a78c36023e1618e7f0fd5be56", null ]
 ];

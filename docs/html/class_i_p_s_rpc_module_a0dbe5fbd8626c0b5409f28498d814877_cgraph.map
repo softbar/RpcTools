@@ -1,0 +1,12 @@
+<map id="IPSRpcModule\ReDiscover" name="IPSRpcModule\ReDiscover">
+<area shape="rect" id="node2" href="$class_i_p_s_rpc_module.html#a331a06580c4535c5dddf74dd094a5e7a" title="IPSRpcModule\\ApplyHost" alt="" coords="248,151,420,178"/>
+<area shape="rect" id="node11" href="$class_i_p_s_rpc_module.html#a8c26af9a0bf9c42c8dbecc59510167de" title="IPSRpcModule\\GetDeviceConfig" alt="" coords="231,202,437,229"/>
+<area shape="rect" id="node3" href="$class_i_p_s_rpc_module.html#aa0de8ca81dedfffa0a93115894e616c7" title="IPSRpcModule\\ApplyDevice\lProps" alt="" coords="503,5,686,47"/>
+<area shape="rect" id="node4" href="$discover_8inc.html#a9c597d7ae0d90bc364fe6f456ca151ab" title="DiscoverDevice" alt="" coords="540,71,649,98"/>
+<area shape="rect" id="node5" href="$discover_8inc.html#a35204f0ac876b3266b25acbe980df7a1" title="DiscoverSaveDevice" alt="" coords="781,97,918,123"/>
+<area shape="rect" id="node6" href="$class_i_p_s_rpc_module.html#a899aaf4bcdc4944f0e6c6f4e460af446" title="IPSRpcModule\\GetDiscover\lDeviceOptions" alt="" coords="503,173,686,215"/>
+<area shape="rect" id="node7" href="$class_base_rpc_module.html#aea9a8a1c1f29ecee0d47ccb44e418d49" title="BaseRpcModule\\GetModuleName" alt="" coords="485,239,704,266"/>
+<area shape="rect" id="node8" href="$class_base_rpc_module.html#a66ed46afb82eda4f1f996be7e6540722" title="Set Module status . " alt="" coords="505,290,684,317"/>
+<area shape="rect" id="node9" href="$class_base_rpc_module.html#a4b772b4d29b4c92a1f77549fd410e67b" title="Checks if host online and setup devicestate. " alt="" coords="752,265,947,291"/>
+<area shape="rect" id="node10" href="$class_base_rpc_module.html#af3ff1bfc850026f7dfce7117682a2eb8" title="BaseRpcModule\\SetDeviceState" alt="" coords="995,290,1205,317"/>
+</map>

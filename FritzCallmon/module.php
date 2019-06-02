@@ -35,11 +35,18 @@ class FritzCallmon extends IPSRpcModule {
 		$this->RegisterPropertyBoolean ( "CallType_10", false );
 		$this->RegisterPropertyBoolean ( "CallType_11", false );
 	}
+	/**
+	 * {@inheritDoc}
+	 * @see BaseRpcModule::Destroy()
+	 */
 	public function Destroy(){
 		parent::Destroy();
 		$this->RegisterHook(__CLASS__.$this->InstanceID, false);
 	}
-
+	/**
+	 * {@inheritDoc}
+	 * @see BaseRpcModule::GetConfigurationForm()
+	 */
 	public function GetConfigurationForm(){
 		$getPhoneOptions = function(){
 			if($options=json_decode($this->GetBuffer('PHONE_LIST'),true))return $options;
@@ -80,8 +87,9 @@ class FritzCallmon extends IPSRpcModule {
 		$this->SendDebug(__FUNCTION__,$JSONString,0);
 		$this->doDecodeCall(json_decode($JSONString,true)['Buffer']);
 	}
-	
-	
+	/**
+	 * 
+	 */
 	public function RequestUpdate(){
 // 		$this->ReDiscover();
  		$this->RunUpdate();
@@ -94,7 +102,7 @@ class FritzCallmon extends IPSRpcModule {
 	// --------------------------------------------------------------------------------
 	/**
 	 * {@inheritDoc}
-	 * @see BaseRpcModule::GetDiscoverDeviceOptions()
+	 * @see IPSRpcModule::GetDiscoverDeviceOptions()
 	 */
 	protected function GetDiscoverDeviceOptions(){
 		$filter=[
@@ -113,7 +121,10 @@ class FritzCallmon extends IPSRpcModule {
 	protected function GetModuleName($name,$host){
 		return 'FritzCallmon ('.parse_url($host,PHP_URL_HOST).')';
 	}	
-
+	/**
+	 * {@inheritDoc}
+	 * @see BaseRpcModule::UpdateProps()
+	 */
 	protected function UpdateProps($doApply=true){
 		$props=PROP_CALLLIST+PROP_MISSED+PROP_MESSAGES ;
 		if($lines=$this->ReadPropertyInteger('DialLines'))
@@ -142,12 +153,9 @@ class FritzCallmon extends IPSRpcModule {
 		foreach ( $xml->Call as $call ) {
 			if ($timelimit > 0) { // filter calls by timestamp
 				$parts = preg_split ( '/[ .:]/', ( string ) $call->Date );
-
 				$callTimestamp = mktime ( ( int ) $parts [3], ( int ) $parts [4], 0, ( int ) $parts [1], ( int ) $parts [0], ( int ) $parts [2] );
-
 				if ($callTimestamp < $timelimit) continue;
 			}
-
 			$callList [] = $call;
 		}		
 		$messageList=null;
@@ -171,19 +179,15 @@ class FritzCallmon extends IPSRpcModule {
 				$callList [$i]->Caller = ( string ) $callList [$i]->Called;
 				$callList [$i]->Called = $tmp;
 			}
-
 			// Clear own number for example ISDN: POTS: SIP: etc...
 			$callList [$i]->Called = str_replace ( strtoupper ( ( string ) $callList [$i]->Numbertype ) . ": ", "", ( string ) $callList [$i]->Called );
 			$callList [$i]->addChild ( "AB" ); // create empty message entry
-
 			if ((( int ) $callList [$i]->Port >= 40) && (( int ) $callList [$i]->Port <= 44)) {
 				$callList [$i]->Type = 6; // set message deleted as preset
-		
 				if (strlen ( ( string ) $callList [$i]->Path ) != 0) { // get same message from calllist
 					$message = empty($messageList [( int ) $callList [$i]->Port])?null:$messageList [( int ) $callList [$i]->Port];
 					$callList [$i]->Duration = "---";
 					if(!empty($message->Message)){
-// $this->SendDebug(__FUNCTION__, "found Message => ".print_r($message['Message'],true), 0);						
 						$message=$message->Message;
 						$callList [$i]->addChild ( "Tam" );
 						$callList [$i]->Tam->addAttribute ( "index", ( string ) $message[0]->Tam);
@@ -201,15 +205,12 @@ class FritzCallmon extends IPSRpcModule {
 			}
 		}
 		$this->RenderCallList($callList);
-        
-		
-	}
+ 	}
 	/**
 	 * {@inheritDoc}
-	 * @see IPSRpcModule::GetPropDef()
+	 * @see BaseRpcModule::GetPropDef()
 	 */
 	protected function GetPropDef($Ident){
-// 		$this->SendDebug(__FUNCTION__, $Ident, 0);
 		switch($Ident){
  			case $this->prop_names[PROP_CALLLIST]: return [3,'Callerlist','~HTMLBox',0,'Telephone',PROP_CALLLIST,0];
 			case $this->prop_names[PROP_MISSED]	: return [1,'Missed calls','',7,'Talk',PROP_MISSED,0];
@@ -256,11 +257,7 @@ class FritzCallmon extends IPSRpcModule {
 			}
  		}
 	}	
-
-	
 	// --------------------------------------------------------------------------------
-	
-	
 	private function doDial(string $Number){
 		$DialPort=$this->ReadPropertyString('DialPort');
 		
@@ -315,7 +312,7 @@ class FritzCallmon extends IPSRpcModule {
 	           return "<div class=\"ipsContainer container nestedEven ipsVariable\" style=\"border-color: rgba(255,255,255,0.15); border-style: solid; border-width: 0 0 1px;\">
 		<div class=\"content tr\">
 			<div class=\"title td\" style=\"width: 100%\">
-				<div style=\"min-width: 300px; width: 100%;\">".$detailDIV."</div>
+				<div style=\"min-width: 300px; width: 100%;\">$detailDIV</div>
 			</div>
 			<div class=\"visual td\">$msgDIV</div>
 			<div class=\"visual td\">$linkDIV</div>
@@ -467,7 +464,6 @@ class FritzCallmon extends IPSRpcModule {
         $this->SetValueByIdent("MESSAGES", $messageCounter);
         $this->SetValueByIdent("CALLLIST", $HTML);
     }
-	
 	private function doDecodeCall($data){
 		if($this->GetStatus()!=102){
 			IPS_LogMessage(IPS_GetName($this->InstanceID),sprintf($this->Translate('Error Instance not ready, skip call info => %S'),$data) );
@@ -538,8 +534,6 @@ class FritzCallmon extends IPSRpcModule {
 
 		return $txt;
 	}
-    
-	
 }
 CONST
 	PROP_CALLLIST  		= 16,

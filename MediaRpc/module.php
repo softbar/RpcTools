@@ -2,10 +2,9 @@
 require_once __DIR__.'/../libs/rpc_module.inc';
 
 class MediaRpc extends IPSRpcModule {
-	
 	/**
 	 * {@inheritDoc}
-	 * @see IPSRpcModule::RequestAction()
+	 * @see BaseRpcModule::RequestAction()
 	 */
 	public function RequestAction($Ident, $Value){
 		if(parent::RequestAction($Ident, $Value))return true;
@@ -22,7 +21,6 @@ class MediaRpc extends IPSRpcModule {
  			if (IPS_VariableProfileExists('RPC_Bass_Treble'))IPS_DeleteVariableProfile('RPC_Bass_Treble');
 		}
 	}
-
 	/**
 	 * @param string $Ident
 	 * @param string $Value
@@ -50,7 +48,7 @@ class MediaRpc extends IPSRpcModule {
 	// --------------------------------------------------------------------------------
 	/**
 	 * {@inheritDoc}
-	 * @see BaseRpcModule::GetDiscoverDeviceOptions()
+	 * @see IPSRpcModule::GetDiscoverDeviceOptions()
 	 */
 	protected function GetDiscoverDeviceOptions(){
 		return OPT_MINIMIZED|OPT_PROPS_ONLY;
@@ -76,7 +74,7 @@ class MediaRpc extends IPSRpcModule {
 	}	
 	/**
 	 * {@inheritDoc}
-	 * @see IPSRpcModule::CreateMissedProfile()
+	 * @see BaseRpcModule::CreateMissedProfile()
 	 */
 	protected function CreateMissedProfile($name){
 		if($name=='RPC_PlayState'){
@@ -96,7 +94,7 @@ class MediaRpc extends IPSRpcModule {
 	}
 	/**
 	 * {@inheritDoc}
-	 * @see IPSRpcModule::GetPropDef()
+	 * @see BaseRpcModule::GetPropDef()
 	 */
 	protected function GetPropDef($Ident){
 		switch($Ident){
@@ -116,13 +114,12 @@ class MediaRpc extends IPSRpcModule {
 	}
 	/**
 	 * {@inheritDoc}
-	 * @see IPSRpcModule::$prop_names
+	 * @see BaseRpcModule::$prop_names
 	 * @var array $prop_names
 	 */
 	protected $prop_names = [PROP_VOLUME_CONTROL=>'VOLUME',PROP_MUTE_CONTROL=>'MUTE',PROP_TREBLE_CONTROL=>'TREBLE',PROP_BASS_CONTROL=>'BASS',PROP_LOUDNESS_CONTROL=>'LOUDNESS',PROP_BRIGHTNESS_CONTROL=>'BRIGHTNESS',PROP_CONTRAST_CONTROL=>'CONTRAST',PROP_SHARPNESS_CONTROL=>'SHARPNESS',PROP_COLOR_CONTROL=>'COLOR',PROP_SOURCE_CONTROL=>'SOURCE',PROP_PLAY_CONTROL=>'PLAYSTATE',PROP_CONTENT_BROWSER=>'CONTENT'];
 
 	// --------------------------------------------------------------------------------
-	
 	private function _readValue(string $Ident){
 		$r=null;
 		if(!$this->CreateApi())return null;
@@ -160,8 +157,6 @@ class MediaRpc extends IPSRpcModule {
 		if(!is_null($ok))$this->SetValueByIdent($Ident,$Value);
 		return $ok;
 	}
-	
-	
 }
 
 ?>

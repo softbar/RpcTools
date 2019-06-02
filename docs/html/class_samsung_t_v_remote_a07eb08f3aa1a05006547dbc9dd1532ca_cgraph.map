@@ -1,0 +1,5 @@
+<map id="SamsungTVRemote\SendMacro" name="SamsungTVRemote\SendMacro">
+<area shape="rect" id="node2" href="$class_samsung_t_v_remote.html#a03de3fa42cf8cc6a822eac1762aecf0b" title="SamsungTVRemote\\SendKeyCode\lMacro" alt="" coords="261,23,487,65"/>
+<area shape="rect" id="node3" href="$class_samsung_t_v_remote.html#a6e534ed6cfa64deeab5c53d70f9034c9" title="SamsungTVRemote\\CheckStatus" alt="" coords="547,5,764,32"/>
+<area shape="rect" id="node4" href="$class_samsung_t_v_remote.html#a0234b6c936ae1cfd5fbd52d350c01c73" title="SamsungTVRemote\\SendKeyCodeEx" alt="" coords="535,56,776,83"/>
+</map>

@@ -1,0 +1,19 @@
+<map id="FritzStatus\DoUpdate" name="FritzStatus\DoUpdate">
+<area shape="rect" id="node2" href="$class_fritz_status.html#a92e79422e6bfbb0971fa4eee6b9ed704" title="FritzStatus\\doUpdateBoxStatus" alt="" coords="200,169,407,196"/>
+<area shape="rect" id="node16" href="$class_fritz_status.html#ae81c5be90d07bae76fdae925283ca34e" title="FritzStatus\\doUpdateTam" alt="" coords="218,220,389,247"/>
+<area shape="rect" id="node18" href="$class_fritz_status.html#a26d2fd883b2e480e6fb0e39278774e04" title="FritzStatus\\doUpdateWlan\lStatus" alt="" coords="216,103,391,145"/>
+<area shape="rect" id="node3" href="$class_i_p_s_rpc_module.html#a234a73ced504238c432128d437fbf170" title="IPSRpcModule\\CallApi" alt="" coords="473,169,627,196"/>
+<area shape="rect" id="node10" href="$class_base_rpc_module.html#a1f87b4e5788ab0565ee015336dd35d79" title="BaseRpcModule\\SetValueBy\lIdent" alt="" coords="455,103,645,145"/>
+<area shape="rect" id="node4" href="$class_i_p_s_rpc_module.html#aa3a66e2912db056c098dedadf452d8bc" title="IPSRpcModule\\CreateApi" alt="" coords="706,224,875,251"/>
+<area shape="rect" id="node5" href="$class_base_rpc_module.html#ad29e3d08aa2f0ebd107a844a786cc434" title="BaseRpcModule\\GetDeviceState" alt="" coords="936,325,1147,352"/>
+<area shape="rect" id="node6" href="$class_base_rpc_module.html#a4b772b4d29b4c92a1f77549fd410e67b" title="Checks if host online and setup devicestate. " alt="" coords="1195,173,1389,200"/>
+<area shape="rect" id="node8" href="$class_i_p_s_rpc_module.html#a8c26af9a0bf9c42c8dbecc59510167de" title="IPSRpcModule\\GetDeviceConfig" alt="" coords="938,275,1145,301"/>
+<area shape="rect" id="node9" href="$class_base_rpc_module.html#a66ed46afb82eda4f1f996be7e6540722" title="Set Module status . " alt="" coords="952,224,1131,251"/>
+<area shape="rect" id="node7" href="$class_base_rpc_module.html#af3ff1bfc850026f7dfce7117682a2eb8" title="BaseRpcModule\\SetDeviceState" alt="" coords="1437,199,1648,225"/>
+<area shape="rect" id="node11" href="$class_base_rpc_module.html#a8636f513770e4624a958fe20d6221446" title="BaseRpcModule\\CreateVarBy\lIdent" alt="" coords="693,78,888,119"/>
+<area shape="rect" id="node12" href="$class_base_rpc_module.html#a96c51d7504ea32cb2b2f9517cb44f7db" title="BaseRpcModule\\CreateMissed\lProfile" alt="" coords="941,107,1142,149"/>
+<area shape="rect" id="node13" href="$class_base_rpc_module.html#a9a21dc98cc40eddd753ea64e82c7d158" title="Returns variable definitions Must overide in your own Module. " alt="" coords="1198,5,1386,32"/>
+<area shape="rect" id="node14" href="$class_base_rpc_module.html#a6a68ae1d8bbb12faba4f69edde487aa5" title="BaseRpcModule\\ValidIdent" alt="" coords="952,56,1131,83"/>
+<area shape="rect" id="node15" href="$class_base_rpc_module.html#a76f10ae3e0d5a0831e878eddac87ddd5" title="Get the device propertys. " alt="" coords="1204,56,1380,83"/>
+<area shape="rect" id="node17" href="$class_i_p_s_rpc_module.html#a9d98592e9ea979bd3eb661e4e819278e" title="IPSRpcModule\\GetProps" alt="" coords="467,220,633,247"/>
+</map>

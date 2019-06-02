@@ -1,0 +1,6 @@
+<map id="RpcApi\_callRpc" name="RpcApi\_callRpc">
+<area shape="rect" id="node2" href="$class_rpc_api.html#a6974cfa5998de3220cc949287831ef72" title="RpcApi\\error" alt="" coords="205,5,299,32"/>
+<area shape="rect" id="node3" href="$xml__rpc_8inc.html#a0bf60abe26878b36ca670f273a11791b" title="xmlrpc_decode" alt="" coords="197,56,307,83"/>
+<area shape="rect" id="node4" href="$xml__rpc_8inc.html#a08e2627dfc5fb4fe5147a1db1f6c0cf9" title="xmlrpc_encode_request" alt="" coords="172,107,332,133"/>
+<area shape="rect" id="node5" href="$class_xml_r_p_c___parm.html#ab18a6c11194c3f773da1afcf2bb3babb" title="XmlRPC_Parm\\encode" alt="" coords="380,107,535,133"/>
+</map>

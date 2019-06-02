@@ -13,13 +13,18 @@ class FritzStatus extends IPSRpcModule {
 	public function Create() {
 		parent::Create();
 		// View 0
+		$this->RegisterPropertyBoolean('ShowTam1', false);
+// 		$this->RegisterPropertyBoolean('ShowReconnect', false);
+// 		$this->RegisterPropertyBoolean('ShowWifiKey', false);
+		
+		
 		$this->RegisterPropertyBoolean('ShowReboot', false);
 		$this->RegisterPropertyBoolean('ShowReconnect', false);
 		$this->RegisterPropertyBoolean('ShowWifiKey', false);
 		
 		$this->RegisterPropertyBoolean('ShowWifi2G', true);
-		$this->RegisterPropertyBoolean('ShowWifi5G', true);
-		$this->RegisterPropertyBoolean('ShowWifiGuest', true);
+		$this->RegisterPropertyBoolean('ShowWifi5G', false);
+		$this->RegisterPropertyBoolean('ShowWifiGuest', false);
 		
 		$this->RegisterPropertyBoolean('ShowUptime', true);
 		$this->RegisterPropertyBoolean('ShowUpStream', true);
@@ -48,10 +53,9 @@ class FritzStatus extends IPSRpcModule {
 			if(IPS_VariableProfileExists('RPC_Speed'))IPS_DeleteVariableProfile('RPC_Speed');
 		}
 	}
-
 	/**
 	 * {@inheritDoc}
-	 * @see IPSRpcModule::RequestAction()
+	 * @see BaseRpcModule::RequestAction()
 	 */
 	public function RequestAction($Ident, $Value){
 		if(parent::RequestAction($Ident, $Value))return true;
@@ -81,9 +85,10 @@ class FritzStatus extends IPSRpcModule {
 	protected $requireLogin=[true,true];
 	protected $showRefreshButton=true;
 	// --------------------------------------------------------------------------------
+
 	/**
 	 * {@inheritDoc}
-	 * @see BaseRpcModule::GetDiscoverDeviceOptions()
+	 * @see IPSRpcModule::GetDiscoverDeviceOptions()
 	 */
 	protected function GetDiscoverDeviceOptions(){
 		$filter=[
@@ -92,7 +97,8 @@ class FritzStatus extends IPSRpcModule {
 				'WANPPPConnection1.GetExternalIPAddress',	'WANPPPConnection1.ForceTermination',
 				'WLANConfiguration.GetInfo','WLANConfiguration.SetEnable',
 				'DeviceConfig1.Reboot',
-				'DeviceInfo1.GetInfo'
+				'DeviceInfo1.GetInfo',
+				'X_AVM-DE_TAM1.GetList','X_AVM-DE_TAM1.SetEnable','X_AVM-DE_TAM1.GetInfo'
 		];
 		return [OPT_MINIMIZED+OPT_SMALCONFIG,$filter,':49000/tr64desc.xml'];
 	}
@@ -103,7 +109,6 @@ class FritzStatus extends IPSRpcModule {
 	protected function GetModuleName($name,$host){
 		return 'FritzStatus ('.parse_url($host,PHP_URL_HOST).')';
 	}	
-	
 	/**
 	 * {@inheritDoc}
 	 * @see IPSRpcModule::DoUpdate()
@@ -111,11 +116,11 @@ class FritzStatus extends IPSRpcModule {
 	protected function DoUpdate(){
 		$this->doUpdateBoxStatus();
 		$this->doUpdateWlanStatus();
+		$this->doUpdateTam();
 	}
-	
 	/**
 	 * {@inheritDoc}
-	 * @see IPSRpcModule::GetPropDef()
+	 * @see BaseRpcModule::GetPropDef()
 	 */
 	protected function GetPropDef($Ident){
 		switch($Ident){
@@ -130,17 +135,26 @@ class FritzStatus extends IPSRpcModule {
 			case $this->prop_names[PROP_WIFIGUEST]	: return [0,'WLAN: Guests','RPC_NetPower',0,'',PROP_WIFIGUEST,(int)$this->ReadPropertyBoolean('WifiGuestActionEnabled')];
 			case $this->prop_names[PROP_WIFIGUEST_KEY]	: return [3,'WLAN guests key','',0,'',PROP_WIFIGUEST_KEY,0];
 			case $this->prop_names[PROP_UPTIME]	: return [3,'Uptime','',0,'Clock',PROP_UPTIME,0];
-			
+			default: $m=null;
+				if(preg_match('/TAM_([12345])/',$Ident,$m)){ 
+// 					$this->SendDebug(__FUNCTION__, print_r($m,true), 0);
+					return [0,'Tam '.$m[1],'~Switch',0,'Power',constant('PROP_TAM_'.$m[1]),1];
+				};
 		}
 	}
 	/**
 	 * {@inheritDoc}
-	 * @see IPSRpcModule::$prop_names
+	 * @see BaseRpcModule::$prop_names
 	 * @var array $prop_names
 	 */
-	protected $prop_names = [PROP_EXTERNAL_IP =>'EXTERNAL_IP',PROP_SPEED_DOWN => 'SPEED_DOWN',PROP_SPEED_UP => 'SPEED_UP',PROP_ISTATE => 'ISTATE',PROP_RECONNECT => 'RECONNECT',PROP_REBOOT => 'REBOOT',PROP_WIFI2G => 'WIFI2G',PROP_WIFI5G => 'WIFI5G',PROP_WIFIGUEST => 'WIFIGUEST',PROP_WIFIGUEST_KEY=>'WIFIGUEST_KEY',PROP_UPTIME=>'UPTIME'];
+	protected $prop_names = [PROP_EXTERNAL_IP =>'EXTERNAL_IP',PROP_SPEED_DOWN => 'SPEED_DOWN',PROP_SPEED_UP => 'SPEED_UP',PROP_ISTATE => 'ISTATE',PROP_RECONNECT => 'RECONNECT',PROP_REBOOT => 'REBOOT',PROP_WIFI2G => 'WIFI2G',PROP_WIFI5G => 'WIFI5G',PROP_WIFIGUEST => 'WIFIGUEST',PROP_WIFIGUEST_KEY=>'WIFIGUEST_KEY',PROP_UPTIME=>'UPTIME',PROP_TAM_1=>'TAM_1',PROP_TAM_2=>'TAM_2',PROP_TAM_3=>'TAM_3',PROP_TAM_4=>'TAM_4',PROP_TAM_5=>'TAM_5'];
+	/**
+	 * {@inheritDoc}
+	 * @see BaseRpcModule::UpdateProps()
+	 */
 	protected function UpdateProps($doApply=true){
 		$props=PROP_EXTERNAL_IP+PROP_ISTATE;
+ 		if($this->ReadPropertyBoolean('ShowTam1'))$props+=$this->autodetectTAMs(); 
 		if($this->ReadPropertyBoolean('ShowWifi2G'))$props+=PROP_WIFI2G;
 		if($this->ReadPropertyBoolean('ShowWifi5G'))$props+=PROP_WIFI5G;
 		if($this->ReadPropertyBoolean('ShowWifiGuest'))$props+=PROP_WIFIGUEST;
@@ -162,13 +176,17 @@ class FritzStatus extends IPSRpcModule {
 	// --------------------------------------------------------------------------------
 	private function _writeValue($Ident,$Value){
 		if(!$this->CreateApi())return null;
-		
 		switch ($Ident){
 			case $this->prop_names[PROP_RECONNECT] : $r=$this->doReconnect();break;
 			case $this->prop_names[PROP_REBOOT] : $r=$this->doReboot();break;
 			case $this->prop_names[PROP_WIFI2G] : $r=$this->doSetWLANState(PROP_WIFI2G, (bool)$Value);break;
 			case $this->prop_names[PROP_WIFI5G] : $r=$this->doSetWLANState(PROP_WIFI5G, (bool)$Value);break;
 			case $this->prop_names[PROP_WIFIGUEST] : $r=$this->doSetWLANState(PROP_WIFIGUEST, (bool)$Value);break;
+			case $this->prop_names[PROP_TAM_1] :
+			case $this->prop_names[PROP_TAM_2] :
+			case $this->prop_names[PROP_TAM_3] :
+			case $this->prop_names[PROP_TAM_4] :
+			case $this->prop_names[PROP_TAM_5] : $r=$this->doSetTamEnable($Ident, (bool)$Value);break;
 			default:
 				$r=null;
 				IPS_LogMessage(IPS_GetName($this->InstanceID), __FUNCTION__."::Error unknown ident ->$Ident<-");
@@ -176,7 +194,41 @@ class FritzStatus extends IPSRpcModule {
 		return $r;
 		
 	}
-	
+	private function autodetectTAMs(){
+		$props=0;
+		if($r=$this->CallApi('X_AVM-DE_TAM1.GetList')){
+			$xml=simplexml_load_string($r);
+			if(empty($xml)){
+				IPS_LogMessage(IPS_GetName($this->InstanceID),$this->Translate("Error loading answering machines"));
+				return 0;
+			}
+			if( (int)$xml->TAMRunning==0){
+				IPS_LogMessage(IPS_GetName($this->InstanceID),$this->Translate("Answering machines not enabled"));
+				return 0;
+			}
+			foreach($xml->Item as $item){
+				if($item->Display==0)continue;
+				$pid=$item->Index + 1;
+				$prop=constant("PROP_TAM_$pid");
+				$ident=$this->prop_names[$prop];
+				if(!($id=@$this->GetIDForIdent($ident))){
+					$id=$this->CreateVarByIdent($ident,false);
+					IPS_SetName($id, IPS_GetName($id).' '.$item->Name );
+				}
+				$props+=$prop;
+			}
+		}
+		return $props;
+	}
+	private function doSetTamEnable($Ident, $Value){
+		$m=null;
+		if(!preg_match('/TAM_([12345])/',$Ident,$m))return false; 
+		if($r=$this->CallApi('X_AVM-DE_TAM1.SetEnable',[$TamID=($m[1]-1),(int)$Value])){
+			IPS_Sleep(200);
+			$this->doUpdateTam($TamID);
+		}
+		return $r;
+	}
    	private function doSetWLANState($wlanProp, $state) {
        	if(!$this->CreateApi())return null;
        	if($wlanProp==PROP_WIFI2G) $id=1;elseif($wlanProp==PROP_WIFI5G)$id=2;else if($wlanProp==PROP_WIFIGUEST)$id=3;
@@ -250,6 +302,19 @@ class FritzStatus extends IPSRpcModule {
 			}
 		}
 	}
+	private function doUpdateTam($TamID=0){
+		if(!$this->ReadPropertyBoolean('ShowTam1'))return;
+		$update=function($id){
+			if($r=$this->CallApi('X_AVM-DE_TAM1.GetInfo',[$id])){
+				$this->SetValueByIdent('TAM_'.($id+1), (bool)$r['NewEnable']);
+			}
+		};
+		if($TamID)return $update($TamID);
+		$props=$this->GetProps();
+		foreach([PROP_TAM_1,PROP_TAM_2,PROP_TAM_3,PROP_TAM_4,PROP_TAM_5] as $id=>$prop){
+			if($props&$prop)$update($id);
+		}
+	}
 }
 CONST 
 	PROP_EXTERNAL_IP = 1,
@@ -262,6 +327,13 @@ CONST
 	PROP_WIFI5G = 128,
 	PROP_WIFIGUEST = 256,
 	PROP_WIFIGUEST_KEY = 512,
-	PROP_UPTIME = 1024;
+	PROP_UPTIME = 1024,
+	PROP_TAM_1  = 2048,
+	PROP_TAM_2  = 4096,
+	PROP_TAM_3  = 8192,
+	PROP_TAM_4  = 16384,
+	PROP_TAM_5  = 32768;
+	
+;
 
 ?>

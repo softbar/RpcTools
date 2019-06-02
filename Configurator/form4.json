@@ -9,7 +9,7 @@
     		"sort":{ "column":"host","direction":"ascending"},
 			"columns":[
 				{"name":"itemid", "caption":"ID","width":"30px"},
-  				{"name":"host", "caption":"Host","width":"150px"},
+  				{"name":"host", "caption":"Host","width":"170px"},
  				{"name":"type", "caption":"Type","width":"150px"},
 				{"name":"info",  "caption":"Info", "width": "auto"},
 				{"name":"props",  "caption":"Propertys", "width": "150px"},

@@ -1,6 +1,7 @@
 {
     "elements":
     [
+    	{ "name": "ShowTam1",		"type": "CheckBox", 			"caption": "Show answering machine"},
 		{ "name": "ShowReboot",		"type": "CheckBox", 			"caption": "Show reboot button"},
 		{ "name": "ShowReconnect",	"type": "CheckBox", 			"caption": "Show reconnect button"},
 		{ "name": "ShowUptime",		"type": "CheckBox", 			"caption": "Show uptime"},

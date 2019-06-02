@@ -1,0 +1,9 @@
+<map id="FritzStatus\doReconnect" name="FritzStatus\doReconnect">
+<area shape="rect" id="node2" href="$class_i_p_s_rpc_module.html#a234a73ced504238c432128d437fbf170" title="IPSRpcModule\\CallApi" alt="" coords="220,81,373,108"/>
+<area shape="rect" id="node3" href="$class_i_p_s_rpc_module.html#aa3a66e2912db056c098dedadf452d8bc" title="IPSRpcModule\\CreateApi" alt="" coords="421,81,591,108"/>
+<area shape="rect" id="node4" href="$class_base_rpc_module.html#ad29e3d08aa2f0ebd107a844a786cc434" title="BaseRpcModule\\GetDeviceState" alt="" coords="639,5,849,32"/>
+<area shape="rect" id="node5" href="$class_base_rpc_module.html#a4b772b4d29b4c92a1f77549fd410e67b" title="Checks if host online and setup devicestate. " alt="" coords="897,107,1092,133"/>
+<area shape="rect" id="node7" href="$class_i_p_s_rpc_module.html#a8c26af9a0bf9c42c8dbecc59510167de" title="IPSRpcModule\\GetDeviceConfig" alt="" coords="641,107,847,133"/>
+<area shape="rect" id="node8" href="$class_base_rpc_module.html#a66ed46afb82eda4f1f996be7e6540722" title="Set Module status . " alt="" coords="655,157,833,184"/>
+<area shape="rect" id="node6" href="$class_base_rpc_module.html#af3ff1bfc850026f7dfce7117682a2eb8" title="BaseRpcModule\\SetDeviceState" alt="" coords="1140,132,1351,159"/>
+</map>

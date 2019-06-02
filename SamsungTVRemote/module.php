@@ -12,12 +12,13 @@ class SamsungTVRemote extends IPSModule{
 			while(count($v) && empty($v[0]['IP']))array_shift($v);
 			$v=empty($v[0])?[]:$v[0];
 		}
+		$this->registerPropertyString('DUMMY','');
 		$this->registerPropertyString('Host','');
 		$this->registerPropertyString('My_ip',empty($v['IP'])?'':$v['IP']);
 		$this->registerPropertyString('My_mac',empty($v['MAC'])?'':$v['MAC']);
 		$this->registerPropertyString('GroupNames',json_encode($this->defaultGroupNames));
 		$this->registerPropertyString('KeyGroups',json_encode($this->CreateDefaultKeyGroups(true)));
-		$this->registerPropertyString('Macros','');
+		$this->registerPropertyString('Macros',json_encode($this->defaultMacros));
 	}
 	/**
 	 * {@inheritDoc}
@@ -39,9 +40,9 @@ class SamsungTVRemote extends IPSModule{
 		parent::ApplyChanges();
 		if(empty($host=$this->ReadPropertyString('Host')))
 			$this->SetStatus(200);
-		elseif(empty($myip=$this->ReadPropertyString('My_ip')))
+		elseif(empty($this->ReadPropertyString('My_ip')))
 			$this->SetStatus(201);
-		elseif(empty($mymac=$this->ReadPropertyString('My_mac')))
+		elseif(empty($this->ReadPropertyString('My_mac')))
 			$this->SetStatus(202);
 		else if(stripos($host,'http')!==false){
 			$host=substr($host,stripos($host,'//')+2);
@@ -51,17 +52,6 @@ class SamsungTVRemote extends IPSModule{
 			$this->SetStatus(102);
 			$this->UpdateProfiles();
 		}
-			
-// 			if($this->GetBuffer('MY_IP')!=$myip){
-// 			$n=Sys_GetNetworkInfo (); $found=false;
-// 			$this->SetBuffer('MY_IP',$myip);
-// 			foreach($n as $i)if($i['IP']==$myip){
-// 				IPS_SetProperty($this->InstanceID,'MY_MAC',$i['MAC']);
-// 				$found=true;break;
-// 			}
-// 			if($found)
-// 				IPS_ApplyChanges($this->InstanceID);
-// 			else $this->SetStatus(202);
 	}
 	/**
 	 * {@inheritDoc}
@@ -81,30 +71,42 @@ class SamsungTVRemote extends IPSModule{
 	public function GetConfigurationForm() {
 		$f=file_get_contents(__DIR__.'/form.json');
  		$f=preg_replace('/"options_g"(.*)\[[ ]*\]/i', '"options":'.$this->ReadPropertyString('GroupNames'),$f);
- 		$f=json_decode($f,true);
+ 		$options='[]';
  		if($v=Sys_GetNetworkInfo()){
- 			$ips=$macs=[];
+ 			$options=[];
  			foreach($v as $n){
-				$ips[]=['label'=>$n['IP'].'|'.$n['MAC'],'value'=>$n['IP']];
-				$macs[]=['label'=>$n['MAC'].'|'.$n['IP'],'value'=>$n['MAC']];
-			}
-			$f['elements'][1]['type']='Select';	$f['elements'][1]['options']=$ips;
-			$f['elements'][2]['type']='Select';	$f['elements'][2]['options']=$macs;
-		}
- 		
-// 		$f["actions"]=[
-//         	[ "type"=>"Label", "caption"=>"first start you must show at TV Screen and confirm message popup with ok"],
-// 			["type"=>"Button", "label"=>"Show TV Menu", "onClick"=>"SAMFB_SendKey(\$id, 'KEY_MENU');"],
-//     	];
-		return json_encode($f);
+				$options[]=[
+					"caption"=>$n['IP'], "value"=>[
+						["name"=>"My_ip", "value"=>$n['IP']],
+						["name"=>"My_mac","value"=>$n['MAC']]
+					]	
+				];
+ 			}
+ 			$options=json_encode($options);
+ 		}
+		$f=preg_replace('/"options_ip"(.*)\[[ ]*\]/i', '"options":'.$options,$f);
+		$options=[];
+ 		if($keys=json_decode($this->ReadPropertyString('KeyGroups'),true))
+ 			foreach($keys as $key)$options[]=['value'=>$key['value'],'label'=>sprintf("%-3s %-15s %s",$key['id'],$key['value'],$key['label']) ];
+		$f=preg_replace('/"options_keycode"(.*)\[[ ]*\]/i', '"options":'.json_encode($options),$f);
+		$options=[];
+ 		if($keys=json_decode($this->ReadPropertyString('Macros'),true))
+ 			foreach($keys as $key)$options[]=['value'=>$key['name'],'label'=>$key['name']];
+		$f=preg_replace('/"options_macro"(.*)\[[ ]*\]/i', '"options":'.json_encode($options),$f);
+		
+		
+		return $f; 
 	}
+	
+	
+	
 	/**
 	 * @param bool $ResetMacros
 	 */
 	public function ResetGroups(bool $ResetMacros){
 		IPS_SetProperty($this->InstanceID,'GroupNames',json_encode($this->defaultGroupNames));
 		IPS_SetProperty($this->InstanceID,'KeyGroups',json_encode($this->CreateDefaultKeyGroups(true)));
-		if($ResetMacros)IPS_SetProperty($this->InstanceID,'Macros','');
+		if($ResetMacros)IPS_SetProperty($this->InstanceID,'Macros',json_encode($this->defaultMacros));
 		IPS_ApplyChanges($this->InstanceID);
 	}
 	/**
@@ -138,7 +140,7 @@ class SamsungTVRemote extends IPSModule{
 	}
 
 	
-	private $ValidKeys=['KEY_0','KEY_1','KEY_2','KEY_3','KEY_4','KEY_5','KEY_6','KEY_7','KEY_8','KEY_9','KEY_POWEROFF','KEY_MUTE','KEY_ENTER','KEY_EXIT','KEY_MENU','KEY_GUIDE','KEY_INFO','KEY_RETURN','KEY_SOURCE','KEY_TV','KEY_HDMI','KEY_HDMI2','KEY_RECORD','KEY_TOOLS','KEY_CHUP','KEY_CHDOWN','KEY_PLAY','KEY_PAUSE','KEY_STOP','KEY_NEXT','KEY_PREVIOUIS','KEY_FF','KEY_REWIND','KEY_VOLUP','KEY_VOLDOWN','KEY_UP','KEY_DOWN','KEY_LEFT','KEY_RIGHT'];		
+	private $ValidKeys=['KEY_0','KEY_1','KEY_2','KEY_3','KEY_4','KEY_5','KEY_6','KEY_7','KEY_8','KEY_9','KEY_POWEROFF','KEY_MUTE','KEY_ENTER','KEY_EXIT','KEY_MENU','KEY_GUIDE','KEY_INFO','KEY_RETURN','KEY_SOURCE','KEY_TV','KEY_HDMI','KEY_HDMI2','KEY_RECORD','KEY_TOOLS','KEY_CHUP','KEY_CHDOWN','KEY_PLAY','KEY_PAUSE','KEY_STOP','KEY_NEXT','KEY_PREVIOUS','KEY_FF','KEY_REWIND','KEY_VOLUP','KEY_VOLDOWN','KEY_UP','KEY_DOWN','KEY_LEFT','KEY_RIGHT'];		
 	private $defaultGroupNames = [
 		["label"=>"Menu","value"=>"MENU", "enabled"=>true],
 		["label"=>"Cursor","value"=>"CURSOR", "enabled"=>true],
@@ -147,7 +149,9 @@ class SamsungTVRemote extends IPSModule{
 		["label"=>"Source","value"=>"SOURCE", "enabled"=>true],
 		["label"=>"Switch","value"=>"SWITCH", "enabled"=>true]
 	];
-	
+	private $defaultMacros = [
+		["name"=>"Networkstatus","macro"=>"KEY_MENU;800,KEY_DOWN;500,KEY_DOWN;500,KEY_DOWN,KEY_ENTER;500,KEY_ENTER"]	
+	];
 	private function CheckStatus(){
 		$host=$this->ReadPropertyString('Host');
 		$status=IPS_GetInstance($this->InstanceID)['InstanceStatus'];
@@ -171,7 +175,7 @@ class SamsungTVRemote extends IPSModule{
 	 			$groups[]=["value"=>$key,"label"=>$name ,"group"=>"SWITCH","id"=>$id, "enabled"=>true];
 			}
 			
-			if(in_array($key,['KEY_PLAY','KEY_PAUSE','KEY_STOP','KEY_NEXT','KEY_PREVIOUIS','KEY_FF','KEY_REWIND','KEY_RECORD'])){
+			if(in_array($key,['KEY_PLAY','KEY_PAUSE','KEY_STOP','KEY_NEXT','KEY_PREVIOUS','KEY_FF','KEY_REWIND','KEY_RECORD'])){
 	 			$groups[]=["value"=>$key,"label"=>$name ,"group"=>"MEDIA","id"=>$id, "enabled"=>true];
 			}
 			if(in_array($key,['KEY_TV','KEY_HDMI','KEY_HDMI2','KEY_SOURCE'])){
@@ -279,6 +283,10 @@ class SamsungTVRemote extends IPSModule{
 		fclose($sock);
 		return true;
 	}
+
+	private function RenderKeyBoard(){
+	}
+
 }
 
 ?>

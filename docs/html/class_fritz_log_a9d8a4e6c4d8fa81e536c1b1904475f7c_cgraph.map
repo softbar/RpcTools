@@ -1,0 +1,10 @@
+<map id="FritzLog\UpdateProps" name="FritzLog\UpdateProps">
+<area shape="rect" id="node2" href="$class_i_p_s_rpc_module.html#a03405a38f388201c4ae092f1f5db4469" title="IPSRpcModule\\SetProps" alt="" coords="201,42,368,69"/>
+<area shape="rect" id="node3" href="$class_i_p_s_rpc_module.html#a9d98592e9ea979bd3eb661e4e819278e" title="IPSRpcModule\\GetProps" alt="" coords="428,13,595,39"/>
+<area shape="rect" id="node4" href="$class_i_p_s_rpc_module.html#a251fd2b478d4a39cb0bef2e94f3ea12a" title="IPSRpcModule\\UpdateDevice\lProps" alt="" coords="416,64,607,105"/>
+<area shape="rect" id="node5" href="$class_base_rpc_module.html#a8636f513770e4624a958fe20d6221446" title="BaseRpcModule\\CreateVarBy\lIdent" alt="" coords="655,64,849,105"/>
+<area shape="rect" id="node6" href="$class_base_rpc_module.html#a96c51d7504ea32cb2b2f9517cb44f7db" title="BaseRpcModule\\CreateMissed\lProfile" alt="" coords="897,5,1099,47"/>
+<area shape="rect" id="node7" href="$class_base_rpc_module.html#a9a21dc98cc40eddd753ea64e82c7d158" title="Returns variable definitions Must overide in your own Module. " alt="" coords="1147,71,1335,98"/>
+<area shape="rect" id="node8" href="$class_base_rpc_module.html#a6a68ae1d8bbb12faba4f69edde487aa5" title="BaseRpcModule\\ValidIdent" alt="" coords="909,122,1087,149"/>
+<area shape="rect" id="node9" href="$class_base_rpc_module.html#a76f10ae3e0d5a0831e878eddac87ddd5" title="Get the device propertys. " alt="" coords="1153,122,1329,149"/>
+</map>

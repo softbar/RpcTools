@@ -1,0 +1,5 @@
+<map id="BaseRpcModule\ApplyHost" name="BaseRpcModule\ApplyHost">
+<area shape="rect" id="node2" href="$class_base_rpc_module.html#a66ed46afb82eda4f1f996be7e6540722" title="Set Module status . " alt="" coords="235,31,413,57"/>
+<area shape="rect" id="node3" href="$class_base_rpc_module.html#a4b772b4d29b4c92a1f77549fd410e67b" title="Checks if host online and setup devicestate. " alt="" coords="461,5,656,32"/>
+<area shape="rect" id="node4" href="$class_base_rpc_module.html#af3ff1bfc850026f7dfce7117682a2eb8" title="BaseRpcModule\\SetDeviceState" alt="" coords="704,31,915,57"/>
+</map>

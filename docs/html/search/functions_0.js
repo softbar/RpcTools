@@ -14,5 +14,5 @@ var searchData=
   ['_5fpreparearguments',['_prepareArguments',['../class_rpc_api.html#a110dbb2675e0789df7fab643f40e22db',1,'RpcApi']]],
   ['_5freadvalue',['_readValue',['../class_media_rpc.html#ae42d3769e4ce3285fcb7e003faa983e9',1,'MediaRpc']]],
   ['_5fvalidatefunctionname',['_validateFunctionName',['../class_rpc_api.html#aa8ef595d6698a1c01f95d4819718da57',1,'RpcApi']]],
-  ['_5fwritevalue',['_writeValue',['../class_media_rpc.html#acde133ab35677e62a93fed5b864f2568',1,'MediaRpc']]]
+  ['_5fwritevalue',['_writeValue',['../class_media_rpc.html#acde133ab35677e62a93fed5b864f2568',1,'MediaRpc\_writeValue()'],['../class_fritz_status.html#ac62242ccf05920b9ca659de3d9c9004b',1,'FritzStatus\_writeValue()']]]
 ];
