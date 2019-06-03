@@ -91,10 +91,10 @@ is used to control the playback, whereby the following values are possible:
 
 
 # Add One Modules
-	- FritzStatus		Show Frizbox Status , enable switch of TAM, Wifi, Reboot,Reconnect 
-	- FritzLog		Show Fritzbox Systemlog
-	- FritzCallmon		Show Fritzbox Call list, aktive calls , call lines and more
-	- FritzHomeAuto		Fritzbox DECT devices, enable power switch and show Power,Energy,Temperature actors 
-	- SamsungTVRemote	Enable Netzwork commands to Samung TV F-Series (UE55F6470)
+	- FritzStatus		Show Fritzbox status , enable switch of TAM, Wifi, Reboot,Reconnect 
+	- FritzLog		Show Fritzbox systemlog
+	- FritzCallmon		Show Fritzbox caller list, aktive calls , call lines and more
+	- FritzHomeAuto		Fritzbox DECT actors, enable power switch and show Power,Energy,Temperature ... 
+	- SamsungTVRemote	Enable network remote commands to Samung TV F-Series (UE55F6470) Use this to power off your TV
 	
 Unneeded add-on modules can be safely deleted, but are reinstalled during an update
