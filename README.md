@@ -83,14 +83,14 @@ The volume can be changed or read as follows
 or
 
 the function RPCMEDIA_WriteValue is used to set properties.
-The command 
-	- RPCMEDIA_WriteValue (InstanceID, 'VOLUME', 10) sets the volume to 10
-	- RPCMEDIA WriteValue (Instance ID, 'PLAYSTATE', value) is used to control the playback, whereby the following values are possible: 
-		- 0: Stop
-		- 1: Pause
-		- 2: Play
-		- 3: Next
-		- 4: Prevoius	
+
+-  RPCMEDIA_WriteValue (InstanceID, 'VOLUME', 10) sets the volume to 10
+- RPCMEDIA WriteValue (Instance ID, 'PLAYSTATE', value) is used to control the playback, whereby the following values are possible: 
+	- 0: Stop
+	- 1: Pause
+	- 2: Play
+	- 3: Next
+	- 4: Prevoius	
 
 
 # Add One Modules
