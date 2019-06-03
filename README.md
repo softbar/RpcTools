@@ -38,22 +38,20 @@ the status is updated every 15min, if it is *offline* (TV off) the check / updat
 until the device is *online* again.
 
 # Generic RPC Module 
-	API to call all methods discovered from device Only one Variable for Status created
+	API to call all methods discovered from device only use one Variable for Status created
 	
 
 Works:
 
 This module only exports the functions RPCGENERIC_GetApi and RPCGENERIC_GetApiInfo
 
-<<<<<<< HEAD
 - RPCGENERIC_GetApi 		Returns an object with which all further commands can be sent to the device.
 - RPCGENERIC_GetApiInfo 	Returns an array of informatons to the API
 
 NOTE: These two functions are exported to all RpcTools devices
-=======
+
 RPCGENERIC_GetApi returns an object with which all further commands can be sent to the device.
 - NOTE: These two functions are exported to all RpcTools devices
->>>>>>> origin/master
 
 
 Furthermore, it is possible to address calls directly to an service. Since some Rpc devices such
@@ -85,19 +83,17 @@ Works:
 Since InstanceID is usually 0, this variable does not have to be specified, just
 like Channel, these values are automatically added when called.
 
-<<<<<<< HEAD
 Therefore the call with $api->GetVolume() or $api->SetVolume(10) is also possible.
 
 The volume can be changed or read as follows
 - $api = RPCMEDIA_GetApi(IpsInstanceID)
 - $api->SetVolume(NewVolume)
-=======
+
 Therefore the call with $api->GetVolume () or $api->SetVolume(10) is also possible.
 
 The volume can be changed or read as follows
 - $api = RPCMEDIA_GetApi(IpsInstanceID)
 - $api-> SetVolume (NewVolume)
->>>>>>> origin/master
 - $volume=$api->GetVolume ()
 
 or
