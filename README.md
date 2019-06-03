@@ -37,38 +37,39 @@ There are 2 timer modes *UPDATE* and *OFFLINE* which can each have separate valu
 the status is updated every 15min, if it is *offline* (TV off) the check / update will take place only every 2 hours 
 until the device is *online* again.
 
+All module only exports the functions xxx_GetApi and xxx_GetApiInfo
+
+- xxx_GetApi(IpsInstanceID)		Returns an **RpcApi** object with which all further commands can be sent to the device.
+- xxx_GetApiInfo(IpsInstanceID) 	Returns an array of informatons to the API
+
+
 # Generic RPC Module 
-	API to call all methods discovered from device only use one Variable for Status created
-	
+	API to call all methods discovered from device only one Variable for Status created
 
 Works:
 
-This module only exports the functions RPCGENERIC_GetApi and RPCGENERIC_GetApiInfo
-
-- RPCGENERIC_GetApi 		Returns an object with which all further commands can be sent to the device.
-- RPCGENERIC_GetApiInfo 	Returns an array of informatons to the API
+This module also exports the functions RPCGENERIC_CallMethod
+- RPCGENERIC_CallMethod (IpsInstanceID, FunctionName, comma-separated string with parameters)
 
 NOTE: These two functions are exported to all RpcTools devices
 
-RPCGENERIC_GetApi returns an object with which all further commands can be sent to the device.
-- NOTE: These two functions are exported to all RpcTools devices
+the syntax is the same as **$api**-> __ call (FunctionName, Parameter), with the difference that the parameters are passed not as an array but as a comma-separated string.
+- RPCGENERIC_CallApi(IpsInstanceID, 'SetVolume', "0, Master, 10")
+- RPCGENERIC_CallApi(IpsInstanceID, 'GetVolume', "0, Master")
+or
+- **$api** = RPCGENERIC_GetApi (IpsInstanceID)
+- $volume = **$api**-> GetVolume (0, "Master")
+- **$api**->SetVolume (0, "Master", $ volume)
 
+Calling it via the *RpcApi* object **$api** is useful in any case when calling several, consecutive, calls, as it does not make sense, as with xxx_GetApi (IpsInstanceID), with each call the module is recreated.
 
 Furthermore, it is possible to address calls directly to an service. Since some Rpc devices such
 as the Fritzbox contains several functions of the same name, GetInfo(), it is
 necessary to transfer the service name. This happens as follows
-- $api->__ call ("DeviceInfo1.GetInfo", array with parameter)
+- **$api**->__ call ("DeviceInfo1.GetInfo", array with parameter)
 or
-- $api->{"DeviceInfo1.GetInfo"}(parameter,parameter...)
+- **$api**->{"DeviceInfo1.GetInfo"}(parameter,parameter...)
 
-The *RPCGENERIC_CallApi(IpsInstanceID,FunctionName, "Commaseperated arguments" )* is the same as *$api->__call(FunctionName,[...])* only arguments as Commaseperadet String requirend.
-- RPCGENERIC_CallApi(IpsInstanceID,'SetVolume',"0,Master,10")
-- RPCGENERIC_CallApi(IpsInstanceID,'GetVolume',"0,Master")
-or
-- $api = RPCGENERIC_GetApi(IpsInstanceID)
-- $volume=$api->GetVolume(0,"Master")
-- $api->SetVolume(0,"Master",$volume)
- 
   	
 
 # Multimedia RPC Module 
@@ -83,18 +84,18 @@ Works:
 Since InstanceID is usually 0, this variable does not have to be specified, just
 like Channel, these values are automatically added when called.
 
-Therefore the call with $api->GetVolume() or $api->SetVolume(10) is also possible.
+Therefore the call with **$api**->GetVolume() or **$api**->SetVolume(10) is also possible.
 
 The volume can be changed or read as follows
-- $api = RPCMEDIA_GetApi(IpsInstanceID)
-- $api->SetVolume(NewVolume)
+- **$api**=RPCMEDIA_GetApi(IpsInstanceID)
+- **$api**->SetVolume(NewVolume)
 
-Therefore the call with $api->GetVolume () or $api->SetVolume(10) is also possible.
+Therefore the call with **$api**->GetVolume () or **$api**->SetVolume(10) is also possible.
 
 The volume can be changed or read as follows
-- $api = RPCMEDIA_GetApi(IpsInstanceID)
-- $api-> SetVolume (NewVolume)
-- $volume=$api->GetVolume ()
+- **$api** = RPCMEDIA_GetApi(IpsInstanceID)
+- $volume=**$api**->GetVolume()
+- **$api**->SetVolume($volume)
 
 or
 
@@ -107,7 +108,6 @@ use the **RPCMEDIA_WriteValue** function to change status variables.
 	- 2: Play
 	- 3: Next
 	- 4: Prevoius	
-
 
 # Add One Modules
 	- FritzStatus		Show Fritzbox status , enable switch of TAM, Wifi, Reboot,Reconnect 

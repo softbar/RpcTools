@@ -39,21 +39,30 @@ Es gibt 2 Timermodes UPDATE und OFFLINE die jeweils getrennte werte haben könne
 wenn das Gerät online ist wird der Status alle 15min aktualisiert , wenn es offline ist (TV ausgeschaltet) findet 
 die Prüfung / Aktualisierung nur alle 2 Stunden statt solange bis das Gerät wieder online ist.
 
+Alle Module exportieren die Funktionen xxx_GetApi und xxx_GetApiInfo
+
+-xxx_GetApi() 		gibt ein RpcApi Objekt zurück, mit dem alle weiteren Befehle an das Gerät gesendet werden können.
+-xxx_GetApiInfo() 	Liefert ein Array mit Informationen zur API
+
 
 # Generic RPC Module 
 	API zum Aufrufen aller vom Gerät erkannten Methoden Es wird nur eine Variable für den Status erstellt
 	
-
 Arbeitet:
 
-Dieses Modul exportiert die Funktionen RPCGENERIC_GetApi und RPCGENERIC_GetApiInfo
+Dieses Modul exportiert zusätzlich die Funktionen RPCGENERIC_CallMethod
+- RPCGENERIC_CallMethod(IpsInstanceID,FunctionName, Kommagetrennter String mit Parametern)
 
--RPCGENERIC_GetApi 		gibt ein Objekt zurück, mit dem alle weiteren Befehle an das Gerät gesendet werden können.
--RPCGENERIC_GetApiInfo 	Liefert ein Array mit Informationen zur API
+die Syntax entspricht $api->__call(FunctionName, Parameter ) mit dem Unterschied das die Parameter nicht als Array sondern als Komma-getrennter String übergeben.
+- RPCGENERIC_CallApi(IpsInstanceID,'SetVolume',"0,Master,10")
+- RPCGENERIC_CallApi(IpsInstanceID,'GetVolume',"0,Master")
+oder
+- $api = RPCGENERIC_GetApi(IpsInstanceID)
+- $volume=$api->GetVolume(0,"Master")
+- $api->SetVolume(0,"Master",$volume)
 
-HINWEIS: Diese beiden Funktionen werden in allen RpcTools-Modulen exportiert
-
-
+Der Aufruf über das RpcApi Objekt $api ist in jedem fall bei mehreren, aufeinander folgenden ,aufrufen sinnvoll da nicht , wie bei  xxx_GetApi(IpsInstanceID), bei jedem Aufruf das Module neu erstellt wird.
+ 
 Darüber hinaus ist es möglich, Anrufe direkt an einen Dienst zu richten. Da einige Rpc-Geräte wie zb die Fritzbox 
 mehrere gleichnamige Funktionen enthält, ist es notwendig, den Dienstnamen beim Aufruf anzugeben. Das passiert wie folgt
 
@@ -61,24 +70,12 @@ mehrere gleichnamige Funktionen enthält, ist es notwendig, den Dienstnamen beim
 oder
 - $api->{"DeviceInfo1.GetInfo"}(Parameter,Parameter...)
 
-Der Aufruf der Funktion RPCGENERIC_CallApi(IpsInstanceID,FunctionName, Kommagetrennter String mit Parametern ) 
-ist der gleiche wie beim API Objekt  $api->__call(FunctionName, Parameter Array )  nur die Parameter werden als Komma-getrennter String übergeben.
-- RPCGENERIC_CallApi(IpsInstanceID,'SetVolume',"0,Master,10")
-- RPCGENERIC_CallApi(IpsInstanceID,'GetVolume',"0,Master")
-oder
-- $api = RPCGENERIC_GetApi(IpsInstanceID)
-- $volume=$api->GetVolume(0,"Master")
-- $api->SetVolume(0,"Master",$volume)
- 
-  	
-
 # Multimedia RPC Module 
 	Liefert, abhängig vom Gerät, Standardmethoden für 
 	1. Volume, Mute (Generic)
 	2. Bass, Loudness, Trebble (sonos, ect..)
 	3. Play,Pause,Stop,Next,Previous (Generic)
 	4. Color,Brightness,Sharpness, Contrast (TV )
-
 
 Arbeite:
 Dieses Modul exportiert zusätzlich die Funktionen 
