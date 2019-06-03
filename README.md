@@ -90,3 +90,9 @@ is used to control the playback, whereby the following values are possible:
 0: Stop, 1: Pause, 2: Play, 3: Next, 4: Prevoius	
 
 
+# Add One Modules
+	- FritzStatus		Show Frizbox Status , enable switch of TAM, Wifi, Reboot,Reconnect 
+	- FritzLog
+	- FritzCallmon
+	- FritzHomeAuto
+	- SamsungTVRemote
