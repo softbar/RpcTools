@@ -84,8 +84,8 @@ or
 
 the function RPCMEDIA_WriteValue is used to set properties.
 
--  RPCMEDIA_WriteValue (InstanceID, 'VOLUME', 10) sets the volume to 10
-- RPCMEDIA WriteValue (Instance ID, 'PLAYSTATE', value) is used to control the playback, whereby the following values are possible: 
+- RPCMEDIA_WriteValue (InstanceID, 'VOLUME', 10) sets the volume to 10
+- RPCMEDIA_WriteValue (Instance ID, 'PLAYSTATE', value) is used to control the playback, whereby the following values are possible: 
 	- 0: Stop
 	- 1: Pause
 	- 2: Play
