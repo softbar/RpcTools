@@ -16,7 +16,7 @@ class RpcConfigurator extends IPSModule{
 			echo $this->Translate("Only one Instance of Rpc Configurator allowed");
 			return null;
 		}
-		$this->RegisterPropertyBoolean('ShowOptions', true);
+		$this->RegisterPropertyBoolean('ShowOptions', false);
 		$this->RegisterPropertyBoolean('ShowForm4', true);
 		$this->RegisterPropertyBoolean('EnableCache', true);
 		$this->RegisterPropertyString('BindIp', (($v=Sys_GetNetworkInfo()) && !empty($v[0]['IP']))?$v[0]['IP']:'');
