@@ -8,6 +8,7 @@ RpcTools for IP-Symcon
 	Special Devices 
 	1. Homematic CCU
 	2. Enigma2 WebInterface
+	3. Fritzbox (see Add One Modules)
   
 
 Works:
