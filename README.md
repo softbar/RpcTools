@@ -99,3 +99,5 @@ is used to control the playback, whereby the following values are possible:
 	- SamsungTVRemote	Enable network remote commands to Samung TV F-Series (UE55F6470) Use this to power off your TV
 	
 Unneeded add-on modules can be safely deleted, but are reinstalled during an update
+
+When using a Fritzbox add-on modules, it suffices to specify when creating the host or the IP. As an example, http://fritz.box or 192.168.178.1
