@@ -100,4 +100,4 @@ is used to control the playback, whereby the following values are possible:
 	
 Unneeded add-on modules can be safely deleted, but are reinstalled during an update
 
-When using a Fritzbox add-on modules, it suffices to specify when creating the host or the IP. As an example, http://fritz.box or 192.168.178.1
+When using a Fritzbox add-on module, it suffices to specify when creating the host or the IP. As an example, http://fritz.box or 192.168.178.1
