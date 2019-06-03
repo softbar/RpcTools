@@ -33,27 +33,16 @@ Module and enter the full URL as HOST. The module then tries to configure itself
 
 
 # Generic RPC Module 
-	API to call all methods discovered from device
-	Only one Variable for Status created
+	API to call all methods discovered from device Only one Variable for Status created
+	
 
 Works:
 
-This module only exports the functions RPCGENERIC_GetApi and RPCGENERIC_CallApi
+This module only exports the functions RPCGENERIC_GetApi and RPCGENERIC_GetApiInfo
 
 RPCGENERIC_GetApi returns an object with which all further commands can be sent to the device.
-- NOTE: These two functions are exported to all Rpc devices
+- NOTE: These two functions are exported to all RpcTools devices
 
-The volume can be changed or read as follows
-
-- $api-> SetVolume (InstanceID, channel, NewVolume)
-
-- $volume=$api->GetVolume (InstanceID, Channel)
-
-Since InstanceID is usually 0, this variable does not have to be specified, just
-like Channel, these values are automatically added when called.
-
-Therefore the call with $api->GetVolume () or $api->SetVolume(10) is also
-possible.
 
 Furthermore, it is possible to address calls directly to an service. Since some Rpc devices such
 as the Fritzbox contains several functions of the same name, GetInfo(), it is
@@ -64,11 +53,11 @@ or
 
 The RPCGENERIC_CallApi(IpsInstanceID,FunctionName, Commaseperated arguments ) is the same as $api->__call only arguments as Commaseperadet String requirend.
 - RPCGENERIC_CallApi(IpsInstanceID,'SetVolume',"0,Master,10")
-- RPCGENERIC_CallApi(IpsInstanceID,'SetVolume',"10")
+- RPCGENERIC_CallApi(IpsInstanceID,'GetVolume',"0,Master")
 or
 - $api = RPCGENERIC_GetApi(IpsInstanceID)
 - $volume=$api->GetVolume(0,"Master")
-- $volume=$api->GetVolume()
+- $api->SetVolume(0,"Master",$volume)
  
   	
 
@@ -81,14 +70,27 @@ or
 
 
 Works:
+Since InstanceID is usually 0, this variable does not have to be specified, just
+like Channel, these values are automatically added when called.
+
+Therefore the call with $api->GetVolume () or $api->SetVolume(10) is also possible.
+
+The volume can be changed or read as follows
+- $api = RPCMEDIA_GetApi(IpsInstanceID)
+- $api-> SetVolume (NewVolume)
+- $volume=$api->GetVolume ()
+
+or
 
 the function RPCMEDIA_WriteValue is used to set properties.
 
 The command RPCMEDIA_WriteValue (InstanceID, 'VOLUME', 10) sets the volume to 10
-
-The command RPCMEDIA WriteValue (Instance ID, 'PLAYSTATE', value)
-is used to control the playback, whereby the following values are possible: 
-0: Stop, 1: Pause, 2: Play, 3: Next, 4: Prevoius	
+The command RPCMEDIA WriteValue (Instance ID, 'PLAYSTATE', value) is used to control the playback, whereby the following values are possible: 
+	0: Stop
+	1: Pause
+	2: Play
+	3: Next
+	4: Prevoius	
 
 
 # Add One Modules
