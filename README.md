@@ -122,8 +122,5 @@ the function RPCMEDIA_WriteValue is used to set properties.
 	
 Unneeded add-on modules can be safely deleted, but are reinstalled during an update
 
-<<<<<<< HEAD
 When using a Fritzbox add-on module, it suffices to specify when creating the host or the IP. As an example, http://fritz.box or 192.168.178.1
-=======
-When using a Fritzbox add-on module, it suffices to specify when creating the host or the IP. As an example, http://fritz.box or 192.168.178.1
->>>>>>> origin/master
+origin/master
