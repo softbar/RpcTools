@@ -162,10 +162,10 @@ class RpcConfigurator extends IPSModule{
 		$GetFormDeviceValue=function($urls,$host=''){
 			static $props_n=[PROP_VOLUME_CONTROL=>'vol',PROP_MUTE_CONTROL=>'mute',PROP_TREBLE_CONTROL=>'trebl',PROP_BASS_CONTROL=>'bass',PROP_LOUDNESS_CONTROL=>'loudn',PROP_BRIGHTNESS_CONTROL=>'brigh',PROP_CONTRAST_CONTROL=>'contr',PROP_SHARPNESS_CONTROL=>'sharp',PROP_COLOR_CONTROL=>'color',PROP_SOURCE_CONTROL=>'src',PROP_PLAY_CONTROL=>'play',PROP_CONTENT_BROWSER=>'cont'];
 			$options = OPT_USE_CACHE;//$this->ReadPropertyBoolean('EnableCache')?OPT_USE_CACHE:0;
-	 		$this->SendDebug(__FUNCTION__, sprintf($this->Translate('parse device urls=> %s'),is_array($urls)?implode(',',$urls):$urls), 0);
+	 		$this->SendDebug('BuildDiscoverList', sprintf($this->Translate('parse device urls=> %s'),is_array($urls)?implode(',',$urls):$urls), 0);
 			$d=DiscoverDevice($urls,$options|OPT_MINIMIZED);
 			if(count($d[D_SERVICES])==0){
-	 			$this->SendDebug(__FUNCTION__,sprintf($this->Translate("no Services in %s found"),$d[D_NAME]),0);
+	 			$this->SendDebug('BuildDiscoverList',sprintf($this->Translate("no Services in %s found"),$d[D_NAME]),0);
 				return;
 			}
 			$props=[];
@@ -202,9 +202,9 @@ class RpcConfigurator extends IPSModule{
 		}
 		if($fb_id!==false){
 			$clone=$discoverList[$fb_id];
-			foreach (['FritzStatus','FritzLog','FritzHomeAuto','FritzCallmon'] as $type){
+			foreach (['FritzStatus','FritzLog','FritzHomeAuto','FritzCallmon'] as $guidname){
 				if(!IPS_ModuleExists($this->GenGuid($guidname)))continue;
-				$clone['props']=$type;
+				$clone['props']=$guidname;
 				if($check==0 || !$findFormDeviceValue($clone, $discoverList))$discoverList[]=$clone;
 			}
 		}

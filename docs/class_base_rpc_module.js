@@ -30,12 +30,12 @@ var class_base_rpc_module =
     [ "ValidateConfiguration", "class_base_rpc_module.html#a680e3cf6a8c260948d5b89836d377085", null ],
     [ "ValidateTimers", "class_base_rpc_module.html#a58f253958ada5909bf5ee813ad35cb5d", null ],
     [ "ValidIdent", "class_base_rpc_module.html#a6a68ae1d8bbb12faba4f69edde487aa5", null ],
-    [ "$online", "class_base_rpc_module.html#a0e6a37ba13c47e4bd2c43de0ea0ea8ed", null ],
+    [ "$online", "class_base_rpc_module.html#a5bd71a14e99b2bef7ab3f7fb41204c0e", null ],
     [ "$prop_names", "class_base_rpc_module.html#ae9abb29319252561f8f79ed2c8bf65cb", null ],
     [ "$requireLogin", "class_base_rpc_module.html#af154ebb51380c9f0ae59c3ce5707e3ca", null ],
     [ "$showLogin", "class_base_rpc_module.html#aaf9f0a21bd98eff89563f4702362c478", null ],
-    [ "$showRefreshButton", "class_base_rpc_module.html#ae6d5d79c4f2aa7108f1d5001117023db", null ],
-    [ "$state", "class_base_rpc_module.html#a2b2d5aa481b7febec48a7e3aaa2d5e2f", null ],
-    [ "$status", "class_base_rpc_module.html#af2d843c2c7d52c4a97819a51b71e1f1b", null ],
+    [ "$showRefreshButton", "class_base_rpc_module.html#ae69cbe62767276fafdc358e889f971d4", null ],
+    [ "$state", "class_base_rpc_module.html#ae4041411f6bf360d3f6e3da42a7236ed", null ],
+    [ "$status", "class_base_rpc_module.html#a0d73ac4b107a069efbcfa9e4d8fad287", null ],
     [ "$timerDef", "class_base_rpc_module.html#a5ad1b85667ffc1a42c03b909f1122427", null ]
 ];

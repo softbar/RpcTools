@@ -18,7 +18,7 @@ depending on the timeout setting in the configurator and the number
 of found device.
 
 The result is that the *local Windows* console seems to hang, but it is not like this :-(
-In the *Webfront console*, you can track progress in the message log.
+In the *Webfront console*, you can track progress in the debug log.
  
 You can use **RpcConfigurator** to find and create new devices. 
 If your device does not appear in the list and you have the *device 
