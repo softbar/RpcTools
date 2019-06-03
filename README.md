@@ -45,10 +45,15 @@ Works:
 
 This module only exports the functions RPCGENERIC_GetApi and RPCGENERIC_GetApiInfo
 
+<<<<<<< HEAD
 - RPCGENERIC_GetApi 		Returns an object with which all further commands can be sent to the device.
 - RPCGENERIC_GetApiInfo 	Returns an array of informatons to the API
 
 NOTE: These two functions are exported to all RpcTools devices
+=======
+RPCGENERIC_GetApi returns an object with which all further commands can be sent to the device.
+- NOTE: These two functions are exported to all RpcTools devices
+>>>>>>> origin/master
 
 
 Furthermore, it is possible to address calls directly to an service. Since some Rpc devices such
@@ -80,11 +85,19 @@ Works:
 Since InstanceID is usually 0, this variable does not have to be specified, just
 like Channel, these values are automatically added when called.
 
+<<<<<<< HEAD
 Therefore the call with $api->GetVolume() or $api->SetVolume(10) is also possible.
 
 The volume can be changed or read as follows
 - $api = RPCMEDIA_GetApi(IpsInstanceID)
 - $api->SetVolume(NewVolume)
+=======
+Therefore the call with $api->GetVolume () or $api->SetVolume(10) is also possible.
+
+The volume can be changed or read as follows
+- $api = RPCMEDIA_GetApi(IpsInstanceID)
+- $api-> SetVolume (NewVolume)
+>>>>>>> origin/master
 - $volume=$api->GetVolume ()
 
 or
@@ -109,4 +122,8 @@ the function RPCMEDIA_WriteValue is used to set properties.
 	
 Unneeded add-on modules can be safely deleted, but are reinstalled during an update
 
+<<<<<<< HEAD
 When using a Fritzbox add-on module, it suffices to specify when creating the host or the IP. As an example, http://fritz.box or 192.168.178.1
+=======
+When using a Fritzbox add-on module, it suffices to specify when creating the host or the IP. As an example, http://fritz.box or 192.168.178.1
+>>>>>>> origin/master
