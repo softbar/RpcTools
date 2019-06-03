@@ -37,27 +37,24 @@ There are 2 timer modes *UPDATE* and *OFFLINE* which can each have separate valu
 the status is updated every 15min, if it is *offline* (TV off) the check / update will take place only every 2 hours 
 until the device is *online* again.
 
-All module only exports the functions xxx_GetApi and xxx_GetApiInfo
-
-- xxx_GetApi(IpsInstanceID)		Returns an **RpcApi** object with which all further commands can be sent to the device.
-- xxx_GetApiInfo(IpsInstanceID) 	Returns an array of informatons to the API
+All module exports the functions
+- **xxx_GetApi**(IpsInstanceID)		Returns an **RpcApi** object with which all further commands can be sent to the device.
+- **xxx_GetApiInfo**(IpsInstanceID) Returns an array of informatons to the API
 
 
 # Generic RPC Module 
 	API to call all methods discovered from device only one Variable for Status created
 
+This module also exports the function
+- **RPCGENERIC_CallMethod**(IpsInstanceID, FunctionName, comma-separated string with parameters)
+
 Works:
 
-This module also exports the functions RPCGENERIC_CallMethod
-- RPCGENERIC_CallMethod (IpsInstanceID, FunctionName, comma-separated string with parameters)
-
-NOTE: These two functions are exported to all RpcTools devices
-
 the syntax is the same as **$api**-> __ call (FunctionName, Parameter), with the difference that the parameters are passed not as an array but as a comma-separated string.
-- RPCGENERIC_CallApi(IpsInstanceID, 'SetVolume', "0, Master, 10")
-- RPCGENERIC_CallApi(IpsInstanceID, 'GetVolume', "0, Master")
+- **RPCGENERIC_CallApi**(IpsInstanceID, 'SetVolume', "0, Master, 10")
+- **RPCGENERIC_CallApi**(IpsInstanceID, 'GetVolume', "0, Master")
 or
-- **$api** = RPCGENERIC_GetApi (IpsInstanceID)
+- **$api** = **RPCGENERIC_GetApi**(IpsInstanceID)
 - $volume = **$api**-> GetVolume (0, "Master")
 - **$api**->SetVolume (0, "Master", $ volume)
 
@@ -70,7 +67,6 @@ necessary to transfer the service name. This happens as follows
 or
 - **$api**->{"DeviceInfo1.GetInfo"}(parameter,parameter...)
 
-  	
 
 # Multimedia RPC Module 
 	Includes Standard methods for
@@ -79,35 +75,31 @@ or
 	3. Play,Pause,Stop,Next,Previous (Generic)
 	4. Color,Brightness,Sharpness, Contrast (TV )
 
+This module also exports the functions
+- **RPCMEDIA_RequestUpdate**(IpsInstanceID) 				updates all status variables
+- **RPCMEDIA_WriteValue**(IpsInstanceID,statusvar,value) 	set status variable
 
 Works:
+
 Since InstanceID is usually 0, this variable does not have to be specified, just
 like Channel, these values are automatically added when called.
 
 Therefore the call with **$api**->GetVolume() or **$api**->SetVolume(10) is also possible.
 
 The volume can be changed or read as follows
-- **$api**=RPCMEDIA_GetApi(IpsInstanceID)
+- **$api**=**RPCMEDIA_GetApi**(IpsInstanceID)
+- $volume=**$api**->GetVolume()
 - **$api**->SetVolume(NewVolume)
 
-Therefore the call with **$api**->GetVolume () or **$api**->SetVolume(10) is also possible.
-
-The volume can be changed or read as follows
-- **$api** = RPCMEDIA_GetApi(IpsInstanceID)
-- $volume=**$api**->GetVolume()
-- **$api**->SetVolume($volume)
-
-or
-
-use the **RPCMEDIA_WriteValue** function to change status variables.
-
-- RPCMEDIA_WriteValue (IpsInstanceID, 'VOLUME', 10) sets the volume to 10
-- RPCMEDIA_WriteValue (IpsInstanceID, 'PLAYSTATE', value) is used to control the playback, whereby the following values are possible: 
+or use the **RPCMEDIA_WriteValue** function to change status variables.
+- **RPCMEDIA_WriteValue**IpsInstanceID, 'VOLUME', 10) sets the volume to 10
+- **RPCMEDIA_WriteValue**(IpsInstanceID, 'PLAYSTATE', value) is used to control the playback, whereby the following values are possible: 
 	- 0: Stop
 	- 1: Pause
 	- 2: Play
 	- 3: Next
 	- 4: Prevoius	
+
 
 # Add One Modules
 	- FritzStatus		Show Fritzbox status , enable switch of TAM, Wifi, Reboot,Reconnect 
@@ -121,5 +113,5 @@ Unneeded plug-ins can be easily deleted, but will be reinstalled during an updat
 When using a Fritzbox add-on module, when creating manually, the specification of the host or the IP is sufficient.
 As an example Host = http://fritz.box or 192.168.178.1
 
-Note: To keep the config files of the devices in the cache too small, unnecessary functions and status variables of the XML files are not taken into account during the import.
+Note: To keep the cache device config files small, unneeded functions and status variables are ignored when processing the XML files.
 If you want to dive deeper finds everything in the discrover.inc file, I also have the modules in the source code (for my purposes * laugh *) well documented.
