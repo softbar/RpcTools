@@ -20,6 +20,7 @@ abstract class BaseRpcModule extends IPSModule {
 		$this->RegisterPropertyString('Host','');
 		$this->RegisterPropertyString('User','');
 		$this->RegisterPropertyString('Pass','');
+		$this->RegisterPropertyInteger('ModuleProps', 0);
 		if($this->timerDef['ONLINE_INTERVAL'][0])$this->RegisterPropertyInteger('ONLINE_INTERVAL', 0);
 		if($this->timerDef['OFFLINE_INTERVAL'][0])$this->RegisterPropertyInteger('OFFLINE_INTERVAL', 0);
 		$this->RegisterTimer('UPDATE_TIMER',0,"IPS_RequestAction($this->InstanceID,'UPDATE',true);");
@@ -102,7 +103,7 @@ abstract class BaseRpcModule extends IPSModule {
 	/** @brief Handle timer update events
 	 * {@inheritDoc}
 	 * @see IPSModule::RequestAction()
-	 * @return boolean True if ident is UPDATE
+	 * @return bool True if ident is UPDATE
 	 */
 	public function RequestAction($Ident, $Value){
 		if($Ident=='UPDATE'){
@@ -139,34 +140,31 @@ abstract class BaseRpcModule extends IPSModule {
 	 * @var array $requireLogin
 	 */
 	protected $requireLogin=[false,false];
-	/** @brief Setup login paramerters used in ApplyChanges and GetConfigurationForm
+	/** @brief Setup login paramerters used in ApplyChanges and GetConfigurationForm.
 	 * 
 	 * if first true then shows username field in formular, seccond true show password field
 	* @var array $showLogin
 	 */
 	protected $showLogin=[false,false];
-	/** @brief If true then show config field in formulars to display a refresh button variable  
-	 * @var boolean $showRefreshButton
+	/** @brief If true then show config field in formulars to display a refresh button variable
+	 * @var bool $showRefreshButton
 	 */
 	protected $showRefreshButton=false;
-	/**
-	 * @brief if not checked Null, true if online false if host not reachable
-	 * @var boolean $online
+	/** @brief if not checked Null, true if online false if host not reachable
+	 * @var bool|null $online
 	 */
 	protected $online=null;
-	/**
-	 * @brief State cache  0=connected | 1=disconnected | 2=error
-	 * @var int $state 
+	/** @brief State cache  0=connected | 1=disconnected | 2=error
+	 * @var int|null $state
 	 */
 	protected $state=null;
-	/**
-	 * @brief Status cache  
-	 * @var int $status 
+	/** @brief Status cache
+	 * @var int|null $status
 	 */
 	protected $status = null;
 	// -------------- Status -------------------------------------------------------------
 	/** @brief Validate current Configuration
-	 * @return boolean True if nothing changed and Configuration is valid
+	 * @return bool True if nothing changed and Configuration is valid
 	 */
 	protected function ValidateConfiguration(){
 		$ok=$this->ValidateTimers();
@@ -194,7 +192,6 @@ abstract class BaseRpcModule extends IPSModule {
 		}
 		return $ok;
 	}
-
 	/** @brief Set Module status
 	 * {@inheritDoc}
 	 * @see IPSModule::SetStatus()
@@ -211,7 +208,7 @@ abstract class BaseRpcModule extends IPSModule {
 	protected function GetStatus(){
 		return is_null($this->status)?$this->status=IPS_GetInstance($this->InstanceID)['InstanceStatus']:$this->status;
 	}
-	/** 
+	/**
 	 * @return int State of device 0=connected|1=disconnected|2=error
 	 */
 	protected function GetDeviceState(){
@@ -230,7 +227,7 @@ abstract class BaseRpcModule extends IPSModule {
 		$this->state=$State;
 	}
 	/** @brief Checks if host online and setup devicestate
-	 * @return boolean True if device is online
+	 * @return bool True if device is online
 	 */
 	protected function CheckOnline() {
 		if(!is_null($this->online))return $this->online;
@@ -239,10 +236,64 @@ abstract class BaseRpcModule extends IPSModule {
 		$this->SetDeviceState($this->online?0:1);
 		return $this->online;
 	}	
+	// -------------- Module or Device Props -------------------------------------------
+	/**
+	/** @brief Get the device propertys
+	 * @return int
+	 */
+	protected function GetProps(){
+		return $this->ReadPropertyInteger('ModuleProps');// intval($this->GetBuffer('MY_PROPS'));
+	}
+	/**
+	 * @param int $props Device or Module Propertys
+	 * @param bool $Update If true then autocreate and delete used and unused vars
+	 * @param bool $doApply If true then changes will Apply to Config , false is call comes out from Apply() function
+	 * @return bool True if Props changes
+	 */
+	protected function SetProps(int $props, $Update=true, $doApply=true){
+		if($props!=$this->GetProps()){
+			$this->SendDebug(__FUNCTION__, "Set new Props: $props", 0);
+			if($Update)$this->UpdateDeviceProps($props, $Update,$Update);
+			$save= !IPS_HasChanges($this->InstanceID);
+			IPS_SetProperty($this->InstanceID, 'ModuleProps', $props);
+			if($save && $doApply)IPS_ApplyChanges($this->InstanceID);
+			return true;	
+		}
+		return false;
+	}
+	/**
+	 * @param int $props Device or Module propertys
+	 * @param bool $AutoCreate if true then auto create missing variables
+	 * @param bool $AutoRemove if true then remove unused variables
+	 * @return bool True if variables removed or created
+	 */
+	protected function UpdateDeviceProps($props, $AutoCreate=true, $AutoRemove=true){
+		if(!$AutoCreate && !$AutoRemove)return false;
+		foreach ($this->prop_names as $prop=>$ident){
+			$add=(bool)($props & $prop);
+			$id=@$this->GetIDForIdent($ident);
+			if(!$id && $add && $AutoCreate){
+				$id=$this->CreateVarByIdent($ident, false);
+			}elseif($id && !$add && $AutoRemove){
+// 				if($this->GetPropDef($ident)[DEF_ACTION]==1)
+				@$this->DisableAction($ident);
+				$this->UnregisterVariable($ident);
+			}
+		}
+		return true;
+	}
+	/** @brief Update device property is called from ApplyChanges
+	 * Overide in your own Module
+	 * @param bool $doApply If true then changes are applyed to instance
+	 * @return bool True is nothing changed
+	 */
+	protected function UpdateProps($doApply=true){
+		return true;
+	}
 	// -------------- Timers ----------------------------------------------------------
 	/** @brief Checks if TimerValues are Ok
 	 * This function is called from ApplyChanges and check timer values based on BaseRpcModule::$timerDef
-	 * @return boolean True if timers valid
+	 * @return bool True if timers valid
 	 */
 	protected function ValidateTimers(){
 		$check=function($id){
@@ -312,9 +363,9 @@ abstract class BaseRpcModule extends IPSModule {
 	/**
 	 * @param string $Ident Variable ident to set value
 	 * @param mixed $Value Data to set
-	 * @param boolean $force Set value if changed or not
-	 * @param boolean $AutoCreate Create variable if not exists
-	 * @return boolean True if changed or false if ident not found or not changed 
+	 * @param bool $force Set value if changed or not
+	 * @param bool $AutoCreate Create variable if not exists
+	 * @return bool True if changed or false if ident not found or not changed 
 	 */
 	protected function SetValueByIdent($Ident,$Value, $force=true, $AutoCreate=true ){
 		if(!($id=@$this->GetIDForIdent($Ident)) && $AutoCreate){
@@ -339,7 +390,7 @@ abstract class BaseRpcModule extends IPSModule {
 	}
 	/**
 	 * @param string $Ident Variable ident to create
-	 * @param boolean $CheckIdent Check Ident is Valid
+	 * @param bool $CheckIdent Check Ident is Valid
 	 * @return int Variable Instance ID
 	 */
 	protected function CreateVarByIdent($Ident, $CheckIdent=true){
@@ -377,8 +428,8 @@ abstract class BaseRpcModule extends IPSModule {
 	}
 	/**
 	 * @param string $Ident Variable ident to check
-	 * @param boolean $CheckProp If true then checks ident prop is set
-	 * @return boolean
+	 * @param bool $CheckProp If true then checks ident prop is set
+	 * @return bool
 	 */
 	protected function ValidIdent($Ident, $CheckProp=false){
 		if( (!in_array($Ident,$this->prop_names)) ||
@@ -388,7 +439,7 @@ abstract class BaseRpcModule extends IPSModule {
 	}
 	/**
 	 * @param string $name Create missing profile 
-	 *  @return boolean True if profile created
+	 *  @return bool True if profile created
 	 */
 	protected function CreateMissedProfile($name){
 		IPS_LogMessage(IPS_GetName($this->InstanceID), __FUNCTION__."::Profile ->$name<- not found");
@@ -399,23 +450,11 @@ abstract class BaseRpcModule extends IPSModule {
 	 */
 	protected abstract function GetPropDef($Ident);
  	/** @brief Contains a List of valid Propertys
- 	 * Key = Property value 
- 	 * Value = Property ident name 
+ 	 * Key = Property value
+ 	 * Value = Property ident name
  	 * @var array $prop_names
  	 */
  	protected $prop_names = [];
-	/** @brief Get the device propertys
-	 * @return int
-	 */
-	protected abstract function GetProps();
-	/** @brief Update device property is called from ApplyChanges
-	 * Overide in your own Module
-	 * @param boolean $doApply If true then changes are applyed to instance
-	 * @return boolean True is nothing changed
-	 */
-	protected function UpdateProps($doApply=true){
-		return true;
-	}
 	//------------------- Tools ----------------------------------------------------------
 	/**
 	 * @param string $name
@@ -428,7 +467,7 @@ abstract class BaseRpcModule extends IPSModule {
 
 	/**
 	 * @param string $guid Module ID
-	 * @return boolean True if no more instance created
+	 * @return bool True if no more instance created
 	 */
 	protected function IsLastInstance($guid){
  		return 	(count(IPS_GetInstanceListByModuleID($guid))==0);
@@ -452,8 +491,6 @@ abstract class IPSRpcModule extends BaseRpcModule {
 		parent::Create();
 		$this->RegisterPropertyString('RpcHash',''); // internal for RPC Configurator and detect startup
 		$this->RegisterPropertyString('RpcConfig',''); // Rpc Methods definition
-		$this->RegisterPropertyInteger('ModuleProps', 0);
-		
 	}
 
 	/**
@@ -495,6 +532,9 @@ abstract class IPSRpcModule extends BaseRpcModule {
 	 * @var string $lastError
 	 */
 	protected $lastError='';
+	
+	// -------------- Device Props ----------------------------------------------------
+	protected function ApplyDeviceProps($Props){}
 	// -------------- Update ----------------------------------------------------------
 	/**
 	 * 
@@ -509,10 +549,7 @@ abstract class IPSRpcModule extends BaseRpcModule {
 			$this->DoUpdate();
 		$this->StartTimer();
 	}
-	protected function StartTimer($delay=0){
- 		if($this->GetDeviceState()>1) return;
- 		parent::StartTimer($delay);
-	}
+
 	// -------------- Device ----------------------------------------------------------
 	/**
 	 * @return NULL|array
@@ -667,53 +704,6 @@ abstract class IPSRpcModule extends BaseRpcModule {
 		$this->SendDebug(__FUNCTION__,'finishd', 0);
 	}
 	
-	// -------------- Props -----------------------------------------------------------
-	protected function ApplyDeviceProps($Props){}
-	
-	/**
-	 * @return int
-	 */
-	protected function GetProps(){
-		return $this->ReadPropertyInteger('ModuleProps');// intval($this->GetBuffer('MY_PROPS'));
-	}
-	/**
-	 * @param int $props Device or Module Propertys
-	 * @param boolean $Update If true then autocreate and delete used and unused vars
-	 * @param boolean $doApply If true then changes will Apply to Config , false is call comes out from Apply() function
-	 * @return boolean True if Props changes
-	 */
-	protected function SetProps(int $props, $Update=true, $doApply=true){
-		if($props!=$this->GetProps()){
-			$this->SendDebug(__FUNCTION__, "Set new Props: $props", 0);
-			if($Update)$this->UpdateDeviceProps($props, $Update,$Update);
-			$save= !IPS_HasChanges($this->InstanceID);
-			IPS_SetProperty($this->InstanceID, 'ModuleProps', $props);
-			if($save && $doApply)IPS_ApplyChanges($this->InstanceID);
-			return true;	
-		}
-		return false;
-	}
-	/**
-	 * @param int $props Device or Module propertys
-	 * @param boolean $AutoCreate if true then auto create missing variables
-	 * @param boolean $AutoRemove if true then remove unused variables
-	 * @return boolean True if variables removed or created
-	 */
-	protected function UpdateDeviceProps($props, $AutoCreate=true, $AutoRemove=true){
-		if(!$AutoCreate && !$AutoRemove)return false;
-		foreach ($this->prop_names as $prop=>$ident){
-			$add=(bool)($props & $prop);
-			$id=@$this->GetIDForIdent($ident);
-			if(!$id && $add && $AutoCreate){
-				$id=$this->CreateVarByIdent($ident, false);
-			}elseif($id && !$add && $AutoRemove){
-// 				if($this->GetPropDef($ident)[DEF_ACTION]==1)
-				@$this->DisableAction($ident);
-				$this->UnregisterVariable($ident);
-			}
-		}
-		return true;
-	}
 	
 	// ---------------- Hooks -------------------------------------------------------------------
  	/**

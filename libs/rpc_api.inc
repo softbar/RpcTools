@@ -329,6 +329,7 @@ exit($url);
 
 }
 
+/*
 class FritzApi extends RpcApi {
 	
 	protected function getDefaultValue($name,$serviceName) {
@@ -351,5 +352,5 @@ class FritzApi extends RpcApi {
 		return empty($tmp)?null:(string)$tmp->SID;
 	}	
 }
-
+*/
 ?>

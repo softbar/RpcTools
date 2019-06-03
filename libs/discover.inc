@@ -359,7 +359,7 @@ function DiscoverDeleteDevice($device, $filename=''){
  */
 class Cache {
 	/**
-	 * $_cachePath string 
+	 * @var string $_cachePath 
 	 */
 	protected $_cachePath = RPCTOOLS . '/discovercache/';
 	function __construct(){
