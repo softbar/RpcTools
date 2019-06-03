@@ -16,26 +16,26 @@ Works:
 The search of devices in the network takes between 5 and 180 seconds, 
 depending on the timeout setting in the configurator and the number 
 of found device.
-The result is that the local (windows) console seems to be hanging,
-but in the Webfront console you can track the progress in the message log.
+
+The result is that the *local Windows* console seems to hang, but it is not like this :-(
+In the *Webfront console*, you can track progress in the message log.
  
-You can use RpcConfigurator to create new devices 
-If your device does not appear in the list and you have the device 
-description XML file URL then you can either create a generic or multimedia
-Module and enter the full URL as HOST. The module then tries to configure itself.
+You can use **RpcConfigurator** to find and create new devices. 
+If your device does not appear in the list and you have the *device 
+description XML file URL* then you can either create a generic or multimedia
+Module and enter the *full URL* as HOST. The module then tries to configure itself.
 - NOTE When specifying multiple URLs, these are either separated as a string by comma or passed as a simple array
 
 - Example urls
 	- http://fritz.box:49000/tr64desc.xml
 	- http://192.168.112.61:8000/serverxml.xml,http://192.168.112.61:8080/description.xml
-	- homematic.xml < for CCU
-	- enigma2.xml < for DreamBox Enigma2 WebInterface
-
+	- homematic.xml 	for CCU
+	- enigma2.xml 		for DreamBox Enigma2 WebInterface
 
 All modules include timer functions for updating the status variables, with the exception of the RPCGENERIC module.
-There are 2 timer modes UPDATE and OFFLINE which can each have separate values, this means when the device is online 
-the status is updated every 15min, if it is offline (TV off) the check / update will take place only every 2 hours 
-until the device is online again.
+There are 2 timer modes *UPDATE* and *OFFLINE* which can each have separate values, this means when the device is *online* 
+the status is updated every 15min, if it is *offline* (TV off) the check / update will take place only every 2 hours 
+until the device is *online* again.
 
 # Generic RPC Module 
 	API to call all methods discovered from device Only one Variable for Status created
@@ -63,7 +63,7 @@ necessary to transfer the service name. This happens as follows
 or
 - $api->{"DeviceInfo1.GetInfo"}(parameter,parameter...)
 
-The RPCGENERIC_CallApi(IpsInstanceID,FunctionName, Commaseperated arguments ) is the same as $api->__call only arguments as Commaseperadet String requirend.
+The *RPCGENERIC_CallApi(IpsInstanceID,FunctionName, "Commaseperated arguments" )* is the same as *$api->__call(FunctionName,[...])* only arguments as Commaseperadet String requirend.
 - RPCGENERIC_CallApi(IpsInstanceID,'SetVolume',"0,Master,10")
 - RPCGENERIC_CallApi(IpsInstanceID,'GetVolume',"0,Master")
 or
@@ -102,10 +102,10 @@ The volume can be changed or read as follows
 
 or
 
-the function RPCMEDIA_WriteValue is used to set properties.
+use the **RPCMEDIA_WriteValue** function to change status variables.
 
-- RPCMEDIA_WriteValue (InstanceID, 'VOLUME', 10) sets the volume to 10
-- RPCMEDIA_WriteValue (Instance ID, 'PLAYSTATE', value) is used to control the playback, whereby the following values are possible: 
+- RPCMEDIA_WriteValue (IpsInstanceID, 'VOLUME', 10) sets the volume to 10
+- RPCMEDIA_WriteValue (IpsInstanceID, 'PLAYSTATE', value) is used to control the playback, whereby the following values are possible: 
 	- 0: Stop
 	- 1: Pause
 	- 2: Play
@@ -120,7 +120,10 @@ the function RPCMEDIA_WriteValue is used to set properties.
 	- FritzHomeAuto		Fritzbox DECT actors, enable power switch and show Power,Energy,Temperature ... 
 	- SamsungTVRemote	Enable network remote commands to Samung TV F-Series (UE55F6470) Use this to power off your TV
 	
-Unneeded add-on modules can be safely deleted, but are reinstalled during an update
+Unneeded plug-ins can be easily deleted, but will be reinstalled during an update
 
-When using a Fritzbox add-on module, it suffices to specify when creating the host or the IP. As an example, http://fritz.box or 192.168.178.1
-origin/master
+When using a Fritzbox add-on module, when creating manually, the specification of the host or the IP is sufficient.
+As an example Host = http://fritz.box or 192.168.178.1
+
+Note: To keep the config files of the devices in the cache too small, unnecessary functions and status variables of the XML files are not taken into account during the import.
+If you want to dive deeper finds everything in the discrover.inc file, I also have the modules in the source code (for my purposes * laugh *) well documented.
