@@ -12,11 +12,11 @@ RpcTools for IP-Symcon
 
 Works:
 
-The detection process for new devices takes between 15 and 150 seconds, 
-depending on the settings in the configurator. 
-
-The result is that the local console seems to be hanging, but in the 
-Webfront console you can track the progress in the message log.
+The search of devices in the network takes between 5 and 180 seconds, 
+depending on the timeout setting in the configurator and the number 
+of found device.
+The result is that the local (windows) console seems to be hanging,
+but in the Webfront console you can track the progress in the message log.
  
 You can use RpcConfigurator to create new devices 
 If your device does not appear in the list and you have the device 
