@@ -92,7 +92,9 @@ is used to control the playback, whereby the following values are possible:
 
 # Add One Modules
 	- FritzStatus		Show Frizbox Status , enable switch of TAM, Wifi, Reboot,Reconnect 
-	- FritzLog
-	- FritzCallmon
-	- FritzHomeAuto
-	- SamsungTVRemote
+	- FritzLog		Show Fritzbox Systemlog
+	- FritzCallmon		Show Fritzbox Call list, aktive calls , call lines and more
+	- FritzHomeAuto		Fritzbox DECT devices, enable power switch and show Power,Energy,Temperature actors 
+	- SamsungTVRemote	Enable Netzwork commands to Samung TV F-Series (UE55F6470)
+	
+Unneeded add-on modules can be safely deleted, but are reinstalled during an update
