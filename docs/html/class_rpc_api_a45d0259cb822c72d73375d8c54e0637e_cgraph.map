@@ -1,6 +1,0 @@
-<map id="RpcApi\_callUrl" name="RpcApi\_callUrl">
-<area shape="rect" id="node2" href="$class_rpc_api.html#a110dbb2675e0789df7fab643f40e22db" title="RpcApi\\_prepareArguments" alt="" coords="164,5,345,32"/>
-<area shape="rect" id="node5" href="$class_rpc_api.html#a6974cfa5998de3220cc949287831ef72" title="RpcApi\\error" alt="" coords="207,56,302,83"/>
-<area shape="rect" id="node3" href="$class_rpc_api.html#acd9c509d6e5386db869c2d1c05318465" title="RpcApi\\getDefaultValue" alt="" coords="393,5,552,32"/>
-<area shape="rect" id="node4" href="$class_rpc_api.html#a392f3d4abaee1164a831f3a72759181b" title="RpcApi\\_getFunctionParam" alt="" coords="600,5,781,32"/>
-</map>

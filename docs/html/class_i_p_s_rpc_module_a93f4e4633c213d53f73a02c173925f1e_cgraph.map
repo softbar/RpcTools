@@ -1,8 +1,0 @@
-<map id="IPSRpcModule\GetApi" name="IPSRpcModule\GetApi">
-<area shape="rect" id="node2" href="$class_i_p_s_rpc_module.html#aa3a66e2912db056c098dedadf452d8bc" title="IPSRpcModule\\CreateApi" alt="" coords="205,58,375,85"/>
-<area shape="rect" id="node3" href="$class_base_rpc_module.html#a4b772b4d29b4c92a1f77549fd410e67b" title="Checks if host online and setup devicestate. " alt="" coords="681,83,876,110"/>
-<area shape="rect" id="node5" href="$class_i_p_s_rpc_module.html#a8c26af9a0bf9c42c8dbecc59510167de" title="IPSRpcModule\\GetDeviceConfig" alt="" coords="425,33,631,59"/>
-<area shape="rect" id="node6" href="$class_base_rpc_module.html#ad29e3d08aa2f0ebd107a844a786cc434" title="BaseRpcModule\\GetDeviceState" alt="" coords="423,83,633,110"/>
-<area shape="rect" id="node7" href="$class_base_rpc_module.html#a66ed46afb82eda4f1f996be7e6540722" title="Set Module status . " alt="" coords="439,134,617,161"/>
-<area shape="rect" id="node4" href="$class_base_rpc_module.html#af3ff1bfc850026f7dfce7117682a2eb8" title="BaseRpcModule\\SetDeviceState" alt="" coords="924,109,1135,135"/>
-</map>

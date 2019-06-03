@@ -1,7 +1,0 @@
-<map id="IPSRpcModule\UpdateDeviceProps" name="IPSRpcModule\UpdateDeviceProps">
-<area shape="rect" id="node2" href="$class_base_rpc_module.html#a8636f513770e4624a958fe20d6221446" title="BaseRpcModule\\CreateVarBy\lIdent" alt="" coords="244,64,439,105"/>
-<area shape="rect" id="node3" href="$class_base_rpc_module.html#a96c51d7504ea32cb2b2f9517cb44f7db" title="BaseRpcModule\\CreateMissed\lProfile" alt="" coords="487,5,688,47"/>
-<area shape="rect" id="node4" href="$class_base_rpc_module.html#a9a21dc98cc40eddd753ea64e82c7d158" title="Returns variable definitions Must overide in your own Module. " alt="" coords="736,71,924,98"/>
-<area shape="rect" id="node5" href="$class_base_rpc_module.html#a6a68ae1d8bbb12faba4f69edde487aa5" title="BaseRpcModule\\ValidIdent" alt="" coords="498,122,677,149"/>
-<area shape="rect" id="node6" href="$class_base_rpc_module.html#a76f10ae3e0d5a0831e878eddac87ddd5" title="Get the device propertys. " alt="" coords="742,122,918,149"/>
-</map>

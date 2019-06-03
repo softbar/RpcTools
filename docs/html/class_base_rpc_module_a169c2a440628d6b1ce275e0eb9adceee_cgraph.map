@@ -1,5 +1,0 @@
-<map id="BaseRpcModule\StartTimer" name="BaseRpcModule\StartTimer">
-<area shape="rect" id="node2" href="$class_base_rpc_module.html#a4b772b4d29b4c92a1f77549fd410e67b" title="Checks if host online and setup devicestate. " alt="" coords="243,5,437,32"/>
-<area shape="rect" id="node4" href="$class_base_rpc_module.html#ad29e3d08aa2f0ebd107a844a786cc434" title="BaseRpcModule\\GetDeviceState" alt="" coords="235,56,445,83"/>
-<area shape="rect" id="node3" href="$class_base_rpc_module.html#af3ff1bfc850026f7dfce7117682a2eb8" title="BaseRpcModule\\SetDeviceState" alt="" coords="493,5,704,32"/>
-</map>

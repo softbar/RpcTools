@@ -191,8 +191,8 @@ class RpcConfigurator extends IPSModule{
 		};
 		$discoverList=[];
 		// Now check devicese
-		$check=count($discoverList); // check duplicates if $values is NOT empty
-		$fb_id = false;
+		$check=count($discoverList); // check duplicates if $discoverList is NOT empty
+		$fb_id = false;  // Fritzbox found id
 		foreach($list as $found){
 			if(!($dv=$GetFormDeviceValue($found['urls'],$found['host'])) || 
 			  ($check>0 &&  $findFormDeviceValue($dv, $discoverList)) 
@@ -203,6 +203,7 @@ class RpcConfigurator extends IPSModule{
 		if($fb_id!==false){
 			$clone=$discoverList[$fb_id];
 			foreach (['FritzStatus','FritzLog','FritzHomeAuto','FritzCallmon'] as $type){
+				if(!IPS_ModuleExists($this->GenGuid($guidname)))continue;
 				$clone['props']=$type;
 				if($check==0 || !$findFormDeviceValue($clone, $discoverList))$discoverList[]=$clone;
 			}
@@ -220,7 +221,9 @@ class RpcConfigurator extends IPSModule{
 		if(!is_array($list)||count($list)==0)return [];
 		$modules = [];
 		foreach($this->Guids as $guidname=>$guid){
+			
 			$guid=sprintf($this->BaseGuid,$guid);
+			
 			$modules[$guidname]=[];
 			foreach(IPS_GetInstanceListByModuleID($guid) as $id){
 				$modules[$guidname][]=[

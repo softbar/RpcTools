@@ -1,6 +1,0 @@
-<map id="BaseRpcModule\MessageSink" name="BaseRpcModule\MessageSink">
-<area shape="rect" id="node2" href="$class_base_rpc_module.html#a169c2a440628d6b1ce275e0eb9adceee" title="Start timer based on BaseRpcModule::$timerDef. " alt="" coords="253,31,435,57"/>
-<area shape="rect" id="node3" href="$class_base_rpc_module.html#ad29e3d08aa2f0ebd107a844a786cc434" title="BaseRpcModule\\GetDeviceState" alt="" coords="483,5,693,32"/>
-<area shape="rect" id="node4" href="$class_base_rpc_module.html#a4b772b4d29b4c92a1f77549fd410e67b" title="Checks if host online and setup devicestate. " alt="" coords="491,56,685,83"/>
-<area shape="rect" id="node5" href="$class_base_rpc_module.html#af3ff1bfc850026f7dfce7117682a2eb8" title="BaseRpcModule\\SetDeviceState" alt="" coords="741,56,952,83"/>
-</map>

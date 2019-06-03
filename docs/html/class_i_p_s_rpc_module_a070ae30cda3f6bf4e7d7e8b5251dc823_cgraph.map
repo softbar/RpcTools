@@ -1,8 +1,0 @@
-<map id="IPSRpcModule\RunUpdate" name="IPSRpcModule\RunUpdate">
-<area shape="rect" id="node2" href="$class_base_rpc_module.html#a4b772b4d29b4c92a1f77549fd410e67b" title="Checks if host online and setup devicestate. " alt="" coords="229,5,424,32"/>
-<area shape="rect" id="node4" href="$class_i_p_s_rpc_module.html#a8da09f1c7ac80d0df775b0dc9c98fff3" title="IPSRpcModule\\DoUpdate" alt="" coords="242,56,411,83"/>
-<area shape="rect" id="node5" href="$class_base_rpc_module.html#ad29e3d08aa2f0ebd107a844a786cc434" title="BaseRpcModule\\GetDeviceState" alt="" coords="472,132,683,159"/>
-<area shape="rect" id="node6" href="$class_i_p_s_rpc_module.html#a6a884c30252cde83e2c02629a8828d8f" title="IPSRpcModule\\StartTimer" alt="" coords="241,157,413,184"/>
-<area shape="rect" id="node7" href="$class_base_rpc_module.html#a96282fd8f20b4d589a6de705ad9b3204" title="Stop current Timer. " alt="" coords="237,208,417,235"/>
-<area shape="rect" id="node3" href="$class_base_rpc_module.html#af3ff1bfc850026f7dfce7117682a2eb8" title="BaseRpcModule\\SetDeviceState" alt="" coords="472,5,683,32"/>
-</map>

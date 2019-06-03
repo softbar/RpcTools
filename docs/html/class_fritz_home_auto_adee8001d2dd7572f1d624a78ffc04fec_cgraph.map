@@ -1,9 +1,0 @@
-<map id="FritzHomeAuto\RequestUpdate" name="FritzHomeAuto\RequestUpdate">
-<area shape="rect" id="node2" href="$class_i_p_s_rpc_module.html#a070ae30cda3f6bf4e7d7e8b5251dc823" title="IPSRpcModule\\RunUpdate" alt="" coords="256,107,432,133"/>
-<area shape="rect" id="node3" href="$class_base_rpc_module.html#a96282fd8f20b4d589a6de705ad9b3204" title="Stop current Timer. " alt="" coords="487,5,667,32"/>
-<area shape="rect" id="node4" href="$class_base_rpc_module.html#ad29e3d08aa2f0ebd107a844a786cc434" title="BaseRpcModule\\GetDeviceState" alt="" coords="723,157,933,184"/>
-<area shape="rect" id="node5" href="$class_base_rpc_module.html#a4b772b4d29b4c92a1f77549fd410e67b" title="Checks if host online and setup devicestate. " alt="" coords="480,56,675,83"/>
-<area shape="rect" id="node7" href="$class_i_p_s_rpc_module.html#a8da09f1c7ac80d0df775b0dc9c98fff3" title="IPSRpcModule\\DoUpdate" alt="" coords="493,157,662,184"/>
-<area shape="rect" id="node8" href="$class_i_p_s_rpc_module.html#a6a884c30252cde83e2c02629a8828d8f" title="IPSRpcModule\\StartTimer" alt="" coords="491,208,663,235"/>
-<area shape="rect" id="node6" href="$class_base_rpc_module.html#af3ff1bfc850026f7dfce7117682a2eb8" title="BaseRpcModule\\SetDeviceState" alt="" coords="723,56,933,83"/>
-</map>

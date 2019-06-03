@@ -1,7 +1,0 @@
-<map id="BaseRpcModule\ValidateConfiguration" name="BaseRpcModule\ValidateConfiguration">
-<area shape="rect" id="node2" href="$class_base_rpc_module.html#aa05b4847aac9631a743a5fbb8f59ed2d" title="Checks and Setup given host. " alt="" coords="309,5,490,32"/>
-<area shape="rect" id="node3" href="$class_base_rpc_module.html#a66ed46afb82eda4f1f996be7e6540722" title="Set Module status . " alt="" coords="551,31,729,57"/>
-<area shape="rect" id="node6" href="$class_base_rpc_module.html#a58f253958ada5909bf5ee813ad35cb5d" title="Checks if TimerValues are Ok This function is called from ApplyChanges and check timer values based o..." alt="" coords="296,107,503,133"/>
-<area shape="rect" id="node4" href="$class_base_rpc_module.html#a4b772b4d29b4c92a1f77549fd410e67b" title="Checks if host online and setup devicestate. " alt="" coords="777,5,972,32"/>
-<area shape="rect" id="node5" href="$class_base_rpc_module.html#af3ff1bfc850026f7dfce7117682a2eb8" title="BaseRpcModule\\SetDeviceState" alt="" coords="1020,31,1231,57"/>
-</map>
