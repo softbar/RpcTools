@@ -21,3 +21,6 @@ $RECYCLE.BIN/
 # =========================
 # Operating System Files
 # =========================
+rpc_addones.doxyfile
+rpc_constants_doc.inc
+
