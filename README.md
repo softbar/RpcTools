@@ -100,6 +100,11 @@ or use the **RPCMEDIA_WriteValue** function to change status variables.
 	- 3: Next
 	- 4: Prevoius	
 
+# Note: 
+To keep the cache device config files small, unneeded functions and status variables are ignored when processing the XML files.
+If you want to dive deeper finds everything in the discrover.inc file, I also have the modules in the source code (for my purposes * laugh *) well documented.
+
+
 # Add One Modules
 
 can found here <https://github.com/softbar/RpcAddOnes> 

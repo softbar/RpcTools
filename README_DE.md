@@ -104,6 +104,9 @@ benutze die Funktion RPCMEDIA_WriteValue um Status Variablen zu ändern.
 	- 3: Next
 	- 4: Prevoius	
 
+# Anmerkung
+Um die Konfigdateien der Geräte im Cache klein zu halten , werden nicht benötigte Funktionen und Statusvariablen beim verarbeiten der XML Dateien ignoriert.
+Wer tiefer eintauchen möchte findet alles dazu in der discrover.inc Datei, außerdem habe ich die Module im Quellkode (für meine Verhältnisse *lach* ) gut dokumentiert.
 
 # Zusatz Module
 
