@@ -19,7 +19,7 @@ von der Timeout-Einstellung im Konfigurator und der Anzahl gefundener Gerätes.
 
 Das Ergebnis ist, dass die lokale Windows-Konsole zu hängen scheint, ist aber nicht so :-(
 
-In der Webfront-Konsole kann man den Fortschritt im Debug log verfolgen.
+In der Webfront-Konsole kann man den Fortschritt im Nachrichtenprotokoll verfolgen.
  
 Mit dem RpcConfigurator können neue Geräte einfach gesucht und erstellt werden.
 Wenn dein Gerät nicht in der Liste angezeigt wird und Du die Gerät Beschreibungs-XML-Datei-URL kennst, 
@@ -48,10 +48,10 @@ Alle Module exportieren die Funktionen xxx_GetApi und xxx_GetApiInfo
 # Generic RPC Module 
 	API zum Aufrufen aller vom Gerät erkannten Methoden Es wird nur eine Variable für den Status erstellt
 	
-Dieses Modul exportiert zusätzlich die Funktione
-- RPCGENERIC_CallMethod(IpsInstanceID,FunctionName, Kommagetrennter String mit Parametern)
-
 Arbeitet:
+
+Dieses Modul exportiert zusätzlich die Funktionen RPCGENERIC_CallMethod
+- RPCGENERIC_CallMethod(IpsInstanceID,FunctionName, Kommagetrennter String mit Parametern)
 
 die Syntax entspricht $api->__call(FunctionName, Parameter ) mit dem Unterschied das die Parameter nicht als Array sondern als Komma-getrennter String übergeben.
 - RPCGENERIC_CallApi(IpsInstanceID,'SetVolume',"0,Master,10")
@@ -77,11 +77,10 @@ oder
 	3. Play,Pause,Stop,Next,Previous (Generic)
 	4. Color,Brightness,Sharpness, Contrast (TV )
 
+Arbeite:
 Dieses Modul exportiert zusätzlich die Funktionen 
 - RPCMEDIA_RequestUpdate	aktualisiert alle Status variablen 
 - RPCMEDIA_WriteValue		setzen von Status variablen
-
-Arbeite:
 
 Da die Rpc Geräte InstanceID normalerweise 0 ist, muss diese Variable beim Aufruf nicht angegeben werden
 ebenso die Variable Channel . Diese Werte beim Aufruf automatisch hinzugefügt.
@@ -106,3 +105,18 @@ benutze die Funktion RPCMEDIA_WriteValue um Status Variablen zu ändern.
 	- 4: Prevoius	
 
 
+# Zusatz Module
+	- FritzStatus		Zeigt verschieden Infos wie externe ip, up-down stream ect  außerdem schalten der ABs ,WLAN, Reboot,Reconnect ... 
+	- FritzLog		Zeigt das Fritzbox System log
+	- FritzCallmon		Zeigt Anrufliste mit der Möglichkeit AB abzuhören, Aktive anrufe ....
+	- FritzHomeAuto		Fritzbox DECT Aktoren, erlaubt das schalten und zeigt werte wie Power,Energie,Temperatur ...  abhängig vom Aktor
+	- SamsungTVRemote	Erlaubt das schalten eines Samung TV F-Serie (UE55F6470) übers Netzwerk ohne Rpc,  zb. ganz wichtig TV ausschalten ;-)
+	
+Nicht benötigte Zusatzmodule können einfach gelöscht werden, werden jedoch während eines Updates neu installiert
+
+Bei Verwendung eines Fritzbox-Zusatzmoduls genügt, beim manuellen erstellen,  die Angabe des Hosts oder der IP. 
+Als Beispiel Host = http://fritz.box oder 192.168.178.1
+
+
+Anmerkung: Um die Konfigdateien der Geräte im Cache klein zu halten , werden nicht benötigte Funktionen und Statusvariablen beim verarbeiten der XML Dateien ignoriert.
+Wer tiefer eintauchen möchte findet alles dazu in der discrover.inc Datei, außerdem habe ich die Module im Quellkode (für meine Verhältnisse *lach* ) gut dokumentiert.
