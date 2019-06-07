@@ -1,6 +1,16 @@
 <?php 
 class UTILS {
     
+	/**
+	 * @param string $Name
+	 * @param string $Icon
+	 * @param string $Prefix
+	 * @param string $Suffix
+	 * @param float $MinValue
+	 * @param float $MaxValue
+	 * @param float $StepSize
+	 * @throws Exception
+	 */
 	public static function RegisterProfileInteger($Name, $Icon, $Prefix, $Suffix, $MinValue, $MaxValue, $StepSize) {
         if(!IPS_VariableProfileExists($Name)) {
             IPS_CreateVariableProfile($Name, 1);
@@ -15,6 +25,13 @@ class UTILS {
         IPS_SetVariableProfileValues($Name, $MinValue, $MaxValue, $StepSize);
     }
 
+    /**
+	 * @param string $Name
+	 * @param string $Icon
+	 * @param string $Prefix
+	 * @param string $Suffix
+	 * @param array $Associations
+     */
     public static function RegisterProfileIntegerEx($Name, $Icon, $Prefix, $Suffix, $Associations) {
         if ( sizeof($Associations) === 0 ){
             $MinValue = 0;
