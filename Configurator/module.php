@@ -123,7 +123,9 @@ class RpcConfigurator extends IPSModule{
 		"FritzStatus"=>"201905120FST",
 		"FritzLog"=>"201905120FLO",	
 		"FritzHomeAuto"=>"201905120FHA",	
-		"FritzCallmon"=>"201905120FCM",	
+		"FritzCallmon"=>"201905120FCM",
+		"SamsungTVRemote"=>"20190531SAMR",
+		"SonyAVRRemote"=>"20190531SOAV"	
 	];
 	private function GenGuid($guidName){
 		return sprintf($this->BaseGuid, $this->Guids[$guidName]);
@@ -193,17 +195,40 @@ class RpcConfigurator extends IPSModule{
 		// Now check devicese
 		$check=count($discoverList); // check duplicates if $discoverList is NOT empty
 		$fb_id = false;  // Fritzbox found id
+		$sam_id= false;
+		$sony_id=false;
 		foreach($list as $found){
 			if(!($dv=$GetFormDeviceValue($found['urls'],$found['host'])) || 
 			  ($check>0 &&  $findFormDeviceValue($dv, $discoverList)) 
 			)continue;
 			if($dv['props']=='GenericRpc' && $dv['type']=='InternetGatewayDevice' && preg_match('/fritz!box/i',$dv['info']))$fb_id=count($discoverList);
+			elseif(preg_match('/Sony(.*)STR-DN1050/',$dv['info']))$sony_id=count($discoverList);
+			elseif(preg_match('/Samsung.*TV.*UE55F6400/',$dv['info']))$sam_id=count($discoverList);
+			
 			$discoverList[]=$dv;
 		}
 		if($fb_id!==false){
 			$clone=$discoverList[$fb_id];
 			foreach (['FritzStatus','FritzLog','FritzHomeAuto','FritzCallmon'] as $guidname){
 				if(!IPS_ModuleExists($this->GenGuid($guidname)))continue;
+				$clone['props']=$guidname;
+				if($check==0 || !$findFormDeviceValue($clone, $discoverList))$discoverList[]=$clone;
+			}
+		}
+		if($sam_id!==false){
+			$clone=$discoverList[$sam_id];
+			$guidname='SamsungTVRemote';
+			if(IPS_ModuleExists($this->GenGuid($guidname))){
+				$clone['props']=$guidname;
+				$clone['type']='RemoteControl';
+				if($check==0 || !$findFormDeviceValue($clone, $discoverList))$discoverList[]=$clone;
+			}
+		}
+		if($sony_id!==false){
+			$clone=$discoverList[$sony_id];
+			$guidname='SonyAVRRemote';
+			$clone['type']='RemoteControl';
+			if(IPS_ModuleExists($this->GenGuid($guidname))){
 				$clone['props']=$guidname;
 				if($check==0 || !$findFormDeviceValue($clone, $discoverList))$discoverList[]=$clone;
 			}
@@ -227,7 +252,7 @@ class RpcConfigurator extends IPSModule{
 			$modules[$guidname]=[];
 			foreach(IPS_GetInstanceListByModuleID($guid) as $id){
 				$modules[$guidname][]=[
-						'hash'=>IPS_GetProperty($id, 'RpcHash'),
+						'hash'=>@IPS_GetProperty($id, 'RpcHash'),
 						'host'=>IPS_GetProperty($id, 'Host'),
 						'id'=>$id
 				];	
@@ -235,7 +260,7 @@ class RpcConfigurator extends IPSModule{
 		}
 		$findModuleInstanceID=function($host,$guidname,$hash)use($modules){
 			foreach($modules[$guidname] as $item){
-				if($item['hash']==$hash && $item['host']==$host){
+				if(($item['hash']==''|| $item['hash']==$hash) && $item['host']==$host){
 					return $item['id'];
 				}
 			}

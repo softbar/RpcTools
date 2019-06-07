@@ -67,8 +67,9 @@ abstract class BaseRpcModule extends IPSModule {
 		parent::Destroy();
  		if( $this->IsLastInstance('{5638FDC0-C112-4108-DE05-201905120GEN}') &&
  			$this->IsLastInstance('{5638FDC0-C112-4108-DE05-201905120MED}') &&
-// 			$this->IsLastInstance('{5638FDC0-C112-4108-DE05-20190531SAMR}') &&	
- 			$this->IsLastInstance('{5638FDC0-C112-4108-DE05-201905120FST}') &&
+ 			$this->IsLastInstance('{5638FDC0-C112-4108-DE05-20190531SAMR}') &&	
+ 			$this->IsLastInstance('{5638FDC0-C112-4108-DE05-20190531SOAV}') &&	
+  			$this->IsLastInstance('{5638FDC0-C112-4108-DE05-201905120FST}') &&
  			$this->IsLastInstance('{5638FDC0-C112-4108-DE05-201905120FLO}') &&
  			$this->IsLastInstance('{5638FDC0-C112-4108-DE05-201905120FCM}') &&
  			$this->IsLastInstance('{5638FDC0-C112-4108-DE05-201905120FHA}') 
