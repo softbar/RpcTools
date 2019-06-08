@@ -104,7 +104,7 @@ abstract class BaseRpcModule extends IPSModule {
 	/** @brief Handle timer update events
 	 * {@inheritDoc}
 	 * @see IPSModule::RequestAction()
-	 * @return bool True if ident is UPDATE
+	 * @return bool True if ident processed
 	 */
 	public function RequestAction($Ident, $Value){
 		if($Ident=='UPDATE'){
@@ -327,8 +327,8 @@ abstract class BaseRpcModule extends IPSModule {
 	protected function StartTimer($delay=0){
  		if($this->GetDeviceState()>1) return;
 		$s=($this->CheckOnline()?'ONLINE':'OFFLINE').'_INTERVAL';
-		$i=$delay?$delay:($this->timerDef[$s][0]?$this->ReadPropertyInteger($s):0);
-		if($i){
+		$i=$delay>0?$delay:($this->timerDef[$s][0]>0?$this->ReadPropertyInteger($s):0);
+		if($i>0){
 			if(!$delay){
 				$t=$this->timerDef[$s][1];
 				if($t=='m')$i=$i*60;
@@ -522,7 +522,6 @@ abstract class IPSRpcModule extends BaseRpcModule {
 	 * @var array $showLogin
 	 */
 	protected $showLogin=[true,true];
-	
 	/**
 	 * @brief Current rpc api object
 	 * @var RpcApi $api 
@@ -533,9 +532,8 @@ abstract class IPSRpcModule extends BaseRpcModule {
 	 * @var string $lastError
 	 */
 	protected $lastError='';
-	
 	// -------------- Device Props ----------------------------------------------------
-	protected function ApplyDeviceProps($Props){}
+	protected function ApplyDeviceProps($Props, $doApply){}
 	// -------------- Update ----------------------------------------------------------
 	/**
 	 * 
@@ -672,7 +670,7 @@ abstract class IPSRpcModule extends BaseRpcModule {
 			}
 			IPS_SetProperty($this->InstanceID, 'RpcHash', md5($d[D_INFO]));
 			IPS_SetProperty($this->InstanceID, 'Host', $host=$d[D_HOST]);
-			$this->ApplyDeviceProps($d[D_PROPS]);
+			if($this->ApplyDeviceProps($d[D_PROPS],$doApply)===false)$save=true;
 			if($doApply&&$save)IPS_ApplyChanges($this->InstanceID);
 			IPS_SetName($this->InstanceID,$this->GetModuleName($d[D_NAME],$host));
 			$startup=false;

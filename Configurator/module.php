@@ -96,8 +96,7 @@ class RpcConfigurator extends IPSModule{
 			if($data=json_decode($Value,true))$this->CeateDevice($data);
 		}else 
 		if($Ident=='ADD'){
-//			if($data=json_decode($Value,true))$this->_ceateDevice($data);
-			
+			if(!empty($Value))$this->BuildDiscoverList(json_decode($this->ReadPropertyString('DiscoverList'),true),$Value);
 		}
 		else echo "Unknown Action ->$Ident<-";
 	}
@@ -130,40 +129,53 @@ class RpcConfigurator extends IPSModule{
 	private function GenGuid($guidName){
 		return sprintf($this->BaseGuid, $this->Guids[$guidName]);
 	}
-	private function BuildDiscoverList($discoverList=[]){
-		$this->SendDebug(__FUNCTION__, $this->Translate('started'), 0);
-		$list = DiscoverNetwork(
-				$this->ReadPropertyInteger('DiscoverTimeout'),
-				1,
-				$this->ReadPropertyString('BindIp'),
-				$this->InstanceID
-		);		
-		if(count($list)==0){
-			$this->SendDebug(__FUNCTION__, $this->Translate("No devices found"), 0);
-			return;
+	private function BuildDiscoverList($discoverList=[], $urls=''){
+		if(empty($urls)){
+			$this->SendDebug(__FUNCTION__, $this->Translate('started'), 0);
+			$list = DiscoverNetwork(
+					$this->ReadPropertyInteger('DiscoverTimeout'),
+					1,
+					$this->ReadPropertyString('BindIp'),
+					$this->InstanceID
+			);		
+			if(count($list)==0){
+				$this->SendDebug(__FUNCTION__, $this->Translate("No devices found"), 0);
+				return;
+			}
+			$this->SendDebug(__FUNCTION__, sprintf($this->Translate('detect %s network devices'),count($list)), 0);
+			// Search for predefined devices
+			$tmp=null;
+			foreach ( $list as $id=>$found){
+				// Adding Fritzbox tr64desc
+				if(preg_match('/fritz!box/i', $found['server'])){
+					$tmp=$found;
+		 			$url=str_replace(parse_url($tmp['urls'][0],PHP_URL_PATH),'/tr64desc.xml',$tmp['urls'][0]);
+		  			$tmp['urls']=[$url];
+				}
+				// Adding predefined XML devices
+				else if(preg_match('/homematic/i', $found['server'])){
+					array_push($list[$id]['urls'],'homematic.xml');
+				}
+				else if(preg_match('/[.\-\d]*vserver-\d+-bigmem.+upnp/i',$found['server'])){
+					array_unshift($list[$id]['urls'],'enigma2.xml');
+				}
+			}
+			if($tmp)$list[]=$tmp;
+		} else { // Import Device from urls
+			$this->SendDebug(__FUNCTION__, $this->Translate("Import from url")." => $urls", 0);
+			if(stripos($urls,'http')!==0 && stripos($urls,'.xml')===false){
+				$this->SendDebug(__FUNCTION__, $this->Translate("Invalid url"), 0);
+				return;
+			}
+			if(	strpos($urls,',')===false && parse_url($urls,PHP_URL_PATH)==''){
+				$this->SendDebug(__FUNCTION__, $this->Translate("Invalid url format"), 0);
+				return;
+			}
+			$list[]=['urls'=>$urls,'host'=>''];
 		}
-		$this->SendDebug(__FUNCTION__, sprintf($this->Translate('detect %s network devices'),count($list)), 0);
-		// Search for predefined devices
-		$tmp=null;
-		foreach ( $list as $id=>$found){
-			// Adding Fritzbox tr64desc
-			if(preg_match('/fritz!box/i', $found['server'])){
-				$tmp=$found;
-	 			$url=str_replace(parse_url($tmp['urls'][0],PHP_URL_PATH),'/tr64desc.xml',$tmp['urls'][0]);
-	  			$tmp['urls']=[$url];
-			}
-			// Adding predefined XML devices
-			else if(preg_match('/homematic/i', $found['server'])){
-				array_push($list[$id]['urls'],'homematic.xml');
-			}
-			else if(preg_match('/[.\-\d]*vserver-\d+-bigmem.+upnp/i',$found['server'])){
-				array_unshift($list[$id]['urls'],'enigma2.xml');
-			}
-		}
-		if($tmp)$list[]=$tmp;
 		$GetFormDeviceValue=function($urls,$host=''){
-			static $props_n=[PROP_VOLUME_CONTROL=>'vol',PROP_MUTE_CONTROL=>'mute',PROP_TREBLE_CONTROL=>'trebl',PROP_BASS_CONTROL=>'bass',PROP_LOUDNESS_CONTROL=>'loudn',PROP_BRIGHTNESS_CONTROL=>'brigh',PROP_CONTRAST_CONTROL=>'contr',PROP_SHARPNESS_CONTROL=>'sharp',PROP_COLOR_CONTROL=>'color',PROP_SOURCE_CONTROL=>'src',PROP_PLAY_CONTROL=>'play',PROP_CONTENT_BROWSER=>'cont'];
-			$options = OPT_USE_CACHE;//$this->ReadPropertyBoolean('EnableCache')?OPT_USE_CACHE:0;
+			static $props_n=[PROP_VOLUME_CONTROL=>'vol',PROP_MUTE_CONTROL=>'mute',PROP_TREBLE_CONTROL=>'trebl',PROP_BASS_CONTROL=>'bass',PROP_LOUDNESS_CONTROL=>'loudn',PROP_BRIGHTNESS_CONTROL=>'brigh',PROP_CONTRAST_CONTROL=>'contr',PROP_SHARPNESS_CONTROL=>'sharp',PROP_COLOR_CONTROL=>'color',PROP_SOURCE_CONTROL=>'src',PROP_PLAY_CONTROL=>'play',PROP_CONTENT_BROWSER=>'cont',PROP_EVENTS=>'events'];
+			$options = (int)$this->ReadPropertyBoolean('EnableCache');
 	 		$this->SendDebug('BuildDiscoverList', sprintf($this->Translate('parse device urls=> %s'),is_array($urls)?implode(',',$urls):$urls), 0);
 			$d=DiscoverDevice($urls,$options|OPT_MINIMIZED);
 			if(count($d[D_SERVICES])==0){
@@ -191,7 +203,7 @@ class RpcConfigurator extends IPSModule{
 			foreach($values as $v)
 				if($v['host']==$value['host']&&$v['info']==$value['info']&&$v['type']==$value['type']&&$v['props']==$value['props'])return true;
 		};
-		$discoverList=[];
+// 		$discoverList=[];
 		// Now check devicese
 		$check=count($discoverList); // check duplicates if $discoverList is NOT empty
 		$fb_id = false;  // Fritzbox found id
@@ -212,6 +224,7 @@ class RpcConfigurator extends IPSModule{
 			foreach (['FritzStatus','FritzLog','FritzHomeAuto','FritzCallmon'] as $guidname){
 				if(!IPS_ModuleExists($this->GenGuid($guidname)))continue;
 				$clone['props']=$guidname;
+				$clone['type']=str_replace('Fritz', '', $guidname);
 				if($check==0 || !$findFormDeviceValue($clone, $discoverList))$discoverList[]=$clone;
 			}
 		}

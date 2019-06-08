@@ -22,10 +22,12 @@ function DiscoverNetwork($timeout=5, $retrys=1 , $bind_to_my_ip='', $SenderID=0)
 	$running=true;
 	if(function_exists('IPS_LogMessage')){
 		$debug=function($msg, $toLog=false)use($SenderID){
-			if($SenderID && !$toLog)IPS_SendDebug($SenderID, 'RpcTools Discover', $msg, 0);
+			if($SenderID>0 && !$toLog)IPS_SendDebug($SenderID, 'RpcTools Discover', $msg, 0);
 			else IPS_LogMessage('RpcTools Discover', $msg);
 		};
-	}else $debug=function($msg){};
+	}else $debug=function($msg)use($SenderID){
+		if($SenderID==0)echo $msg.PHP_EOL;
+	};
 	$debug('Discover network starting...',true);	
 	if(empty($timeout)||$timeout<2)$timeout=2;else if ($timeout>10&&$retrys>1)$timeout=5;
 	if(empty($retrys)||$retrys<1)$retrys=1;
@@ -230,7 +232,7 @@ function DiscoverDevice($urls, $options=1, $filter=[]){
 			if($prop=$getFunctionProp($n))$device[D_PROPS]=$device[D_PROPS]|$prop;
 		}
 		$curService[S_FUNCS]=$funcs;
-		if($funcs && count($funcs)>0 && ($options&OPT_EVENTS))$importEvents($xml,$curService);
+		if($funcs && count($funcs)>0 && ($options&OPT_EVENTS)>0)$importEvents($xml,$curService);
 		
 	};
 	$importDevice=function($xml,$port)use(&$device,&$importDevice,$options,$loadXml,$importFunctions){

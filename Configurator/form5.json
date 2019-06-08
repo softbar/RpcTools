@@ -23,8 +23,8 @@
  			] 		
  		},
  		{ "type": "RowLayout", "items": [
-   				{ "type": "ValidationTextBox", "name": "MHost", "caption": "Url to Device description xml" },
-   				{"type":"Button", "caption": "Import Device", "onClick": "IPS_RequestAction($id,'ADD',$MHost);" }
+   				{ "type": "ValidationTextBox", "name": "urls", "caption": "Url to Device description xml" },
+   				{"type":"Button", "caption": "Import Device", "onClick": "if(empty($urls))echo 'please enter url first'; else IPS_RequestAction($id,'ADD',$urls);" }
    				
    			]
    		}	

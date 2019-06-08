@@ -2,7 +2,7 @@ var class_media_rpc =
 [
     [ "_readValue", "class_media_rpc.html#ae42d3769e4ce3285fcb7e003faa983e9", null ],
     [ "_writeValue", "class_media_rpc.html#acde133ab35677e62a93fed5b864f2568", null ],
-    [ "ApplyDeviceProps", "class_media_rpc.html#a76507bcd5dd59d9cf87e8a46502d3080", null ],
+    [ "ApplyDeviceProps", "class_media_rpc.html#ae6806101789777c5250e03d22e733455", null ],
     [ "CreateMissedProfile", "class_media_rpc.html#abb712b40c9046a92a7c04780dc746493", null ],
     [ "Destroy", "class_media_rpc.html#a9b00ee978be30572def9f4b01378d3b1", null ],
     [ "DoUpdate", "class_media_rpc.html#a5b3f5da6a7031eb2d24420285824948f", null ],

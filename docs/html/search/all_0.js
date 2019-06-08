@@ -9,6 +9,7 @@ var searchData=
   ['_24pass',['$pass',['../class_rpc_api.html#a4fe1ecacd3160ef8fba88606c999775a',1,'RpcApi']]],
   ['_24prop_5fnames',['$prop_names',['../class_base_rpc_module.html#ae9abb29319252561f8f79ed2c8bf65cb',1,'BaseRpcModule\$prop_names()'],['../class_media_rpc.html#a629be05f1379b319958124e5757f7969',1,'MediaRpc\$prop_names()']]],
   ['_24requirelogin',['$requireLogin',['../class_base_rpc_module.html#af154ebb51380c9f0ae59c3ce5707e3ca',1,'BaseRpcModule']]],
+  ['_24showevents',['$showEvents',['../class_generic_rpc.html#ad27f7d26b4835b8d856c6946ac95b63b',1,'GenericRpc']]],
   ['_24showlogin',['$showLogin',['../class_base_rpc_module.html#aaf9f0a21bd98eff89563f4702362c478',1,'BaseRpcModule\$showLogin()'],['../class_i_p_s_rpc_module.html#ab670535a78c36023e1618e7f0fd5be56',1,'IPSRpcModule\$showLogin()']]],
   ['_24showrefreshbutton',['$showRefreshButton',['../class_base_rpc_module.html#ae69cbe62767276fafdc358e889f971d4',1,'BaseRpcModule\$showRefreshButton()'],['../class_media_rpc.html#a7c1eff4577d83969b69db2d8405a15cc',1,'MediaRpc\$showRefreshButton()']]],
   ['_24state',['$state',['../class_base_rpc_module.html#ae4041411f6bf360d3f6e3da42a7236ed',1,'BaseRpcModule']]],
