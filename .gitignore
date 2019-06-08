@@ -22,5 +22,7 @@ $RECYCLE.BIN/
 # Operating System Files
 # =========================
 *.doxyfile
+*.rpc
 rpc_constants_doc.inc
-**/tests/
+tests/*
+libs/discovercache/*
