@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<List>
+	<Item>
+		<Index>0</Index>
+		<Id>1</Id>
+		<Active>0</Active>
+		<Name>Wohnzimmer</Name>
+		<Model>FRITZ!Fon C4</Model>
+		<UpdateAvailable>0</UpdateAvailable>
+		<UpdateSuccessful>unknown</UpdateSuccessful>
+		<UpdateInfo />
+	</Item>
+	<Item>
+		<Index>1</Index>
+		<Id>3</Id>
+		<Active>0</Active>
+		<Name>Küche</Name>
+		<Model>FRITZ!Fon MT-F</Model>
+		<UpdateAvailable>0</UpdateAvailable>
+		<UpdateSuccessful>unknown</UpdateSuccessful>
+		<UpdateInfo />
+	</Item>
+	<Item>
+		<Index>2</Index>
+		<Id>5</Id>
+		<Active>0</Active>
+		<Name>Xaver SZ</Name>
+		<Model>FRITZ!Fon MT-F</Model>
+		<UpdateAvailable>0</UpdateAvailable>
+		<UpdateSuccessful>succeeded</UpdateSuccessful>
+		<UpdateInfo>Version 4.08
+			· Behoben: Hängende Verbindung bei aktiver erweiterter Sicherheit
+			· Behoben: Automatische Tastensperre bei Türsprechstellenruf aktiv
+			· Behoben: Diverse Darstellungsfehler
+
+			Version 4.05
+			· Neu: Zusätzliche Option &quot;Einmalklingeln&quot; bei langem Druck
+			auf &apos;*&apos;-Taste
+			· Neu: Menü &quot;Software-Update&quot; und
+			&quot;Software-Version&quot; zusammen gefasst
+			· Neu: Verschiedene Überarbeitungen im Menü
+			· Neu: Optimierte Darstellung bei Anrufen
+			· Neu: Anruferinfo immer möglichst groß darstellen
+			· Neu: Neues Ereignis &quot;Fax&quot; im Startbildschirm
+			&quot;Ereignisse&quot;(ab Fritz!OS 6.98)
+			· Neu: Startbildschirm &quot;Ereignisse&quot;/&quot;Smarthome&quot;
+			scrollbar(ab Fritz!OS 6.98)
+			· Neu: Nachtlicht, Ein-/Ausschalten mit der Auflegen-Taste
+			· Neu: Anzeige der Uhrzeit in der Statuszeile während eines Gespräches
+			· Neu: Einheitlich 10 Lautstärkestufen
+			· Neu: Einstellung der Klingel-Lautstärke während des Klingelns
+			· Neu: Separate Lautstärkeeinstellung für Wecker
+			· Behoben: Verschiedene Darstellungsfehler
+			· Behoben: Ansteigender Klingelton auch bei Telefonbuchzuordnung oder
+			Weckerklingelton
+			· Behoben: Anonyme Rufe bei Wahl aus dem Telefonbuch evt. nicht als
+			anonym signalisiert
+			· Behoben: Kein Tastenton beim Beenden mit roter Taste
+		</UpdateInfo>
+	</Item>
+	<Item>
+		<Index>3</Index>
+		<Id>6</Id>
+		<Active>0</Active>
+		<Name>Lale Bergmann</Name>
+		<Model>FRITZ!Fon MT-F</Model>
+		<UpdateAvailable>0</UpdateAvailable>
+		<UpdateSuccessful>succeeded</UpdateSuccessful>
+		<UpdateInfo>Version 4.08
+			· Behoben: Hängende Verbindung bei aktiver erweiterter Sicherheit
+			· Behoben: Automatische Tastensperre bei Türsprechstellenruf aktiv
+			· Behoben: Diverse Darstellungsfehler
+
+			Version 4.05
+			· Neu: Zusätzliche Option &quot;Einmalklingeln&quot; bei langem Druck
+			auf &apos;*&apos;-Taste
+			· Neu: Menü &quot;Software-Update&quot; und
+			&quot;Software-Version&quot; zusammen gefasst
+			· Neu: Verschiedene Überarbeitungen im Menü
+			· Neu: Optimierte Darstellung bei Anrufen
+			· Neu: Anruferinfo immer möglichst groß darstellen
+			· Neu: Neues Ereignis &quot;Fax&quot; im Startbildschirm
+			&quot;Ereignisse&quot;(ab Fritz!OS 6.98)
+			· Neu: Startbildschirm &quot;Ereignisse&quot;/&quot;Smarthome&quot;
+			scrollbar(ab Fritz!OS 6.98)
+			· Neu: Nachtlicht, Ein-/Ausschalten mit der Auflegen-Taste
+			· Neu: Anzeige der Uhrzeit in der Statuszeile während eines Gespräches
+			· Neu: Einheitlich 10 Lautstärkestufen
+			· Neu: Einstellung der Klingel-Lautstärke während des Klingelns
+			· Neu: Separate Lautstärkeeinstellung für Wecker
+			· Behoben: Verschiedene Darstellungsfehler
+			· Behoben: Ansteigender Klingelton auch bei Telefonbuchzuordnung oder
+			Weckerklingelton
+			· Behoben: Anonyme Rufe bei Wahl aus dem Telefonbuch evt. nicht als
+			anonym signalisiert
+			· Behoben: Kein Tastenton beim Beenden mit roter Taste
+		</UpdateInfo>
+	</Item>
+	<Item>
+		<Index>4</Index>
+		<Id>16</Id>
+		<Active>1</Active>
+		<Name>EDV-Keller</Name>
+		<Model>FRITZ!DECT 200</Model>
+		<UpdateAvailable>0</UpdateAvailable>
+		<UpdateSuccessful>unknown</UpdateSuccessful>
+		<UpdateInfo />
+	</Item>
+	<Item>
+		<Index>5</Index>
+		<Id>17</Id>
+		<Active>1</Active>
+		<Name>Waschmaschiene</Name>
+		<Model>FRITZ!DECT 200</Model>
+		<UpdateAvailable>0</UpdateAvailable>
+		<UpdateSuccessful>unknown</UpdateSuccessful>
+		<UpdateInfo />
+	</Item>
+	<Item>
+		<Index>6</Index>
+		<Id>18</Id>
+		<Active>1</Active>
+		<Name>Wäschetrockner</Name>
+		<Model>FRITZ!DECT 200</Model>
+		<UpdateAvailable>0</UpdateAvailable>
+		<UpdateSuccessful>unknown</UpdateSuccessful>
+		<UpdateInfo />
+	</Item>
+</List>

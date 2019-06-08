@@ -1,0 +1,197 @@
+{
+    "KEY_0": [
+        0,
+        "KEY_0",
+        ""
+    ],
+    "KEY_1": [
+        1,
+        "KEY_1",
+        ""
+    ],
+    "KEY_2": [
+        2,
+        "KEY_2",
+        ""
+    ],
+    "KEY_3": [
+        3,
+        "KEY_3",
+        ""
+    ],
+    "KEY_4": [
+        4,
+        "KEY_4",
+        ""
+    ],
+    "KEY_5": [
+        5,
+        "KEY_5",
+        ""
+    ],
+    "KEY_6": [
+        6,
+        "KEY_6",
+        ""
+    ],
+    "KEY_7": [
+        7,
+        "KEY_7",
+        ""
+    ],
+    "KEY_8": [
+        8,
+        "KEY_8",
+        ""
+    ],
+    "KEY_9": [
+        9,
+        "KEY_9",
+        ""
+    ],
+    "KEY_POWER": [
+        31,
+        "KEY_POWEROFF",
+        ""
+    ],
+    "KEY_MUTE": [
+        36,
+        "KEY_MUTE",
+        ""
+    ],
+    "KEY_OK": [
+        24,
+        "KEY_ENTER",
+        ""
+    ],
+    "KEY_ESC": [
+        25,
+        "KEY_EXIT",
+        ""
+    ],
+    "KEY_MENU": [
+        26,
+        "KEY_MENU",
+        ""
+    ],
+    "KEY_HELP": [
+        32,
+        "KEY_GUIDE",
+        ""
+    ],
+    "KEY_INFO": [
+        33,
+        "KEY_INFO",
+        ""
+    ],
+    "KEY_RETURN": [
+        49,
+        "KEY_RETURN",
+        ""
+    ],
+    "KEY_SOURCE0": [
+        43,
+        "KEY_SOURCE",
+        "Source select"
+    ],
+    "KEY_SOURCE1": [
+        44,
+        "KEY_TV",
+        "TV"
+    ],
+    "KEY_SOURCE2": [
+        45,
+        "KEY_HDMI",
+        "HDMI1"
+    ],
+    "KEY_SOURCE3": [
+        46,
+        "KEY_HDMI2",
+        "HDMI1"
+    ],
+    "KEY_RECORD": [
+        48,
+        "KEY_RECORD",
+        ""
+    ],
+    "KEY_OPTIONS": [
+        52,
+        "KEY_TOOLS",
+        ""
+    ],
+    "KEY_CHUP": [
+        90,
+        "KEY_CHUP",
+        ""
+    ],
+    "KEY_CHDOWN": [
+        91,
+        "KEY_CHDOWN",
+        ""
+    ],
+    "KEY_PLAY": [
+        37,
+        "KEY_PLAY",
+        ""
+    ],
+    "KEY_PAUSE": [
+        38,
+        "KEY_PAUSE",
+        ""
+    ],
+    "KEY_STOP": [
+        39,
+        "KEY_STOP==",
+        ""
+    ],
+    "KEY_NEXT": [
+        41,
+        "KEY_NEXT",
+        ""
+    ],
+    "KEY_PREV": [
+        40,
+        "KEY_PREVIOUIS",
+        ""
+    ],
+    "KEY_FF": [
+        53,
+        "KEY_FF",
+        ""
+    ],
+    "KEY_FR": [
+        54,
+        "KEY_REWIND",
+        ""
+    ],
+    "KEY_VOLUP": [
+        34,
+        "KEY_VOLUP",
+        ""
+    ],
+    "KEY_VOLDOWN": [
+        35,
+        "KEY_VOLDOWN",
+        ""
+    ],
+    "KEY_UP": [
+        20,
+        "KEY_UP",
+        ""
+    ],
+    "KEY_DOWN": [
+        21,
+        "KEY_DOWN",
+        ""
+    ],
+    "KEY_LEFT": [
+        22,
+        "KEY_LEFT",
+        ""
+    ],
+    "KEY_RIGHT": [
+        23,
+        "KEY_RIGHT",
+        ""
+    ]
+}

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<List>
+	<TAMRunning>1</TAMRunning>
+	<Stick>2</Stick>
+	<Status>0</Status>
+	<Capacity>3032</Capacity>
+	<Item>
+		<Index>0</Index>
+		<Display>1</Display>
+		<Enable>1</Enable>
+		<Name>ZAB-Firma</Name>
+	</Item>
+	<Item>
+		<Index>1</Index>
+		<Display>0</Display>
+		<Enable>0</Enable>
+		<Name></Name>
+	</Item>
+	<Item>
+		<Index>2</Index>
+		<Display>1</Display>
+		<Enable>1</Enable>
+		<Name>ZAB-Xaver</Name>
+	</Item>
+	<Item>
+		<Index>3</Index>
+		<Display>0</Display>
+		<Enable>0</Enable>
+		<Name></Name>
+	</Item>
+	<Item>
+		<Index>4</Index>
+		<Display>0</Display>
+		<Enable>0</Enable>
+		<Name></Name>
+	</Item>
+</List>
