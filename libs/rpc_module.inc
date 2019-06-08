@@ -118,7 +118,7 @@ abstract class BaseRpcModule extends IPSModule {
 	 */
 	public function MessageSink($TimeStamp, $SenderID, $Message, $Data){
 		if($Message==IPS_KERNELMESSAGE && $Data[0] === KR_READY){
-			$this->StartTimer(random_int(1, 3));
+			$this->StartTimer(rand(1, 6));
 		}
     }	
 	

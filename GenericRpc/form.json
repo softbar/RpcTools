@@ -7,8 +7,21 @@
 	  		{"name":"s", "caption":"Service","width":"160px"},
 	 		{"name":"f", "caption":"Function","width":"200px"},
 			{"name":"a", "caption":"Arguments", "width": "auto"}
-		]},
+		]
+	},
+	{ "type": "RowLayout", "items": [
 		{"name":"params","type":"ValidationTextBox", "caption":"Commaseperated Args"},
 		{"type":"Button", "caption":"Execute", "onClick":"if(empty($devices))echo 'please select method first';else if(!empty($devices{'a'})&&($params==''||count(explode(',',$params))!=count(explode(',',$devices{'a'})) ) )echo 'Invalid argument count, check your argument input!'; else echo var_export(RPCGENERIC_CallMethod($id,$devices{'s'}.'.'.$devices{'f'},$params),true);"}
+  	]},
+  	{"name":"events","type":"List", "caption":"Event List",
+		"add":false,"delete":false, "rowCount":5,
+		"sort":{ "column":"service","direction":"ascending"},
+		"columns":[
+	  		{"name":"service", "caption":"Service","width":"200px"},
+	 		{"name":"events", "caption":"Event variables","width":"auto"},
+	 		{"name":"enabled", "caption":"Enabled","width":"80px"}
+		]
+	}
+  
   ]
 }

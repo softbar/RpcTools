@@ -21,19 +21,24 @@ class GenericRpc extends IPSRpcModule {
 	 * @see BaseRpcModule::GetConfigurationForm()
 	 */
 	public function GetConfigurationForm() {
- 		$getFormValues=function ($asList=true){
-			$values=[];
-			if($d=$this->GetDeviceConfig()){
-				foreach($d[D_SERVICES] as $sn=>$s){
-					foreach($s[S_FUNCS] as $fn=>$args){
-						$values[]=$asList?['s'=>$sn,'f'=>$fn,'a'=>$args]:['label'=>"$sn.$fn","value"=>"$sn.$fn"];
-					}
+ 		$service_values=$event_values=[];
+ 		$no=$this->Translate('No');
+		if($d=$this->GetDeviceConfig()){
+			foreach($d[D_SERVICES] as $sn=>$s){
+				if(!empty($s[S_EVENTS])){
+					$event_values[]=['service'=>$sn, "events"=>$s[S_EVENTS],"enabled"=>$no];
+				}
+				foreach($s[S_FUNCS] as $fn=>$args){
+					$service_values[]=['s'=>$sn,'f'=>$fn,'a'=>$args];
 				}
 			}
-			return $values;
-	 	};
+		}
 		$f=json_decode(parent::GetConfigurationForm(),true);
-		$f['actions'][0]['values']=$getFormValues();
+		$f['actions'][0]['values']=$service_values;
+		if($this->showEvents && count($event_values)>0){
+			$id=count($f['actions'])-1;
+			$f['actions'][$id]['values']=$event_values;
+		} else array_pop($f['actions']);
 		return json_encode($f);
 	}
 	/**
@@ -46,11 +51,17 @@ class GenericRpc extends IPSRpcModule {
 		return $this->CallApi($MethodName,$Arguments==''?[]:explode(',',$Arguments));
 	}
 	
+	/** @brief Show Eventlist in Formular
+	 * @var bool $showEvents
+	 */
+	protected $showEvents = false;
+	
 	/**
 	 * {@inheritDoc}
 	 * @see IPSRpcModule::GetDiscoverDeviceOptions()
 	 */
 	protected function GetDiscoverDeviceOptions(){
+		if($this->showEvents) return  OPT_MINIMIZED|OPT_EVENTS;
 		return OPT_MINIMIZED;
 	}
 	/**
@@ -63,5 +74,10 @@ class GenericRpc extends IPSRpcModule {
 	 * @see IPSRpcModule::DoUpdate()
 	 */
 	protected function DoUpdate() {}
+
+	protected function ApplyDeviceProps($Props,$doApply){
+		return $this->SetProps($Props,true,$doApply);
+	}
+	
 }
 ?>

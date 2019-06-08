@@ -29,7 +29,12 @@
            	"Function":"Funktion",
            	"Arguments":"Benötigte Parameter",
 		    "Commaseperated Args":"Parameter,Komma getrennt",
-		    "Execute":"Ausführen"
+		    "Execute":"Ausführen",
+		    "Event List":"Ereignis Liste",
+		    "Event variables":"Ereignis Variablen",
+		    "Service":"Anbieter",
+		    "Enabled":"Aktiv"
+
 
         }
     }

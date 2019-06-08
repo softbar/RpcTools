@@ -51,14 +51,14 @@ class MediaRpc extends IPSRpcModule {
 	 * @see IPSRpcModule::GetDiscoverDeviceOptions()
 	 */
 	protected function GetDiscoverDeviceOptions(){
-		return OPT_MINIMIZED|OPT_PROPS_ONLY;
+		return OPT_MINIMIZED|OPT_PROPS_ONLY;//|OPT_EVENTS;
 	}
 	/**
 	 * {@inheritDoc}
 	 * @see IPSRpcModule::ApplyDeviceProps()
 	 */
-	protected function ApplyDeviceProps($Props){
-		$this->SetProps($Props,true);
+	protected function ApplyDeviceProps($Props,$doApply){
+		return $this->SetProps($Props,true,$doApply);
 	}
 	/**
 	 * {@inheritDoc}
