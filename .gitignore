@@ -23,4 +23,4 @@ $RECYCLE.BIN/
 # =========================
 rpc_addones.doxyfile
 rpc_constants_doc.inc
-!tests/
+tests/
