@@ -1,7 +1,7 @@
 {
     "elements": [
     	{"type":"Label","caption":"if you can read this no devices are discovered! Check out following options and press Discover devices, then reopen Form"},
-  		{"name":"ShowOptions", "type":"CheckBox","caption":"Show Options or Devicelist"},
+  		{"name":"ShowOptions", "type":"CheckBox","caption":"Check for settings, uncheck for devicelist"},
  		{"name":"BindIp", "type":"Select","caption":"Bind Discover to IP", "options":[]},
   		{"name":"ShowForm4", "type":"CheckBox","caption":"Show old Format (for ipsconsole using)"},
  		{"name":"DiscoverTimeout", "type":"NumberSpinner","caption":"Timeout [1-15]"},

@@ -1,7 +1,7 @@
 {
     "elements":
     [
- 		{"name":"ShowOptions", "type":"CheckBox","caption":"Show Options or Devicelist"}
+ 		{"name":"ShowOptions", "type":"CheckBox","caption":"Check for settings, uncheck for devicelist"}
   	],
  	"actions":[	
   		{"name":"DiscoverList","type":"List",
