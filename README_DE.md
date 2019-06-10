@@ -2,7 +2,7 @@
 - **Benötigt** IP-Symcon Version **4.3** oder größer 
 
 
-# Configurator Module 
+# Konfigurator Module 
 
 	Durchsucht das Netzwerk nach Rpc Geräten
 	Sondermodule
@@ -14,7 +14,7 @@
 Arbeitet wie folgt:
 
 Die Suche nach Geräten im Netzwerk dauert zwischen 5 und 180 Sekunden abhängig 
-von der Timeout-Einstellung im Konfigurator und der Anzahl gefundener Gerätes.
+von der Timeout-Einstellung im Konfigurator und der Anzahl gefundener Geräte.
 
 Das Ergebnis ist, dass die lokale Windows-Konsole zu hängen scheint, ist aber nicht so :-(
 
@@ -22,7 +22,7 @@ In der Webfront-Konsole kann man den Fortschritt im Nachrichtenprotokoll verfolg
  
 Mit dem RpcConfigurator können neue Geräte einfach gesucht und erstellt werden.
 Wenn dein Gerät nicht in der Liste angezeigt wird und Du die Gerät Beschreibungs-XML-Datei-URL kennst, 
-dann kannst du entweder eine allgemeines oder eine Multimedia-Module erstellen
+dann kannst du entweder eine allgemeines oder ein Multimedia-Module erstellen
 und die vollständige URL als HOST eingeben. Das Modul versucht dann, sich selbst zu konfigurieren.
 - HINWEIS Wenn Du mehrere URLs angeben möchtest, dann werden diese entweder als Zeichenfolge durch Komma getrennt oder als einfaches Array übergeben
 

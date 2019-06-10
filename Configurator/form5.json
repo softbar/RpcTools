@@ -19,7 +19,7 @@
  		},
   		{ "type": "RowLayout", "items": [
   				{ "type": "Button", "caption": "Discover NEW devices", "onClick": "IPS_RequestAction($id,'DISCOVER',false);",  "confirm": "Search for new devices?" },
-  				{ "type": "Button", "caption": "Discover devices", "onClick": "IPS_RequestAction($id,'DISCOVER',true);",  "confirm": "Clear list and discover netzwork devices?" }
+  				{ "type": "Button", "caption": "Discover devices", "onClick": "IPS_RequestAction($id,'DISCOVER',true);",  "confirm": "Clear list and discover network devices?" }
  			] 		
  		},
  		{ "type": "RowLayout", "items": [
