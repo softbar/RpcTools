@@ -4,6 +4,7 @@ var searchData=
   ['_24api',['$api',['../class_i_p_s_rpc_module.html#acf210f0ecfa6aa5c08c07f79cabf6b42',1,'IPSRpcModule']]],
   ['_24device',['$device',['../class_rpc_api.html#a89f61b2ee89660be835f1d1f0f40c526',1,'RpcApi']]],
   ['_24errorhandler',['$ErrorHandler',['../class_rpc_api.html#aef6fd547de4185492a2ee9ed3d2eaa6a',1,'RpcApi']]],
+  ['_24instanceid',['$InstanceID',['../class_i_p_s_module.html#a4cffdea074503ab89bf8cd3e2af1990c',1,'IPSModule']]],
   ['_24lasterror',['$lastError',['../class_i_p_s_rpc_module.html#a3ef2686178b959b324e152295ce5c91e',1,'IPSRpcModule\$lastError()'],['../class_rpc_api.html#a9a7264d44c9835f2358536631fbbf62f',1,'RpcApi\$lastError()']]],
   ['_24online',['$online',['../class_base_rpc_module.html#a5bd71a14e99b2bef7ab3f7fb41204c0e',1,'BaseRpcModule']]],
   ['_24pass',['$pass',['../class_rpc_api.html#a4fe1ecacd3160ef8fba88606c999775a',1,'RpcApi']]],

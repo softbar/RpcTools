@@ -1,3 +1,7 @@
 <map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
-<area shape="rect" id="node1" href="$class_cache.html" title="Cache" alt="" coords="5,5,64,32"/>
+<area shape="rect" id="node1" href="$class_i_p_s_module.html" title="IPSModule" alt="" coords="5,31,91,57"/>
+<area shape="rect" id="node2" href="$class_base_rpc_module.html" title="BaseRpcModule" alt="" coords="139,31,256,57"/>
+<area shape="rect" id="node3" href="$class_i_p_s_rpc_module.html" title="IPSRpcModule" alt="" coords="304,31,412,57"/>
+<area shape="rect" id="node4" href="$class_generic_rpc.html" title="GenericRpc" alt="" coords="460,5,551,32"/>
+<area shape="rect" id="node5" href="$class_media_rpc.html" title="MediaRpc" alt="" coords="465,56,545,83"/>
 </map>

@@ -1,6 +1,8 @@
 var searchData=
 [
-  ['validateconfiguration',['ValidateConfiguration',['../class_base_rpc_module.html#a680e3cf6a8c260948d5b89836d377085',1,'BaseRpcModule']]],
-  ['validatetimers',['ValidateTimers',['../class_base_rpc_module.html#a58f253958ada5909bf5ee813ad35cb5d',1,'BaseRpcModule']]],
-  ['validident',['ValidIdent',['../class_base_rpc_module.html#a6a68ae1d8bbb12faba4f69edde487aa5',1,'BaseRpcModule']]]
+  ['unregistermessage',['UnregisterMessage',['../class_i_p_s_module.html#a87355bc1c2ae0b404da82be8b6e4e724',1,'IPSModule']]],
+  ['unregisterreference',['UnregisterReference',['../class_i_p_s_module.html#aefeaaea1cee5b537d24e042bf7eacbc7',1,'IPSModule']]],
+  ['unregistervariable',['UnregisterVariable',['../class_i_p_s_module.html#a09a19aa981c610449f30e91a399dccde',1,'IPSModule']]],
+  ['updatedeviceprops',['UpdateDeviceProps',['../class_base_rpc_module.html#aa38d129f9c6a9ccfc6d14a3af625b358',1,'BaseRpcModule']]],
+  ['updateprops',['UpdateProps',['../class_base_rpc_module.html#a0e2144ecacdb5a6f2cd215108c7a9ea0',1,'BaseRpcModule']]]
 ];

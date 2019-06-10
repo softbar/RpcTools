@@ -16,7 +16,7 @@ Arbeitet wie folgt:
 Die Suche nach Geräten im Netzwerk dauert zwischen 5 und 180 Sekunden abhängig 
 von der Timeout-Einstellung im Konfigurator und der Anzahl gefundener Geräte.
 
-Das Ergebnis ist, dass die lokale Windows-Konsole zu hängen scheint, ist aber nicht so :-(
+Das Ergebnis ist, dass die lokale Windows-Konsole zu hängen scheint, ist aber nicht so :p
 
 In der Webfront-Konsole kann man den Fortschritt im Nachrichtenprotokoll verfolgen.
  

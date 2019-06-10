@@ -3,6 +3,7 @@ var annotated_dup =
     [ "BaseRpcModule", "class_base_rpc_module.html", "class_base_rpc_module" ],
     [ "Cache", "class_cache.html", "class_cache" ],
     [ "GenericRpc", "class_generic_rpc.html", "class_generic_rpc" ],
+    [ "IPSModule", "class_i_p_s_module.html", "class_i_p_s_module" ],
     [ "IPSRpcModule", "class_i_p_s_rpc_module.html", "class_i_p_s_rpc_module" ],
     [ "MediaRpc", "class_media_rpc.html", "class_media_rpc" ],
     [ "RpcApi", "class_rpc_api.html", "class_rpc_api" ],

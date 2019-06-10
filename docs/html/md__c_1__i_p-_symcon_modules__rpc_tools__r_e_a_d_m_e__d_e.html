@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.8.14"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>RpcTools 5.x Project: RpcTools</title>
+<title>RpcTools 5.x Project: RpcTools für IP-Symcon</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -86,21 +86,23 @@ $(document).ready(function(){initNavTree('md__c_1__i_p-_symcon_modules__rpc_tool
 
 <div class="header">
   <div class="headertitle">
-<div class="title">RpcTools </div>  </div>
+<div class="title">RpcTools für IP-Symcon </div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><p>RpcTools for IP-Symcon</p>
-<h1>Configurator Module</h1>
+<div class="textblock"><ul>
+<li><b>Benötigt</b> IP-Symcon Version <b>4.3</b> oder größer</li>
+</ul>
+<h1>Konfigurator Module</h1>
 <pre class="fragment">Durchsucht das Netzwerk nach Rpc Geräten
 Sondermodule
 1. Homematic CCU
 2. Enigma2 WebInterface
 3. Fritzbox (see Add One Modules)
 </pre><p>Arbeitet wie folgt:</p>
-<p>Die Suche nach Geräten im Netzwerk dauert zwischen 5 und 180 Sekunden abhängig von der Timeout-Einstellung im Konfigurator und der Anzahl gefundener Gerätes.</p>
-<p>Das Ergebnis ist, dass die lokale Windows-Konsole zu hängen scheint, ist aber nicht so :-(</p>
+<p>Die Suche nach Geräten im Netzwerk dauert zwischen 5 und 180 Sekunden abhängig von der Timeout-Einstellung im Konfigurator und der Anzahl gefundener Geräte.</p>
+<p>Das Ergebnis ist, dass die lokale Windows-Konsole zu hängen scheint, ist aber nicht so :p</p>
 <p>In der Webfront-Konsole kann man den Fortschritt im Nachrichtenprotokoll verfolgen.</p>
-<p>Mit dem RpcConfigurator können neue Geräte einfach gesucht und erstellt werden. Wenn dein Gerät nicht in der Liste angezeigt wird und Du die Gerät Beschreibungs-XML-Datei-URL kennst, dann kannst du entweder eine allgemeines oder eine Multimedia-Module erstellen und die vollständige URL als HOST eingeben. Das Modul versucht dann, sich selbst zu konfigurieren.</p><ul>
+<p>Mit dem RpcConfigurator können neue Geräte einfach gesucht und erstellt werden. Wenn dein Gerät nicht in der Liste angezeigt wird und Du die Gerät Beschreibungs-XML-Datei-URL kennst, dann kannst du entweder eine allgemeines oder ein Multimedia-Module erstellen und die vollständige URL als HOST eingeben. Das Modul versucht dann, sich selbst zu konfigurieren.</p><ul>
 <li>HINWEIS Wenn Du mehrere URLs angeben möchtest, dann werden diese entweder als Zeichenfolge durch Komma getrennt oder als einfaches Array übergeben</li>
 <li>Beispiel Urls<ul>
 <li><a href="http://fritz.box:49000/tr64desc.xml">http://fritz.box:49000/tr64desc.xml</a></li>

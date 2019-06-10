@@ -24,8 +24,8 @@ for the JavaScript code in this file
 var NAVTREE =
 [
   [ "RpcTools 5.x Project", "index.html", [
-    [ "RpcTools", "md__c_1__i_p-_symcon_modules__rpc_tools__r_e_a_d_m_e.html", null ],
-    [ "RpcTools", "md__c_1__i_p-_symcon_modules__rpc_tools__r_e_a_d_m_e__d_e.html", null ],
+    [ "RpcTools for IP-Symcon", "md__c_1__i_p-_symcon_modules__rpc_tools__r_e_a_d_m_e.html", null ],
+    [ "RpcTools für IP-Symcon", "md__c_1__i_p-_symcon_modules__rpc_tools__r_e_a_d_m_e__d_e.html", null ],
     [ "Classes", "annotated.html", [
       [ "Class List", "annotated.html", "annotated_dup" ],
       [ "Class Index", "classes.html", null ],
@@ -49,7 +49,8 @@ var NAVTREE =
 
 var NAVTREEINDEX =
 [
-"_generic_rpc_2module_8php.html"
+"_generic_rpc_2module_8php.html",
+"rpc__constants_8inc.html#a255fb47728c74cb654b0d9ceed3d7355"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

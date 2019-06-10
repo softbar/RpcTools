@@ -1,5 +1,4 @@
 var searchData=
 [
-  ['updatedeviceprops',['UpdateDeviceProps',['../class_base_rpc_module.html#aa38d129f9c6a9ccfc6d14a3af625b358',1,'BaseRpcModule']]],
-  ['updateprops',['UpdateProps',['../class_base_rpc_module.html#a0e2144ecacdb5a6f2cd215108c7a9ea0',1,'BaseRpcModule']]]
+  ['translate',['Translate',['../class_i_p_s_module.html#a8398cb586ea8d2f9d0f6d2e7c3013f80',1,'IPSModule']]]
 ];
