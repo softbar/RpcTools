@@ -8,30 +8,23 @@
    	 		"add":false,"delete":false,
     		"sort":{ "column":"host","direction":"ascending"},
 			"columns":[
-				{"name":"itemid", "caption":"ID","width":"30px"},
-  				{"name":"host", "caption":"Host","width":"170px"},
- 				{"name":"type", "caption":"Type","width":"150px"},
-				{"name":"info",  "caption":"Info", "width": "auto"},
-				{"name":"props",  "caption":"Propertys", "width": "150px"},
-				{"name":"status","caption":"State", "width": "80px","save":false},
-				{"name":"instanceID","caption":"InstanceID", "width": "80px", "save":false},
-				{"name":"create","caption":"", "width": "0px","visible":false,"save":false},
-				{"name":"urls","caption":"", "width": "0px","visible":false,"save":true}
+				{"name":"itemid", "label":"ID","width":"30px"},
+  				{"name":"host", "label":"Host","width":"170px"},
+ 				{"name":"type", "label":"Type","width":"150px"},
+				{"name":"info",  "label":"Info", "width": "300px"},
+				{"name":"props",  "label":"Propertys", "width": "150px"},
+				{"name":"status","label":"State", "width": "80px","save":false},
+				{"name":"instanceID","label":"InstanceID", "width": "80px", "save":false},
+				{"name":"create","label":"", "width": "0px","visible":false,"save":false},
+				{"name":"urls","label":"", "width": "0px","visible":false,"save":true}
  			]
  		},
- 		{ "type": "RowLayout", "items": [
-		  		{ "type": "Button", "caption": "Create device", "onClick": "if( empty($DiscoverList)) echo 'please select Device first'; else if(!empty($DiscoverList['rowColor'])) echo 'Device '.$DiscoverList['info'].' exists'; else {IPS_RequestAction($id,'CREATE',json_encode($DiscoverList['create']));echo 'ok';}",  "confirm": "Create selected Device" },
-		  		{ "type": "Button", "caption": "Create generic device", "onClick": "if( empty($DiscoverList)) echo 'please select Device first'; else if(!empty($DiscoverList['rowColor'])) echo 'Device '.$DiscoverList['info'].' exists'; else {RPCCONFIG_CreateGenericDevice($id, $DiscoverList['itemid']);echo 'ok';}",  "confirm": "Create selected Device" },
-		   		{ "type": "Button", "caption": "Discover NEW devices", "onClick": "IPS_RequestAction($id,'DISCOVER',false);",  "confirm": "Search for new devices?" },
-		  		{ "type": "Button", "caption": "Discover devices", "onClick": "IPS_RequestAction($id,'DISCOVER',true);",  "confirm": "Clear list and discover netzwork devices?" }
-			]
-		},
-   		{ "type": "RowLayout", "items": [
-   				{ "type": "ValidationTextBox", "name": "urls", "caption": "Url to Device description xml" },
-   				{"type":"Button", "caption": "Import Device", "onClick": "if(empty($urls))echo 'please enter url first'; else IPS_RequestAction($id,'ADD',$urls);" }
-   				
-   			]
-   		}	
-			   		
+ 		
+		{ "type": "Button", "label": "Create device", "onClick": "if( empty($DiscoverList)) echo 'please select Device first'; else if(!empty($DiscoverList['rowColor'])) echo 'Device '.$DiscoverList['info'].' exists'; else {IPS_RequestAction($id,'CREATE',json_encode($DiscoverList['create']));echo 'ok';}",  "confirm": "Create selected Device" },
+		{ "type": "Button", "label": "Create generic device", "onClick": "if( empty($DiscoverList)) echo 'please select Device first'; else if(!empty($DiscoverList['rowColor'])) echo 'Device '.$DiscoverList['info'].' exists'; else {RPCCONFIG_CreateGenericDevice($id, $DiscoverList['itemid']);echo 'ok';}",  "confirm": "Create selected Device" },
+		{ "type": "Button", "label": "Discover NEW devices", "onClick": "IPS_RequestAction($id,'DISCOVER',false);",  "confirm": "Search for new devices?" },
+		{ "type": "Button", "label": "Discover devices", "onClick": "IPS_RequestAction($id,'DISCOVER',true);",  "confirm": "Clear list and discover netzwork devices?" },
+		{ "type": "ValidationTextBox", "name": "urls", "caption": "Url to Device description xml" },
+   		{ "type":"Button", "label": "Import Device", "onClick": "if(empty($urls))echo 'please enter url first'; else IPS_RequestAction($id,'ADD',$urls);" }
    	]
 }

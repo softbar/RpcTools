@@ -1,6 +1,5 @@
-# RpcTools
-RpcTools for IP-Symcon
-
+# RpcTools for IP-Symcon
+- **Requires** IP-Symcon version **4.3** or greater
 
 # Configurator Module 
 

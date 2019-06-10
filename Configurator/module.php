@@ -48,17 +48,20 @@ class RpcConfigurator extends IPSModule{
 	public function GetConfigurationForm() {
 		$ips=[];
 		$ver=intval(IPS_GetKernelVersion());
+		if($ver>5)$ver=5;
 		if($v=Sys_GetNetworkInfo())foreach($v as $n)$ips[]=['label'=>$n['IP'],'value'=>$n['IP']];
 		$list=json_decode($this->ReadPropertyString('DiscoverList'),true);
 		if(!is_array($list)||count($list)==0){
-			$f = json_decode(file_get_contents(__DIR__.'/form_startup.json'),true);
-			$f['elements'][3]["options"]=$ips;
- 			if($ver < 5 ) array_splice($f['elements'], 1,1);
-			return json_encode($f);;
+			$f = json_decode(file_get_contents(__DIR__."/form_startup$ver.json"),true);
+			$f['elements'][2]["options"]=$ips;
+ 			return json_encode($f);;
 		}
 		
-		if( $ver < 5 || $this->ReadPropertyBoolean('ShowForm4')){
+		if( $ver < 5 ){
 			$f = json_decode(file_get_contents(__DIR__.'/form4.json'),true);
+			$values = $this->RenderFormDiscoverList($list);
+		}elseif($this->ReadPropertyBoolean('ShowForm4')){
+			$f = json_decode(file_get_contents(__DIR__.'/form5_4.json'),true);
 			$values = $this->RenderFormDiscoverList($list);
 		}else{
 			$f = json_decode(file_get_contents(__DIR__.'/form5.json'),true);
@@ -75,12 +78,16 @@ class RpcConfigurator extends IPSModule{
  					["name"=>"Pass", "type"=>"PasswordTextBox","caption"=>"Password"]
 			];
 			if($ver>=5)	array_unshift($e, ["name"=>"ShowForm4", "type"=>"CheckBox","caption"=>"Show old Format (for ipsconsole using)"]);
-				
 			array_splice($f['elements'],1,null, $e);	
 			unset($f['actions']);
 		}else{
 			$f['actions'][0]['values']=$values;
- 			if(!$this->ReadPropertyBoolean('AllowManualImport'))array_pop($f['actions']);
+			if(!$this->ReadPropertyBoolean('AllowManualImport')){
+				if($ver<5){
+					array_pop($f['actions']);
+				}
+				array_pop($f['actions']);
+			}
 		}
 	
 		

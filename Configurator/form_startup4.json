@@ -1,7 +1,6 @@
 {
     "elements": [
     	{"type":"Label","caption":"if you can read this no devices are discovered! Check out following options and press Discover devices, then reopen Form"},
-  		{"name":"ShowForm4", "type":"CheckBox","caption":"Show old Format (for ipsconsole using)"},
   		{"name":"ShowOptions", "type":"CheckBox","caption":"Show Options or Devicelist"},
  		{"name":"BindIp", "type":"Select","caption":"Bind Discover to IP", "options":[]},
  		{"name":"DiscoverTimeout", "type":"NumberSpinner","caption":"Timeout [1-15]"},
@@ -13,13 +12,9 @@
    	],
    	"actions":[
     	{"type":"Label","caption":"NOTICE The determination takes between 5 and a maximum of 180 seconds, depending on the timeout settings"},
-  		{"type":"Button", "caption": "Discover devices", "onClick": "IPS_RequestAction($id,'DISCOVER',true);" },
+  		{"type":"Button", "label": "Discover devices", "onClick": "IPS_RequestAction($id,'DISCOVER',true);" },				
    		{"type":"Label","caption":"Manual Discover"},
-   		{ "type": "RowLayout", "items": [
-   				{ "type": "ValidationTextBox", "name": "MHost", "caption": "Url to Device description xml" },
-   				{"type":"Button", "caption": "Import Device", "onClick": "IPS_RequestAction($id,'ADD',$MHost);" }
-   				
-   			]
-   		}	
+   		{"type": "ValidationTextBox", "name": "MHost", "caption": "Url to Device description xml" },
+   		{"type":"Button", "label": "Import Device", "onClick": "IPS_RequestAction($id,'ADD',$MHost);" }	
    	]
 }

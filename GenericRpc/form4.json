@@ -1,0 +1,19 @@
+{
+  "actions": [
+		{ "name":"devices","type":"List", 
+		"add":false,"delete":false,
+		"sort":{ "column":"s","direction":"ascending"},
+		"columns":[
+	  		{"name":"s", "label":"Service", "width":"160px"},
+	 		{"name":"f", "label":"Function","width":"200px"},
+			{"name":"a", "label":"Arguments","width": "350px"}
+		],
+		"values": []
+	},
+
+		{"name":"params","type":"ValidationTextBox", "caption":"Commaseperated Args"},
+		{"type":"Button", "label":"Execute", "onClick":"if(empty($devices))echo 'please select method first';else if(!empty($devices{'a'})&&($params==''||count(explode(',',$params))!=count(explode(',',$devices{'a'})) ) )echo 'Invalid argument count, check your argument input!'; else echo var_export(RPCGENERIC_CallMethod($id,$devices{'s'}.'.'.$devices{'f'},$params),true);"}
+  
+	
+  ]
+}

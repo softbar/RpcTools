@@ -289,7 +289,7 @@ exit($url);
 	    }
 	    return $result;
 	}
-  	private function _callRpc($function, array $arguments, string $serviceName, bool $AsXmlrpc=false){
+  	private function _callRpc($function,  $arguments,  $serviceName, $AsXmlrpc=false){
  	    $strencode=$strdecode=null;
   		if(!$AsXmlrpc){
 		    $params = array_values($arguments);

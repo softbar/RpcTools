@@ -1,8 +1,8 @@
 <?php
 if(!defined('RPCTOOLS'))define('RPCTOOLS', __DIR__);
 require_once 'rpc_constants.inc';
-if(!defined('IPS_KERNELMESSAGE'))define(IPS_KERNELMESSAGE,100);
-if(!defined('KR_READY'))define(KR_READY,10103);
+if(!defined('IPS_KERNELMESSAGE'))define('IPS_KERNELMESSAGE',100);
+if(!defined('KR_READY'))define('KR_READY',10103);
 define('MAX_CFG_SIZE_BEFORE_SAVE_AS_FILE',20000);
 
 /**
@@ -94,11 +94,16 @@ abstract class BaseRpcModule extends IPSModule {
 		$s=['s'=>'seconds','m'=>'minutes','h'=>'hours'];
 		if($this->timerDef['ONLINE_INTERVAL'][0]) $f['elements'][]=['type'=>'NumberSpinner','name'=>'ONLINE_INTERVAL', 'caption'=>'Refresh every', 'suffix'=>$s[$this->timerDef['ONLINE_INTERVAL'][1]].' 0=off'];
 		if($this->timerDef['OFFLINE_INTERVAL'][0])$f['elements'][]=['type'=>'NumberSpinner','name'=>'OFFLINE_INTERVAL', 'caption'=>'Offline check every', 'suffix'=>$s[$this->timerDef['OFFLINE_INTERVAL'][1]].' 0=off'];
-		if(defined('MODULEDIR') && file_exists(MODULEDIR.'/form.json')){
-			$fn = json_decode(file_get_contents(MODULEDIR.'/form.json'),true);
-			if(!empty($fn['elements']))$f['elements']=array_merge($f['elements'],$fn['elements']);
-			if(!empty($fn['actions']))$f['actions']=$fn['actions'];
-			if(!empty($fn['status'])) $f['status']=array_merge($f['status'],$fn['status']);
+		if(defined('MODULEDIR')){
+			if(file_exists(MODULEDIR.'/form4.json')&& intval(IPS_GetKernelVersion())<5){
+				$fn= MODULEDIR.'/form4.json';
+			} else $fn=MODULEDIR.'/form.json';
+			if(file_exists($fn) && $fn=json_decode(file_get_contents($fn),true)){
+				if(!empty($fn['elements']))$f['elements']=array_merge($f['elements'],$fn['elements']);
+				if(!empty($fn['actions']))$f['actions']=$fn['actions'];
+				if(!empty($fn['status'])) $f['status']=array_merge($f['status'],$fn['status']);
+		
+			}
 		}
 		return json_encode($f);
 	}
