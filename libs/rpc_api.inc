@@ -290,27 +290,36 @@ exit($url);
 	    return $result;
 	}
   	private function _callRpc($function,  $arguments,  $serviceName, $AsXmlrpc=false){
- 	    $strencode=$strdecode=null;
+ 		static $curl=null;	   
+ 		$strencode=$strdecode=null;
   		if(!$AsXmlrpc){
 		    $params = array_values($arguments);
 		    $strencode = function(&$item, $key)use(&$strencode) {if (is_string($item) )$item = utf8_encode($item);else if ( is_array($item) )array_walk_recursive($item, $strencode);};
 		    array_walk_recursive($params, $strencode);
 		    $postData=json_encode(["jsonrpc" => "2.0","method" => $function,"params" => $params,"id" => $requestID = round(fmod(microtime(true)*1000, 10000))]);
-			$header = "Content-type: application/json"."\r\n";
+			$header = "Content-type: application/json; charset='utf-8'";
 	    } else {
 	    	if(!function_exists('xmlrpc_encode_request'))require_once 'xml_rpc.inc';
 	    	$postData=xmlrpc_encode_request($function, $arguments);
-	    	$header='Content-type: application/xml'."\r\n";
+	    	$header='Content-type: application/xml';
 	    }
 	   	$url=$this->device[D_HOST].':';
 		$s=$this->device[D_SERVICES][$serviceName];
 		$url.=$s[S_PORT].$s[S_CURL];
-		if($this->user || $this->pass) {
-			$header .= "Authorization: Basic ".base64_encode($this->user.":".$this->pass)."\r\n";
+		if(empty($curl)){
+			$curl=curl_init();
+			if($this->user || $this->pass ){
+				curl_setopt($curl, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
+				curl_setopt($curl, CURLOPT_USERPWD, $this->user.":".$this->pass);
+			}
+			curl_setopt($curl, CURLOPT_HEADER, 0);
+			curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
+			curl_setopt($curl, CURLOPT_POST, 1);
 		}
-		$options = ["http" =>["method"=>'POST',"header"=>$header,"content"=>$postData]];
-		$context  = stream_context_create($options);		
-		$result = file_get_contents($url, false, $context);
+		curl_setopt($curl, CURLOPT_URL, $url);
+		curl_setopt($curl, CURLOPT_HTTPHEADER, array($header));
+		curl_setopt($curl, CURLOPT_POSTFIELDS, $postData);
+		$result = curl_exec($curl);
 	    if(empty($result) || $result=== false)return $this->error('Request Empty Response');
 		if($AsXmlrpc){
 			$response=xmlrpc_decode($result);
@@ -325,32 +334,6 @@ exit($url);
 	    if ($response['id'] != $requestID)return $this->error('Invalid ResponseID '.$response['id'].' need '.$this->_requestID);
 	    return $response['result'];
 	}
-	
-
 }
 
-/*
-class FritzApi extends RpcApi {
-	
-	protected function getDefaultValue($name,$serviceName) {
-		$value = parent::getDefaultValue($name, $serviceName);
-		if(empty($value) && strtolower($name)=='sid'){
-			die('SID missing');
-		}
-		return $value;
-	}
-	
-	
-	function GetFritzboxSID($host, $pass, $user=''){
-		$host.= '/login_sid.lua';
-		$tmp = @simplexml_load_string(@file_get_contents($host));
-		if(empty($tmp) || $tmp->BlockTime > 0)return empty($tmp)?null:(int)$tmp->BlockTime;
-		$response = $tmp->Challenge . '-' . md5(iconv("UTF-8", "UTF-16LE",  $tmp->Challenge . '-' . $pass));
-		$user=empty($user)?'?':'?user='.$user.'&';
-		$host=$host . $user. 'response=' . $response; //'?user=' . $fritz_user . '&response=' . $response;
-		$tmp = @simplexml_load_string(@file_get_contents($host));
-		return empty($tmp)?null:(string)$tmp->SID;
-	}	
-}
-*/
 ?>
