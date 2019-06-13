@@ -53,7 +53,11 @@ class RpcConfigurator extends IPSModule{
 		$list=json_decode($this->ReadPropertyString('DiscoverList'),true);
 		if(!is_array($list)||count($list)==0){
 			$f = json_decode(file_get_contents(__DIR__."/form_startup$ver.json"),true);
-			$f['elements'][2]["options"]=$ips;
+			if(count($ips)==0){
+				unset($f['elements'][2]['options']);
+				$f['elements'][2]['type']="ValidationTextBox";
+			}else 
+				$f['elements'][2]["options"]=$ips;
  			return json_encode($f);;
 		}
 		
@@ -68,14 +72,17 @@ class RpcConfigurator extends IPSModule{
 			$values = $this->RenderFormDiscoverList($list,false);
 		}
 		if($this->ReadPropertyBoolean('ShowOptions')){
+			$bind=count($ips)==0?
+				["name"=>"BindIp", "type"=>"ValidationTextBox","caption"=>"Bind Discover to IP"]:
+				["name"=>"BindIp", "type"=>"Select","caption"=>"Bind Discover to IP", "options"=>$ips];
 			$e=[
-					["name"=>"BindIp", "type"=>"Select","caption"=>"Bind Discover to IP", "options"=>$ips],
-			 		["name"=>"DiscoverTimeout", "type"=>"NumberSpinner","caption"=>"Timeout [ 1-15 ]", "suffix"=>"seconds"],
-					["name"=>"EnableCache", "type"=>"CheckBox","caption"=>"Enable Cache"],
-					["name"=>"AllowManualImport","type"=>"CheckBox","caption"=>"Allow manual import"],
-					["type"=>"Label","caption"=>"The following information is used if a device needs a login (FRITZ!Box ..)"],
-					["name"=>"User", "type"=>"ValidationTextBox","caption"=>"Loginname"],
- 					["name"=>"Pass", "type"=>"PasswordTextBox","caption"=>"Password"]
+				$bind,
+		 		["name"=>"DiscoverTimeout", "type"=>"NumberSpinner","caption"=>"Timeout [ 1-15 ]", "suffix"=>"seconds"],
+				["name"=>"EnableCache", "type"=>"CheckBox","caption"=>"Enable Cache"],
+				["name"=>"AllowManualImport","type"=>"CheckBox","caption"=>"Allow manual import"],
+				["type"=>"Label","caption"=>"The following information is used if a device needs a login (FRITZ!Box ..)"],
+				["name"=>"User", "type"=>"ValidationTextBox","caption"=>"Loginname"],
+				["name"=>"Pass", "type"=>"PasswordTextBox","caption"=>"Password"]
 			];
 			if($ver>=5)	array_unshift($e, ["name"=>"ShowForm4", "type"=>"CheckBox","caption"=>"Show old Format (for ipsconsole using)"]);
 			array_splice($f['elements'],1,null, $e);	
